@@ -16,7 +16,7 @@ object Formatter {
     Cli.getConfig(Array[String]("--config", configLocation), CliOptions.default) match {
       case Some(x) => Cli.run(x)
       case None =>
-        throw new IllegalArgumentException(s"unable to pase config at $configLocation",
+        throw new IllegalArgumentException(s"unable to parse config: $configLocation",
                                            UnableToParseCliOptions)
     }
 }
