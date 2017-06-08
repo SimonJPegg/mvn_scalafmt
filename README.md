@@ -14,7 +14,7 @@ passed through to the CLI as is.
   <artifactId>mvn-scalafmt</artifactId>
   <version>0.2</version>
   <configuration>
-    <parameters>--diff</parameters>
+    <parameters>--diff</parameters> <!-- Additional command line arguments-->
     <configLocation>${project.basedir}/path/to/scalafmt.conf</configLocation>
   </configuration>
   <executions>
