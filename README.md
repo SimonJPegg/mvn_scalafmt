@@ -1,7 +1,7 @@
 ## Synopsis
 
 A wrapper that allows the use of the [Scalafmt](https://github.com/olafurpg/scalafmt/) formatter in Maven;
-The Current Scalafmt version is 0.6.5
+The Current Scalafmt version is 0.6.8
 
 ## Usage
 
