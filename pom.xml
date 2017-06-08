@@ -4,7 +4,7 @@
     <groupId>org.antipathy</groupId>
     <artifactId>mvn-scalafmt</artifactId>
     <packaging>maven-plugin</packaging>
-    <version>0.1</version>
+    <version>0.2</version>
     <name>Scalafmt Maven Plugin</name>
     <description>Maven plugin for ScalaFmt</description>
     <url>https://github.com/SimonJPegg/mvn_scalafmt</url>
@@ -24,6 +24,12 @@
             <organization>Antipathy.org</organization>
             <organizationUrl>http://www.antipathy.org</organizationUrl>
         </developer>
+        <developer>
+            <name>Eric Casteleijn</name>
+            <email>mumpsimus@simple.com</email>
+            <organization>simple.com</organization>
+            <organizationUrl>http://simple.com</organizationUrl>
+        </developer>
     </developers>
 
     <scm>
@@ -37,7 +43,7 @@
         <maven.annotations.version>3.4</maven.annotations.version>
         <scala.version>2.11.2</scala.version>
         <scala.major.version>2.11</scala.major.version>
-        <scalafmt.version>0.6.5</scalafmt.version>
+        <scalafmt.version>0.6.8</scalafmt.version>
         <commonslang.verson>2.6</commonslang.verson>
         <scala-maven-plugin.version>3.2.1</scala-maven-plugin.version>
         <maven-compiler-plugin.version>2.0.2</maven-compiler-plugin.version>
