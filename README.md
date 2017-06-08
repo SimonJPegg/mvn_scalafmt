@@ -12,7 +12,7 @@ passed through to the CLI as is.
 <plugin>
   <groupId>org.antipathy</groupId>
   <artifactId>mvn-scalafmt</artifactId>
-  <version>0.1</version>
+  <version>0.2</version>
   <configuration>
     <parameters>--diff</parameters>
     <configLocation>${project.basedir}/path/to/scalafmt.conf</configLocation>
