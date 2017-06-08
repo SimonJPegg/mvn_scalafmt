@@ -1,7 +1,7 @@
 ## Synopsis
 
 A wrapper that allows the use of the [Scalafmt](https://github.com/olafurpg/scalafmt/) formatter in Maven;
-The Current Scalafmt version is 0.6.5
+The Current Scalafmt version is 0.6.8
 
 ## Usage
 
@@ -14,7 +14,7 @@ passed through to the CLI as is.
   <artifactId>mvn-scalafmt</artifactId>
   <version>0.2</version>
   <configuration>
-    <parameters>--diff</parameters>
+    <parameters>--diff</parameters> <!-- Additional command line arguments-->
     <configLocation>${project.basedir}/path/to/scalafmt.conf</configLocation>
   </configuration>
   <executions>
