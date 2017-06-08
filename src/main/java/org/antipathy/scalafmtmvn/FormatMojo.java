@@ -14,14 +14,16 @@ public class FormatMojo extends AbstractMojo {
 
     @Parameter(property="format.configLocation",defaultValue="")
     private String configLocation;
+    @Parameter(property="format.parameters",defaultValue="")
+    private String parameters;
 
     public void execute() throws MojoExecutionException {
         if(StringUtils.isEmpty(configLocation)) {
             throw new MojoExecutionException("No configuration file specified");
         } else {
-            getLog().info("Formatting with config: " + configLocation);
+            getLog().info("Formatting with config: " + configLocation + " and options: " + parameters);
             try {
-                Formatter.format(configLocation);
+                Formatter.format(configLocation, parameters);
             } catch (Exception e) {
                 throw new MojoExecutionException("Error formatting Scala files", e);
             }

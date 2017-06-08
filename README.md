@@ -1,18 +1,20 @@
 ## Synopsis
 
-This is a wrapper that allows you to use the [Scalafmt](https://github.com/olafurpg/scalafmt/) formatter in Mvn.
-current Scalafmt version is 0.6.5
+A wrapper that allows the use of the [Scalafmt](https://github.com/olafurpg/scalafmt/) formatter in Maven;
+The Current Scalafmt version is 0.6.5
 
 ## Usage
 
-To include it into your pom.xml, just specify some lines as below  in the phase you want to format your code:
+Add the following snippet to your pom; anything in <parameters> will be
+passed through to the CLI as is.
 
 ```xml
 <plugin>
   <groupId>org.antipathy</groupId>
   <artifactId>mvn-scalafmt</artifactId>
-  <version>0.1</version>
+  <version>0.2</version>
   <configuration>
+    <parameters>--diff</parameters>
     <configLocation>${project.basedir}/path/to/scalafmt.conf</configLocation>
   </configuration>
   <executions>
@@ -25,7 +27,3 @@ To include it into your pom.xml, just specify some lines as below  in the phase 
   </executions>
 </plugin>
 ```
-
-##Debug
-If you are finding an strange behaviour with the plugin you can check the exit from scalafmt using -X mvn option which provides Debug log.
-Also you can remove from your ~/.scalafmt the jar that is copied in order to use the plugin from maven.
