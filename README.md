@@ -8,6 +8,8 @@ The Current Scalafmt version is 0.6.8
 Add the following snippet to your pom; anything in <parameters> will be
 passed through to the CLI as is.
 
+In the dependency section you can specify a scalafmt version.
+
 ```xml
 <plugin>
   <groupId>org.antipathy</groupId>
@@ -25,5 +27,21 @@ passed through to the CLI as is.
       </goals>
     </execution>
   </executions>
+  <dependencies>
+    <!-- https://mvnrepository.com/artifact/com.geirsson/scalafmt-core_2.11 -->
+    <dependency>
+        <groupId>com.geirsson</groupId>
+        <artifactId>scalafmt-core_2.11</artifactId>
+        <version>0.6.8</version> <!-- or use a variable such as ${scalaFMTVersion}
+        to define the version in the properties section of the pom -->
+    </dependency>
+    <!-- https://mvnrepository.com/artifact/com.geirsson/scalafmt-cli_2.11 -->
+    <dependency>
+        <groupId>com.geirsson</groupId>
+        <artifactId>scalafmt-cli_2.11</artifactId>
+        <version>0.6.8</version> <!-- or use a variable such as ${scalaFMTVersion}
+        to define the version in the properties section of the pom -->
+    </dependency>
+</dependencies>
 </plugin>
 ```
