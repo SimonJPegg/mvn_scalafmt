@@ -39,7 +39,8 @@ In the dependency section you can specify a scalafmt version.
     <dependency>
         <groupId>com.geirsson</groupId>
         <artifactId>scalafmt-cli_2.11</artifactId>
-        <version>0.6.8</version>
+        <version>0.6.8</version> <!-- or use a variable such as ${scalaFMTVersion}
+        to define the version in the properties section of the pom -->
     </dependency>
 </dependencies>
 </plugin>
