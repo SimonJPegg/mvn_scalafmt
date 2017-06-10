@@ -4,7 +4,7 @@
     <groupId>org.antipathy</groupId>
     <artifactId>mvn-scalafmt</artifactId>
     <packaging>maven-plugin</packaging>
-    <version>0.2</version>
+    <version>${version.scalafmt}</version>
     <name>Scalafmt Maven Plugin</name>
     <description>Maven plugin for ScalaFmt</description>
     <url>https://github.com/SimonJPegg/mvn_scalafmt</url>
@@ -39,59 +39,59 @@
     </scm>
 
     <properties>
-        <maven.version>3.3.9</maven.version>
-        <maven.annotations.version>3.4</maven.annotations.version>
-        <scala.version>2.11.2</scala.version>
-        <scala.major.version>2.11</scala.major.version>
-        <scalafmt.version>0.6.8</scalafmt.version>
-        <commonslang.verson>2.6</commonslang.verson>
-        <scala-maven-plugin.version>3.2.1</scala-maven-plugin.version>
-        <maven-compiler-plugin.version>2.0.2</maven-compiler-plugin.version>
-        <java.version>1.7</java.version>
-        <maven-gpg-plugin.version>1.6</maven-gpg-plugin.version>
-        <nexus-staging-maven-plugin.version>1.6.3</nexus-staging-maven-plugin.version>
-        <scalatest.version>2.2.4</scalatest.version>
+        <version.commonslang>2.6</version.commonslang>
+        <version.java>1.7</version.java>
+        <version.maven.annotations>3.4</version.maven.annotations>
+        <version.maven.plugin.compiler>2.0.2</version.maven.plugin.compiler>
+        <version.maven.plugin.gpg>1.6</version.maven.plugin.gpg>
+        <version.maven.plugin.nexus.staging>1.6.3</version.maven.plugin.nexus.staging>
+        <version.maven.plugin.scala>3.2.1</version.maven.plugin.scala>
+        <version.maven>3.3.9</version.maven>
+        <version.scala.binary>2.11</version.scala.binary>
+        <version.scala>2.11.8</version.scala>
+        <version.scalafmt>0.6.8</version.scalafmt>
+        <version.scalatest>3.0.3</version.scalatest>
     </properties>
 
     <dependencies>
         <dependency>
             <groupId>org.scala-lang</groupId>
             <artifactId>scala-library</artifactId>
-            <version>${scala.version}</version>
+            <version>${version.scala}</version>
         </dependency>
         <dependency>
             <groupId>org.apache.maven</groupId>
             <artifactId>maven-plugin-api</artifactId>
-            <version>${maven.version}</version>
+            <version>${version.maven}</version>
         </dependency>
         <dependency>
             <groupId>org.apache.maven.plugin-tools</groupId>
             <artifactId>maven-plugin-annotations</artifactId>
-            <version>${maven.annotations.version}</version>
+            <version>${version.maven.annotations}</version>
             <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>com.geirsson</groupId>
-            <artifactId>scalafmt-core_${scala.major.version}</artifactId>
-            <version>${scalafmt.version}</version>
+            <artifactId>scalafmt-core_${version.scala.binary}</artifactId>
+            <version>${version.scalafmt}</version>
             <scope>compile</scope>
         </dependency>
         <dependency>
             <groupId>com.geirsson</groupId>
-            <artifactId>scalafmt-cli_${scala.major.version}</artifactId>
-            <version>${scalafmt.version}</version>
+            <artifactId>scalafmt-cli_${version.scala.binary}</artifactId>
+            <version>${version.scalafmt}</version>
             <scope>compile</scope>
         </dependency>
         <dependency>
             <groupId>commons-lang</groupId>
             <artifactId>commons-lang</artifactId>
-            <version>${commonslang.verson}</version>
+            <version>${version.commonslang}</version>
             <scope>compile</scope>
         </dependency>
         <dependency>
             <groupId>org.scalatest</groupId>
-            <artifactId>scalatest_${scala.major.version}</artifactId>
-            <version>${scalatest.version}</version>
+            <artifactId>scalatest_${version.scala.binary}</artifactId>
+            <version>${version.scalatest}</version>
             <scope>test</scope>
         </dependency>
     </dependencies>
@@ -109,6 +109,82 @@
 
     <profiles>
         <profile>
+            <id>default</id>
+            <activation>
+                <activeByDefault>true</activeByDefault>
+            </activation>
+            <build>
+                <pluginManagement>
+                    <plugins>
+                        <plugin>
+                            <groupId>net.alchim31.maven</groupId>
+                            <artifactId>scala-maven-plugin</artifactId>
+                            <version>${version.maven.plugin.scala}</version>
+                        </plugin>
+                        <plugin>
+                            <groupId>org.apache.maven.plugins</groupId>
+                            <artifactId>maven-compiler-plugin</artifactId>
+                            <version>${version.maven.plugin.compiler}</version>
+                            <configuration>
+                                <source>${version.java}</source>
+                                <target>${version.java}</target>
+                            </configuration>
+                        </plugin>
+                    </plugins>
+                </pluginManagement>
+                <plugins>
+                    <plugin>
+                        <groupId>net.alchim31.maven</groupId>
+                        <artifactId>scala-maven-plugin</artifactId>
+                        <executions>
+                            <execution>
+                                <id>scala-compile-first</id>
+                                <phase>process-resources</phase>
+                                <goals>
+                                    <goal>add-source</goal>
+                                    <goal>compile</goal>
+                                </goals>
+                            </execution>
+                            <execution>
+                                <id>scala-test-compile</id>
+                                <phase>process-test-resources</phase>
+                                <goals>
+                                    <goal>testCompile</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-source-plugin</artifactId>
+                        <executions>
+                            <execution>
+                                <id>attach-sources</id>
+                                <goals>
+                                    <goal>jar</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                    </plugin>
+                    <plugin>
+                        <groupId>org.apache.maven.plugins</groupId>
+                        <artifactId>maven-javadoc-plugin</artifactId>
+                        <executions>
+                            <execution>
+                                <id>attach-javadocs</id>
+                                <goals>
+                                    <goal>jar</goal>
+                                </goals>
+                            </execution>
+                        </executions>
+                        <configuration>
+                            <additionalparam>-Xdoclint:none</additionalparam>
+                        </configuration>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+        <profile>
             <id>release</id>
             <activation>
                 <activeByDefault>false</activeByDefault>
@@ -119,15 +195,15 @@
                         <plugin>
                             <groupId>net.alchim31.maven</groupId>
                             <artifactId>scala-maven-plugin</artifactId>
-                            <version>${scala-maven-plugin.version}</version>
+                            <version>${version.maven.plugin.scala}</version>
                         </plugin>
                         <plugin>
                             <groupId>org.apache.maven.plugins</groupId>
                             <artifactId>maven-compiler-plugin</artifactId>
-                            <version>${maven-compiler-plugin.version}</version>
+                            <version>${version.maven.plugin.compiler}</version>
                             <configuration>
-                                <source>${java.version}</source>
-                                <target>${java.version}</target>
+                                <source>${version.java}</source>
+                                <target>${version.java}</target>
                             </configuration>
                         </plugin>
                     </plugins>
@@ -157,7 +233,7 @@
                     <plugin>
                         <groupId>org.apache.maven.plugins</groupId>
                         <artifactId>maven-gpg-plugin</artifactId>
-                        <version>${maven-gpg-plugin.version}</version>
+                        <version>${version.maven.plugin.gpg}</version>
                         <executions>
                             <execution>
                                 <id>sign-artifacts</id>
@@ -172,7 +248,7 @@
                     <plugin>
                         <groupId>org.sonatype.plugins</groupId>
                         <artifactId>nexus-staging-maven-plugin</artifactId>
-                        <version>${nexus-staging-maven-plugin.version}</version>
+                        <version>${version.maven.plugin.nexus.staging}</version>
                         <extensions>true</extensions>
                         <configuration>
                             <serverId>ossrh</serverId>
