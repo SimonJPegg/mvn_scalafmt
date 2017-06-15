@@ -21,7 +21,10 @@ public class FormatMojo extends AbstractMojo {
         if(StringUtils.isEmpty(configLocation)) {
             throw new MojoExecutionException("No configuration file specified");
         } else {
-            getLog().info("Formatting with config: " + configLocation + " and options: " + parameters);
+            getLog().info("Formatting with config: " + configLocation);
+            if (parameters != null) {
+                getLog().info(" and options: " + parameters);
+            }
             try {
                 Formatter.format(configLocation, parameters);
             } catch (Exception e) {

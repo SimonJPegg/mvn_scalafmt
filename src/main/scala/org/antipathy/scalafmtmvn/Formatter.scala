@@ -16,7 +16,10 @@ object Formatter {
    * @param configLocation the location of a scalafmt.conf file
    */
   def format(configLocation: String, parameters: String): Unit = {
-    val params = parameters.split(" ") ++ Seq("--config", configLocation)
+    val params : Seq[String] = parameters match {
+      case null => Seq("--config", configLocation)
+      case string: String => parameters.split(" ") ++ Seq("--config", configLocation)
+    }
     Cli.getConfig(params.toArray, CliOptions.default) match {
       case Some(x) => Cli.run(x)
       case None =>
