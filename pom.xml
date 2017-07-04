@@ -49,7 +49,7 @@
         <version.maven>3.3.9</version.maven>
         <version.scala.binary>2.11</version.scala.binary>
         <version.scala>2.11.8</version.scala>
-        <version.scalafmt>0.6.8</version.scalafmt>
+        <version.scalafmt>1.0.0-RC4</version.scalafmt>
         <version.scalatest>3.0.3</version.scalatest>
     </properties>
 
