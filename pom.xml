@@ -4,7 +4,7 @@
     <groupId>org.antipathy</groupId>
     <artifactId>mvn-scalafmt</artifactId>
     <packaging>maven-plugin</packaging>
-    <version>0.3_${version.scalafmt}</version>
+    <version>0.4_${version.scalafmt}-SNAPSHOT</version>
     <name>Scalafmt Maven Plugin</name>
     <description>Maven plugin for ScalaFmt</description>
     <url>https://github.com/SimonJPegg/mvn_scalafmt</url>
@@ -49,7 +49,7 @@
         <version.maven>3.3.9</version.maven>
         <version.scala.binary>2.11</version.scala.binary>
         <version.scala>2.11.8</version.scala>
-        <version.scalafmt>0.6.8</version.scalafmt>
+        <version.scalafmt>1.1.0</version.scalafmt>
         <version.scalatest>3.0.3</version.scalatest>
     </properties>
 
@@ -93,6 +93,11 @@
             <artifactId>scalatest_${version.scala.binary}</artifactId>
             <version>${version.scalatest}</version>
             <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.maven</groupId>
+            <artifactId>maven-project</artifactId>
+            <version>2.0.6</version>
         </dependency>
     </dependencies>
 
