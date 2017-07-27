@@ -11,7 +11,7 @@ class FormatterSpec extends FlatSpec with GivenWhenThen with Matchers {
 
   it should "raise an exception when unable to parse config file" in {
     an[IllegalArgumentException] should be thrownBy {
-      Formatter.format("/some/invalid/path", "")
+      Formatter.format("/some/invalid/path", "", Array("/some/path/main/src/scala"))
     }
   }
 }
