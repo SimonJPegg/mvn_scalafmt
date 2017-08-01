@@ -3,19 +3,19 @@ package org.antipathy.scalafmtmvn
 import org.scalafmt.Error.UnableToParseCliOptions
 import org.scalafmt.cli.{Cli, CliOptions}
 
-import org.scalafmt.util.AbsoluteFile;
+import org.scalafmt.util.AbsoluteFile
 
 /**
- * Gets calls scalafmt with the config file specified at configLocation
- */
+  * Gets calls scalafmt with the config file specified at configLocation
+  */
 object Formatter {
 
   /**
-   * Gets calls scalafmt with the config file specified at configLocation
-   * @param configLocation the location of a scalafmt.conf file
-   */
+    * Gets calls scalafmt with the config file specified at configLocation
+    * @param configLocation the location of a scalafmt.conf file
+    */
   def format(configLocation: String, parameters: String, sourceLocations: Array[String]): Unit = {
-    val params : Seq[String] = parameters match {
+    val params: Seq[String] = parameters match {
       case "" => Seq("--config", configLocation)
       case _: String => parameters.split(" ") ++ Seq("--config", configLocation)
     }
