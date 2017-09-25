@@ -9,7 +9,7 @@ All versions are currently compiled against Scala 2.11.8. If you require anythin
 
 ## Usage
 
-Add the following snippet to your pom; anything in <parameters> will be
+Add the following snippet to your pom; anything in \<parameters\> will be
 passed through to the CLI as is.
 
 ```xml
