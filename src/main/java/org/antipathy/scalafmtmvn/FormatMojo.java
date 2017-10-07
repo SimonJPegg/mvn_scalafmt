@@ -17,7 +17,7 @@ import java.util.List;
 /**
  * Get the location of the config file and pass to Formatter
  */
-@Mojo(name = "format")
+@Mojo(name = "format", aggregator = true)
 public class FormatMojo extends AbstractMojo {
 
     @Parameter(property = "format.configLocation")
