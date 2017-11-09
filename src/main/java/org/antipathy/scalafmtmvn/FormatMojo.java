@@ -31,7 +31,7 @@ public class FormatMojo extends AbstractMojo {
 
     public void execute() throws MojoExecutionException {
         if (skip) {
-            getLog().info("Skipping formatting");
+            getLog().info("Skip flag set, skipping formatting");
             return;
         }
         if (StringUtils.isBlank(configLocation)) {
@@ -48,6 +48,10 @@ public class FormatMojo extends AbstractMojo {
 
         String[] sourceRoots = getSourceRoots();
         getLog().info(" sources: " + Arrays.toString(sourceRoots));
+        if (sourceRoots.length == 0) {
+            getLog().info("No sources, skipping formatting");
+            return;
+        }
 
         try {
             Formatter.format(configLocation, parameters, sourceRoots);
