@@ -24,10 +24,16 @@ public class FormatMojo extends AbstractMojo {
     private String configLocation;
     @Parameter(property = "format.parameters")
     private String parameters;
+    @Parameter(defaultValue = "false")
+    private boolean skip;
     @Parameter(defaultValue = "${project}", required = true, readonly = true)
     private MavenProject project;
 
     public void execute() throws MojoExecutionException {
+        if (skip) {
+            getLog().info("Skip flag set, skipping formatting");
+            return;
+        }
         if (StringUtils.isBlank(configLocation)) {
             throw new MojoExecutionException("No configuration file specified");
         }
@@ -42,6 +48,10 @@ public class FormatMojo extends AbstractMojo {
 
         String[] sourceRoots = getSourceRoots();
         getLog().info(" sources: " + Arrays.toString(sourceRoots));
+        if (sourceRoots.length == 0) {
+            getLog().info("No sources, skipping formatting");
+            return;
+        }
 
         try {
             Formatter.format(configLocation, parameters, sourceRoots);
