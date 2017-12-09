@@ -7,6 +7,11 @@ import org.apache.maven.plugins.annotations.Mojo;
 import org.apache.maven.plugins.annotations.Parameter;
 import org.apache.maven.project.MavenProject;
 
+import java.nio.file.Files;
+import java.nio.file.Paths;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Iterator;
 import java.util.List;
 
 /**
@@ -19,10 +24,16 @@ public class FormatMojo extends AbstractMojo {
     private String configLocation;
     @Parameter(property = "format.parameters")
     private String parameters;
+    @Parameter(defaultValue = "false")
+    private boolean skip;
     @Parameter(defaultValue = "${project}", required = true, readonly = true)
     private MavenProject project;
 
     public void execute() throws MojoExecutionException {
+        if (skip) {
+            getLog().info("Skip flag set, skipping formatting");
+            return;
+        }
         if (StringUtils.isBlank(configLocation)) {
             throw new MojoExecutionException("No configuration file specified");
         }
@@ -34,14 +45,44 @@ public class FormatMojo extends AbstractMojo {
             parameters = "";
         }
 
-        List<String> sourceRoots = project.getCompileSourceRoots();
-        String[] sources = (sourceRoots == null) ? new String[0] : sourceRoots.toArray(new String[sourceRoots.size()]);
-        getLog().info(" sources: " + sources);
+
+        String[] sourceRoots = getSourceRoots();
+        getLog().info(" sources: " + Arrays.toString(sourceRoots));
+        if (sourceRoots.length == 0) {
+            getLog().info("No sources, skipping formatting");
+            return;
+        }
 
         try {
-            Formatter.format(configLocation, parameters, sources);
+            Formatter.format(configLocation, parameters, sourceRoots);
         } catch (Exception e) {
             throw new MojoExecutionException("Error formatting Scala files", e);
+        }
+    }
+
+    private String[] getSourceRoots() {
+        List<String> sourceRoots = new ArrayList<>();
+        if (project.getCompileSourceRoots() != null) {
+            //noinspection unchecked
+            sourceRoots.addAll(project.getCompileSourceRoots());
+        }
+        if (project.getTestCompileSourceRoots() != null) {
+            //noinspection unchecked
+            sourceRoots.addAll(project.getTestCompileSourceRoots());
+        }
+
+        // Remove non-existing paths or Scalafmt will fail
+        removeNonExistingPaths(sourceRoots);
+
+        return sourceRoots.toArray(new String[sourceRoots.size()]);
+    }
+
+    private static void removeNonExistingPaths(List<String> paths) {
+        Iterator<String> ite = paths.iterator();
+        while (ite.hasNext()) {
+            if (!Files.exists(Paths.get(ite.next()))) {
+                ite.remove();
+            }
         }
     }
 }
