@@ -54,7 +54,7 @@
         <version.maven.plugin.scala>3.2.1</version.maven.plugin.scala>
         <version.maven>3.3.9</version.maven>
         <version.scala.binary>2.11</version.scala.binary>
-        <version.scala>2.11.8</version.scala>
+        <version.scala>2.11.11</version.scala>
         <version.scalafmt>1.3.0</version.scalafmt>
         <version.scalatest>3.0.3</version.scalatest>
     </properties>
