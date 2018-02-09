@@ -16,7 +16,7 @@ passed through to the CLI as is.
 <plugin>
   <groupId>org.antipathy</groupId>
   <artifactId>mvn-scalafmt</artifactId>
-  <version>0.6_${scalafmt.version}</version>
+  <version>0.7_${scalafmt.version}</version>
   <configuration>
     <parameters>--diff</parameters> <!-- Additional command line arguments -->
     <configLocation>${project.basedir}/path/to/scalafmt.conf</configLocation>

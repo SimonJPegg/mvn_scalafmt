@@ -94,3 +94,10 @@ buildNumber.properties
 !/.mvn/wrapper/maven-wrapper.jar
 
 ### Scala ###
+.idea/.name
+.idea/compiler.xml
+.idea/encodings.xml
+.idea/misc.xml
+.idea/modules.xml
+.idea/scala_compiler.xml
+.idea/vcs.xml

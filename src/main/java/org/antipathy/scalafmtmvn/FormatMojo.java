@@ -35,14 +35,16 @@ public class FormatMojo extends AbstractMojo {
             return;
         }
         if (StringUtils.isBlank(configLocation)) {
-            throw new MojoExecutionException("No configuration file specified");
+            getLog().info("No configuration file specified");
+            configLocation = null;
+        } else {
+            getLog().info("Formatting with configuration: " + configLocation);
         }
-        getLog().info("Formatting with config: " + configLocation);
 
         if (!StringUtils.isBlank(parameters)) {
             getLog().info(" and options: " + parameters);
         } else {
-            parameters = "";
+            parameters = null;
         }
 
 
