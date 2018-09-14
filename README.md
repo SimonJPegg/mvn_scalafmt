@@ -1,11 +1,20 @@
 ## Synopsis
 
-A wrapper that allows the use of the [Scalafmt](https://github.com/olafurpg/scalafmt/) formatter in Maven;
+A wrapper that allows the use of the [Scalafmt](https://github.com/olafurpg/scalafmt/) formatter in Maven.
 
-Note: There are multiple versions of the plugin released and the version of the plugin should match the version 
-of scalafmt you wish to use.  Current supported versions are 0.6.8 - 1.3.0. For example, to use the latest version 
-of the plugin with the latest version of scala-fmt you should set the version to 0.6_1.3.0 in your pom.
-All versions are currently compiled against Scala 2.11.8. If you require anything else (such as support for a newer Scalafmt release), please open an issue.
+
+## Versioning 
+
+The versioning of this plugin follows the following format:
+
+```
+<artifactId>mvn-scalafmt_${scala.version}</artifactId>
+<version>${plugin-version}-${scalafmt-version}</version>
+```
+ 
+Current supported versions (of Scalafmt) are 1.0.0 - 1.5.1. For example, to use the latest version 
+of the plugin with the latest version of scala-fmt you should set the version to 0.7_1.5.1 in your pom.
+Note `scala.version` refers to binary versions of scala i.e. `2.11` or `2.12`.
 
 ## Usage
 
@@ -15,7 +24,7 @@ passed through to the CLI as is.
 ```xml
 <plugin>
   <groupId>org.antipathy</groupId>
-  <artifactId>mvn-scalafmt</artifactId>
+  <artifactId>mvn-scalafmt_${scala.version}</artifactId>
   <version>0.7_${scalafmt.version}</version>
   <configuration>
     <parameters>--diff</parameters> <!-- Additional command line arguments -->

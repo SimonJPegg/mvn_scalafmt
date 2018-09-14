@@ -2,10 +2,10 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <groupId>org.antipathy</groupId>
-    <artifactId>mvn-scalafmt</artifactId>
+    <artifactId>mvn-scalafmt_${version.scala.binary}</artifactId>
     <packaging>maven-plugin</packaging>
     <version>0.7_${version.scalafmt}</version>
-    <name>Scalafmt Maven Plugin</name>
+    <name>ScalaFmt Maven Plugin (${version.scala.binary})</name>
     <description>Maven plugin for ScalaFmt</description>
     <url>https://github.com/SimonJPegg/mvn_scalafmt</url>
 
@@ -51,6 +51,7 @@
         <version.maven.plugin.compiler>3.8.0</version.maven.plugin.compiler>
         <version.maven.plugin.gpg>1.6</version.maven.plugin.gpg>
         <version.maven.plugin.nexus.staging>1.6.8</version.maven.plugin.nexus.staging>
+        <version.maven.plugin.plugin>3.5.2</version.maven.plugin.plugin>
         <version.maven.plugin.scala>3.4.2</version.maven.plugin.scala>
         <version.maven>3.5.4</version.maven>
         <version.scala.binary>2.12</version.scala.binary>
@@ -168,7 +169,7 @@
                     <plugin>
                         <groupId>org.apache.maven.plugins</groupId>
                         <artifactId>maven-plugin-plugin</artifactId>
-                        <version>3.5.2</version>
+                        <version>${version.maven.plugin.plugin}</version>
                     </plugin>
                     <plugin>
                         <groupId>org.apache.maven.plugins</groupId>
@@ -237,6 +238,11 @@
                                 <source>${version.java}</source>
                                 <target>${version.java}</target>
                             </configuration>
+                        </plugin>
+                        <plugin>
+                            <groupId>org.apache.maven.plugins</groupId>
+                            <artifactId>maven-plugin-plugin</artifactId>
+                            <version>${version.maven.plugin.plugin}</version>
                         </plugin>
                     </plugins>
                 </pluginManagement>
