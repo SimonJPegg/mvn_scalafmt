@@ -12,7 +12,7 @@ The versioning of this plugin follows the following format:
 <version>${plugin-version}-${scalafmt-version}</version>
 ```
  
-Current supported versions (of Scalafmt) are 1.0.0 - 1.5.1. For example, to use the latest version 
+Current supported versions (of Scalafmt) are 1.1.0 - 1.5.1. For example, to use the latest version 
 of the plugin with the latest version of scala-fmt you should set the version to 0.7_1.5.1 in your pom.
 Note `scala.version` refers to binary versions of scala i.e. `2.11` or `2.12`.
 
