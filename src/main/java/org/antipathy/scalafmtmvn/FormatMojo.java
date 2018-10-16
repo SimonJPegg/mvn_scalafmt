@@ -28,6 +28,10 @@ public class FormatMojo extends AbstractMojo {
     private boolean skip;
     @Parameter(defaultValue = "${project}", required = true, readonly = true)
     private MavenProject project;
+    @Parameter(defaultValue = "false", required = true, readonly = true)
+    private boolean skipTestSources;
+    @Parameter(defaultValue = "false", required = true, readonly = true)
+    private boolean skipSources;
 
     public void execute() throws MojoExecutionException {
         if (skip) {
@@ -64,11 +68,11 @@ public class FormatMojo extends AbstractMojo {
 
     private String[] getSourceRoots() {
         List<String> sourceRoots = new ArrayList<>();
-        if (project.getCompileSourceRoots() != null) {
+        if (project.getCompileSourceRoots() != null && !skipSources) {
             //noinspection unchecked
             sourceRoots.addAll(project.getCompileSourceRoots());
         }
-        if (project.getTestCompileSourceRoots() != null) {
+        if (project.getTestCompileSourceRoots() != null && !skipTestSources) {
             //noinspection unchecked
             sourceRoots.addAll(project.getTestCompileSourceRoots());
         }
