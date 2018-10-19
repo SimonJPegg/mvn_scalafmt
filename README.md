@@ -1,6 +1,6 @@
 ## Synopsis
 
-A wrapper that allows the use of the [Scalafmt](https://github.com/olafurpg/scalafmt/) formatter in Maven.
+A wrapper that allows the use of the [Scalafmt](https://github.com/scalameta/scalafmt/) formatter in Maven.
 
 
 ## Versioning 
