@@ -50,3 +50,11 @@ Make sure your source paths are setup correctly, for example:
     ...
 </build>
 ```
+
+## Optional parameters
+
+| Name  | Default value | Description |
+| ------------- | ------------- | ------------- | 
+| skip  | false  | skip the execution of this plugin |
+| skipSources | false | the formatter skips the non test sources |
+| skipTestSources | false | the formatter skips the test sources |

@@ -28,9 +28,9 @@ public class FormatMojo extends AbstractMojo {
     private boolean skip;
     @Parameter(defaultValue = "${project}", required = true, readonly = true)
     private MavenProject project;
-    @Parameter(defaultValue = "false", required = true, readonly = true)
+    @Parameter(defaultValue = "false", readonly = true)
     private boolean skipTestSources;
-    @Parameter(defaultValue = "false", required = true, readonly = true)
+    @Parameter(defaultValue = "false", readonly = true)
     private boolean skipSources;
 
     public void execute() throws MojoExecutionException {
