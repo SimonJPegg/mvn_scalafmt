@@ -27,8 +27,11 @@ passed through to the CLI as is.
   <artifactId>mvn-scalafmt_${scala.version}</artifactId>
   <version>0.7_${scalafmt.version}</version>
   <configuration>
-    <parameters>--diff</parameters> <!-- Additional command line arguments -->
-    <configLocation>${project.basedir}/path/to/scalafmt.conf</configLocation>
+    <parameters>--diff</parameters> <!-- (Optional) Additional command line arguments -->
+    <skip>false</skip> <!-- (Optional) skip formatting -->
+    <skiptest>false</skip> <!-- (Optional) Skip formatting test sources -->
+    <skipmain>false</skip> <!-- (Optional) Skip formatting main sources -->
+    <configLocation>${project.basedir}/path/to/scalafmt.conf</configLocation> <!-- (Optional) config locataion -->
   </configuration>
   <executions>
     <execution>
@@ -50,11 +53,3 @@ Make sure your source paths are setup correctly, for example:
     ...
 </build>
 ```
-
-## Optional parameters
-
-| Name  | Default value | Description |
-| ------------- | ------------- | ------------- | 
-| skip  | false  | skip the execution of this plugin |
-| skipSources | false | the formatter skips the non test sources |
-| skipTestSources | false | the formatter skips the test sources |
