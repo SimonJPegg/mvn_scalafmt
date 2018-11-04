@@ -32,6 +32,12 @@ passed through to the CLI as is.
     <skiptest>false</skip> <!-- (Optional) Skip formatting test sources -->
     <skipmain>false</skip> <!-- (Optional) Skip formatting main sources -->
     <configLocation>${project.basedir}/path/to/scalafmt.conf</configLocation> <!-- (Optional) config locataion -->
+    <sourceDirectories> <!-- (Optional) Paths to source-directories. Overrides ${project.build.sourceDirectory} -->
+      <param>${project.basedir}/src/main/scala</param>
+    </sourceDirectories>
+    <testSourceDirectories> <!-- (Optional) Paths to test-source-directories. Overrides ${project.build.testSourceDirectory} -->
+      <param>${project.basedir}/src/test/scala</param>
+    </testSourceDirectories>
   </configuration>
   <executions>
     <execution>
@@ -44,12 +50,3 @@ passed through to the CLI as is.
 </plugin>
 ```
 
-Make sure your source paths are setup correctly, for example:
-
-```xml
-<build>
-    <sourceDirectory>src/main/scala</sourceDirectory>
-    <testSourceDirectory>src/test/scala</testSourceDirectory>
-    ...
-</build>
-```

@@ -5,7 +5,9 @@ import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.plugins.annotations.Mojo;
 import org.apache.maven.plugins.annotations.Parameter;
 import org.apache.maven.project.MavenProject;
+import java.io.File;
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Get the location of the config file and pass to Formatter
@@ -25,6 +27,10 @@ public class FormatMojo extends AbstractMojo {
     private boolean skipSources;
     @Parameter(defaultValue = "${project}", required = true, readonly = true)
     private MavenProject project;
+    @Parameter(defaultValue = "${project.build.sourceDirectory}", required = true)
+    private List<File> sourceDirectories;
+    @Parameter(defaultValue = "${project.build.testSourceDirectory}", required = true)
+    private List<File> testSourceDirectories;
 
     public void execute() throws MojoExecutionException {
 
@@ -32,11 +38,11 @@ public class FormatMojo extends AbstractMojo {
         ArrayList<Object> testSources = new ArrayList<>();
 
         if (!skipSources) {
-            sources.addAll(project.getCompileSourceRoots());
+            sources.addAll(sourceDirectories);
         }
 
         if (!skipTestSources) {
-            testSources.addAll(project.getTestCompileSourceRoots());
+            testSources.addAll(testSourceDirectories);
         }
 
         if(!skip) {
