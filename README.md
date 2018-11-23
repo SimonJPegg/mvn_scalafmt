@@ -13,7 +13,7 @@ The versioning of this plugin follows the following format:
 ```
  
 Current supported versions (of Scalafmt) are 1.1.0 - 1.5.1. For example, to use the latest version 
-of the plugin with the latest version of scala-fmt you should set the version to 0.9_1.5.1 in your pom.
+of the plugin with the latest version of scala-fmt you should set the version to 0.10_1.5.1 in your pom.
 Note `scala.version` refers to binary versions of scala i.e. `2.11` or `2.12`.
 
 ## Usage
@@ -25,13 +25,13 @@ passed through to the CLI as is.
 <plugin>
   <groupId>org.antipathy</groupId>
   <artifactId>mvn-scalafmt_${scala.version}</artifactId>
-  <version>0.9_${scalafmt.version}</version>
+  <version>0.10_${scalafmt.version}</version>
   <configuration>
     <parameters>--diff</parameters> <!-- (Optional) Additional command line arguments -->
     <skip>false</skip> <!-- (Optional) skip formatting -->
     <skiptest>false</skip> <!-- (Optional) Skip formatting test sources -->
     <skipmain>false</skip> <!-- (Optional) Skip formatting main sources -->
-    <configLocation>${project.basedir}/path/to/scalafmt.conf</configLocation> <!-- (Optional) config locataion -->
+    <configLocation>${project.basedir}/path/to/scalafmt.conf</configLocation> <!-- (Optional) config location -->
     <sourceDirectories> <!-- (Optional) Paths to source-directories. Overrides ${project.build.sourceDirectory} -->
       <param>${project.basedir}/src/main/scala</param>
     </sourceDirectories>
