@@ -29,8 +29,8 @@ passed through to the CLI as is.
   <configuration>
     <parameters>--diff</parameters> <!-- (Optional) Additional command line arguments -->
     <skip>false</skip> <!-- (Optional) skip formatting -->
-    <skiptest>false</skip> <!-- (Optional) Skip formatting test sources -->
-    <skipmain>false</skip> <!-- (Optional) Skip formatting main sources -->
+    <skiptest>false</skiptest> <!-- (Optional) Skip formatting test sources -->
+    <skipmain>false</skipmain> <!-- (Optional) Skip formatting main sources -->
     <configLocation>${project.basedir}/path/to/scalafmt.conf</configLocation> <!-- (Optional) config location -->
     <sourceDirectories> <!-- (Optional) Paths to source-directories. Overrides ${project.build.sourceDirectory} -->
       <param>${project.basedir}/src/main/scala</param>
@@ -49,4 +49,3 @@ passed through to the CLI as is.
   </executions>
 </plugin>
 ```
-
