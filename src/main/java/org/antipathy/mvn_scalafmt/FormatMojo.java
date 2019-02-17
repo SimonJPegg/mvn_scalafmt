@@ -17,6 +17,8 @@ public class FormatMojo extends AbstractMojo {
 
     @Parameter(property = "format.configLocation")
     private String configLocation;
+    @Parameter(property = "format.configRequired")
+    private boolean configRequired;
     @Parameter(property = "format.parameters")
     private String parameters;
     @Parameter(property = "format.skip", defaultValue = "false")
@@ -49,6 +51,7 @@ public class FormatMojo extends AbstractMojo {
             try {
                 ScalaFormatter.format(
                         configLocation,
+                        configRequired,
                         parameters,
                         sources,
                         testSources,

@@ -4,7 +4,7 @@
     <groupId>org.antipathy</groupId>
     <artifactId>mvn-scalafmt_${version.scala.binary}</artifactId>
     <packaging>maven-plugin</packaging>
-    <version>0.10_${version.scalafmt}</version>
+    <version>0.11_${version.scalafmt}</version>
     <name>ScalaFmt Maven Plugin (${version.scala.binary})</name>
     <description>Maven plugin for ScalaFmt</description>
     <url>https://github.com/SimonJPegg/mvn_scalafmt</url>
@@ -55,7 +55,7 @@
         <version.maven.plugin.scala>3.4.2</version.maven.plugin.scala>
         <version.maven>3.5.4</version.maven>
         <version.scala.binary>2.12</version.scala.binary>
-        <version.scala>2.12.6</version.scala>
+        <version.scala>2.12.8</version.scala>
         <version.scalafmt>1.5.1</version.scalafmt>
         <version.scalatest>3.0.5</version.scalatest>
     </properties>
@@ -141,23 +141,6 @@
             </plugins>
         </pluginManagement>
         <plugins>
-            <!--<plugin>-->
-                <!--<groupId>org.antipathy</groupId>-->
-                <!--<artifactId>mvn-scalafmt_${version.scala.binary}</artifactId>-->
-                <!--<version>0.9_1.5.1</version>-->
-                <!--<configuration>-->
-                    <!--<skip>true</skip>-->
-                    <!--<configLocation>${project.basedir}/.scalafmt.conf</configLocation>-->
-                <!--</configuration>-->
-                <!--<executions>-->
-                    <!--<execution>-->
-                        <!--<phase>validate</phase>-->
-                        <!--<goals>-->
-                            <!--<goal>format</goal>-->
-                        <!--</goals>-->
-                    <!--</execution>-->
-                <!--</executions>-->
-            <!--</plugin>-->
             <plugin>
                 <groupId>net.alchim31.maven</groupId>
                 <artifactId>scala-maven-plugin</artifactId>

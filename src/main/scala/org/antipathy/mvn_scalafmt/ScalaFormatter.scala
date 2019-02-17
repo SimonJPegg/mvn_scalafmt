@@ -16,6 +16,7 @@ object ScalaFormatter {
     * Format the specified sources using the specified config and  parameters
     *
     * @param configLocation the location of the scalafmt.conf file
+    * @param configRequired should the source be formatted if no config exists
     * @param parameters any paramters to pass to scalafmt
     * @param sourceRoots the main src locations
     * @param testSourceRoots the test source locations
@@ -23,13 +24,14 @@ object ScalaFormatter {
     */
   def format(
       configLocation: String,
+      configRequired: Boolean,
       parameters: String,
       sourceRoots: JList[Any],
       testSourceRoots: JList[Any],
       log: Log
   ): Unit = {
 
-    val config = parseConfigLocation(configLocation, log)
+    val config = parseConfigLocation(configLocation, configRequired, log)
     val params = parseParametersString(parameters, log)
 
     val sources: Seq[String] = getSourcePaths(sourceRoots.asScala) ++
@@ -80,22 +82,32 @@ object ScalaFormatter {
   /** Parses the config string and returns a sequence used for formatting
     *
     * @param location The location of the config file
+    * @param configRequired should the source be formatted if no config exists
     * @param log a Maven logger
     * @throws IllegalArgumentException when the path is invalid
     * @return a Sequence containing the config location
     */
   @throws[IllegalArgumentException]
-  private[mvn_scalafmt] def parseConfigLocation(location: String, log: Log): Seq[String] =
-    if (location == null || location.trim().equals("")) {
-      log.info("No configuration file specified")
-      Seq[String]()
+  private[mvn_scalafmt] def parseConfigLocation(location: String, configRequired: Boolean, log: Log): Seq[String] = {
+    val configExists = if (location == null || location.trim().equals("")) {
+      false
     } else {
-      log.info(s"Using config at path: $location")
-      if (!Files.exists(Paths.get(location))) {
-        throw new IllegalArgumentException(s"Config path is invalid: $location")
-      }
-      Seq("--config", location)
+      Files.exists(Paths.get(location))
     }
+
+    (configExists, configRequired) match {
+      case (true, _) =>
+        log.info(s"Using config at path: $location")
+        Seq("--config", location)
+      case (_, true) =>
+        val exception = new IllegalArgumentException(s"configRequired is set and config path is invalid: $location")
+        log.error(exception)
+        throw exception
+      case (_, false) =>
+        log.warn("No configuration file specified, using scalafmt defaults")
+        Seq[String]()
+    }
+  }
 
   /** Parse the passed in parameter string into a sequence of strings
     *
