@@ -4,7 +4,6 @@ import org.apache.maven.plugin.AbstractMojo;
 import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.plugins.annotations.Mojo;
 import org.apache.maven.plugins.annotations.Parameter;
-import org.apache.maven.project.MavenProject;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
@@ -17,6 +16,8 @@ public class FormatMojo extends AbstractMojo {
 
     @Parameter(property = "format.configLocation")
     private String configLocation;
+    @Parameter(property = "format.configRequired")
+    private boolean configRequired;
     @Parameter(property = "format.parameters")
     private String parameters;
     @Parameter(property = "format.skip", defaultValue = "false")
@@ -25,8 +26,6 @@ public class FormatMojo extends AbstractMojo {
     private boolean skipTestSources;
     @Parameter(property = "format.skipmain", defaultValue = "false")
     private boolean skipSources;
-    @Parameter(defaultValue = "${project}", required = true, readonly = true)
-    private MavenProject project;
     @Parameter(defaultValue = "${project.build.sourceDirectory}", required = true)
     private List<File> sourceDirectories;
     @Parameter(defaultValue = "${project.build.testSourceDirectory}", required = true)
@@ -49,6 +48,7 @@ public class FormatMojo extends AbstractMojo {
             try {
                 ScalaFormatter.format(
                         configLocation,
+                        configRequired,
                         parameters,
                         sources,
                         testSources,

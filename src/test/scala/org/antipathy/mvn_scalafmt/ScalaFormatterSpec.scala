@@ -18,28 +18,42 @@ class ScalaFormatterSpec extends FlatSpec with GivenWhenThen with Matchers {
     ScalaFormatter.parseParametersString(null, new SystemStreamLog) should be(Seq())
   }
 
-  it should "Split supplied paramters into an array" in {
+  it should "Split supplied parameters into an array" in {
     val expectedResult = Seq("one", "two", "three")
     ScalaFormatter.parseParametersString(expectedResult.mkString(" "), new SystemStreamLog) should be(expectedResult)
   }
 
-  it should "Return an empty sequence when passed an empty config string" in {
-    ScalaFormatter.parseConfigLocation("", new SystemStreamLog) should be(Seq())
+  it should "Return an empty sequence when passed an empty config string and no config is required" in {
+    ScalaFormatter.parseConfigLocation("", configRequired = false, new SystemStreamLog) should be(Seq())
   }
 
-  it should "Return an empty sequence when passed a null config string" in {
-    ScalaFormatter.parseConfigLocation(null, new SystemStreamLog) should be(Seq())
+  it should "Return an empty sequence when passed a null config string and no config is required" in {
+    ScalaFormatter.parseConfigLocation(null, configRequired = false, new SystemStreamLog) should be(Seq())
   }
 
   it should "Create a valid config sequence when passed a config location" in {
     val expectedResult = Seq("--config", ".scalafmt.conf")
-    ScalaFormatter.parseConfigLocation(expectedResult(1), new SystemStreamLog) should be(expectedResult)
+    ScalaFormatter.parseConfigLocation(expectedResult(1), configRequired = false, new SystemStreamLog) should be(
+      expectedResult)
   }
 
-  it should "Raise an exception when the config path is invalid" in {
+  it should "Return an empty sequence when passed an empty config string and a config is required" in {
+    an[IllegalArgumentException] should be thrownBy {
+      ScalaFormatter.parseConfigLocation("", configRequired = true, new SystemStreamLog) should be(Seq())
+    }
+  }
+
+  it should "Return an empty sequence when passed a null config string and a config is required" in {
+    an[IllegalArgumentException] should be thrownBy {
+      ScalaFormatter.parseConfigLocation(null, configRequired = true, new SystemStreamLog) should be(Seq())
+    }
+  }
+
+  it should "Raise an exception when the config path is invalid and a config is required" in {
     val expectedResult = Seq("--config", "/some/invalid/path")
     an[IllegalArgumentException] should be thrownBy {
-      ScalaFormatter.parseConfigLocation(expectedResult(1), new SystemStreamLog) should be(expectedResult)
+      ScalaFormatter.parseConfigLocation(expectedResult(1), configRequired = true, new SystemStreamLog) should be(
+        expectedResult)
     }
   }
 
