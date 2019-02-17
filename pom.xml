@@ -121,9 +121,9 @@
 
     <profiles>
         <profile>
-            <id>default</id>
+            <id>release</id>
             <activation>
-                <activeByDefault>true</activeByDefault>
+                <activeByDefault>false</activeByDefault>
             </activation>
             <build>
                 <!--<sourceDirectory>src/main/scala</sourceDirectory>-->
@@ -274,7 +274,7 @@
         <profile>
             <id>test</id>
             <activation>
-                <activeByDefault>false</activeByDefault>
+                <activeByDefault>true</activeByDefault>
             </activation>
             <build>
                 <pluginManagement>

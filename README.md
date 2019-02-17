@@ -1,4 +1,3 @@
-
 [![licenseimg]][licenselink]  [![Codacy][codacyimg]][codacylink] [![Build Status](https://travis-ci.com/SimonJPegg/mvn_scalafmt.svg?branch=master)](https://travis-ci.com/SimonJPegg/mvn_scalafmt)
 
 [![releasebadge]][releaselink] [![Maven][mavenimg]][mavenlink]
@@ -7,12 +6,11 @@
 
 A wrapper that allows the use of the [Scalafmt](https://github.com/scalameta/scalafmt/) formatter in Maven.
 
-
 ## Versioning 
 
 The versioning of this plugin follows the following format:
 
-```
+```xml
 <artifactId>mvn-scalafmt_${scala.version}</artifactId>
 <version>${plugin-version}-${scalafmt-version}</version>
 ```
@@ -56,7 +54,6 @@ passed through to the CLI as is.
 </plugin>
 ```
 
-
 [licenseimg]: https://img.shields.io/badge/Licence-Apache%202.0-blue.svg
 [licenselink]: ./LICENSE
 
@@ -65,7 +62,6 @@ passed through to the CLI as is.
 
 [mavenimg]: https://maven-badges.herokuapp.com/maven-central/org.antipathy/mvn-scalafmt_2.11/badge.svg
 [mavenlink]: https://search.maven.org/search?q=org.antipathy.mvn-scalafmt
-
 
 [releasebadge]: https://img.shields.io/github/release/simonjpegg/mvn_scalafmt.svg?style=flat
 [releaselink]: https://github.com/SimonJPegg/mvn_scalafmt/releases

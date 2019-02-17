@@ -27,8 +27,6 @@ public class FormatMojo extends AbstractMojo {
     private boolean skipTestSources;
     @Parameter(property = "format.skipmain", defaultValue = "false")
     private boolean skipSources;
-    @Parameter(defaultValue = "${project}", required = true, readonly = true)
-    private MavenProject project;
     @Parameter(defaultValue = "${project.build.sourceDirectory}", required = true)
     private List<File> sourceDirectories;
     @Parameter(defaultValue = "${project.build.testSourceDirectory}", required = true)
