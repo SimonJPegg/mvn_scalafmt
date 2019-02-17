@@ -1,0 +1,11 @@
+*.class
+*.iml
+*.ipr
+*.iws
+.idea/
+.idea_modules/
+*.log
+modules.xml
+out/
+target
+test_project/target

@@ -1,0 +1,4 @@
+language: scala
+script:
+  - mvn clean test
+  - mvn -f test_project/pom.xml clean package
