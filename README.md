@@ -53,7 +53,6 @@ See the [Scoozie Hocon documentation](https://github.com/SimonJPegg/scoozie/blob
 [licenseimg]: https://img.shields.io/badge/Licence-Apache%202.0-blue.svg
 [licenselink]: ./LICENSE
 
-
 [mavenimg]: https://maven-badges.herokuapp.com/maven-central/org.antipathy/mvn-scoozie/badge.svg
 [mavenlink]: https://search.maven.org/search?q=org.antipathy.mvn-scoozie
 
