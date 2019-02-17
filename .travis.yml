@@ -7,4 +7,4 @@ before_install:
   - mvn -v
 
 script:
-  mvn -Dversion.scalafmt=1.5.1 clean test
+  mvn -Dversion.scalafmt=1.5.1 clean test -Ptest
