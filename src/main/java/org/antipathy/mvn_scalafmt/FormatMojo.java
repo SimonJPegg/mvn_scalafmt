@@ -26,9 +26,9 @@ public class FormatMojo extends AbstractMojo {
     private boolean skipTestSources;
     @Parameter(property = "format.skipmain", defaultValue = "false")
     private boolean skipSources;
-    @Parameter(defaultValue = "${project.build.sourceDirectory}", required = true)
+    @Parameter(defaultValue = "${project.build.sourceDirectory}/../scala", required = true)
     private List<File> sourceDirectories;
-    @Parameter(defaultValue = "${project.build.testSourceDirectory}", required = true)
+    @Parameter(defaultValue = "${project.build.testSourceDirectory}/../scala", required = true)
     private List<File> testSourceDirectories;
 
     public void execute() throws MojoExecutionException {
