@@ -5,7 +5,9 @@ import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.plugins.annotations.Mojo;
 import org.apache.maven.plugins.annotations.Parameter;
 import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -33,16 +35,8 @@ public class FormatMojo extends AbstractMojo {
 
     public void execute() throws MojoExecutionException {
 
-        ArrayList<Object> sources = new ArrayList<>();
-        ArrayList<Object> testSources = new ArrayList<>();
-
-        if (!skipSources) {
-            sources.addAll(sourceDirectories);
-        }
-
-        if (!skipTestSources) {
-            testSources.addAll(testSourceDirectories);
-        }
+        List<Object> sources = prepareSources(skipSources, sourceDirectories);
+        List<Object> testSources = prepareSources(skipTestSources, testSourceDirectories);
 
         if(!skip) {
             try {
@@ -59,5 +53,19 @@ public class FormatMojo extends AbstractMojo {
         } else {
             getLog().info("Skip flag set, skipping formatting");
         }
+    }
+
+    private List<Object> prepareSources(boolean skip, List<File> sources) throws MojoExecutionException {
+        ArrayList<Object> prepared = new ArrayList<>();
+        if(!skip) {
+            for (File source : sources) {
+                try {
+                    prepared.add(source.getCanonicalFile());
+                } catch (IOException e) {
+                    throw new MojoExecutionException("Can't get canonical file for " + source.toString(), e);
+                }
+            }
+        }
+        return Collections.unmodifiableList(prepared);
     }
 }
