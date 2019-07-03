@@ -3,7 +3,7 @@ package org.antipathy.mvn_scalafmt
 import java.io.File
 import java.util.{List => JList}
 
-import org.antipathy.mvn_scalafmt.builder.{Builder, SourceFileSequenceBuilder}
+import org.antipathy.mvn_scalafmt.builder.{Builder, SourceFileSequenceBuilder, SummaryBuilder}
 import org.antipathy.mvn_scalafmt.filter.{Filter, UnchangedSourceFilter}
 import org.antipathy.mvn_scalafmt.format.{Formatter, SourceFileFormatter}
 import org.antipathy.mvn_scalafmt.io.{FormattedFileWriter, Writer}
@@ -43,7 +43,6 @@ class ScalaFormatter(
 object ScalaFormatter {
 
   def apply(configLocation: String, log: Log, respectVersion: Boolean): ScalaFormatter = {
-    import org.antipathy.mvn_scalafmt.builder.SummaryBuilder
     val config = new ConfigFileValidator(log).validate(configLocation)
     val sourceBuilder = new SourceFileSequenceBuilder(log)
     val scalafmt = Scalafmt

@@ -6,7 +6,6 @@
 
 A wrapper that allows the use of the [Scalafmt](https://github.com/scalameta/scalafmt/) formatter in Maven.
 
-
 ## Usage
 
 Add the following snippet to your pom.

@@ -12,12 +12,20 @@ class UnchangedSourceFilterSpec extends FlatSpec with GivenWhenThen with Matcher
 
   it should "identify source files that have not changed" in {
 
+    val fmtResult = scala.io.Source.fromFile("src/test/resources/FormatResult.scala").getLines().mkString(System.lineSeparator())
+    val fmtResultChanged = scala.io.Source.fromFile("src/test/resources/FormatResultChanged.scala").getLines().mkString(System.lineSeparator())
+
     val unchangedResult = FormatResult(
       sourceFile = new File("a"),
-      originalSource = "a",
-      formattedSource = "a"
+      originalSource = fmtResult,
+      formattedSource = fmtResult
     )
-    val changedResult = unchangedResult.copy(formattedSource = "\ta")
+
+    val changedResult = FormatResult(
+      sourceFile = new File("a"),
+      originalSource = fmtResult,
+      formattedSource = fmtResultChanged
+    )
 
     val input = Seq(unchangedResult, changedResult)
 
@@ -25,8 +33,15 @@ class UnchangedSourceFilterSpec extends FlatSpec with GivenWhenThen with Matcher
 
     result.length should be(1)
 
-    result.head.originalSource should be(changedResult.originalSource)
-    result.head.formattedSource should be(changedResult.formattedSource)
+    result.headOption match {
+      case Some(head) =>
+        head.originalSource should be(changedResult.originalSource)
+        head.formattedSource should be(changedResult.formattedSource)
+      case None => false should be (true)
+    }
+
+
+
   }
 
 }
