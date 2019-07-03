@@ -1,10 +1,19 @@
 language: scala
 
+jdk:
+  - oraclejdk8
+
 before_install:
   - wget http://apache.mirror.gtcomm.net/maven/maven-3/3.6.0/binaries/apache-maven-3.6.0-bin.tar.gz
   - tar xzvf apache-maven-3.6.0-bin.tar.gz
   - export PATH=`pwd`/apache-maven-3.6.0/bin:$PATH
-  - mvn -v
+  - echo $GPG_SECRET_KEYS | base64 --decode | $GPG_EXECUTABLE --import
+  - echo $GPG_OWNERTRUST | base64 --decode | $GPG_EXECUTABLE --import-ownertrust
+  - echo $TRAVIS_BRANCH
 
-script:
-  mvn -Dversion.scalafmt=1.5.1 clean test -Ptest
+install:
+  mvn --settings .maven.xml install -B -V
+
+cache:
+  directories:
+  - ~/.m2/repository
