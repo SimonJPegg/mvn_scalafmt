@@ -16,48 +16,42 @@ public class FormatMojo extends AbstractMojo {
 
     @Parameter(property = "format.configLocation")
     private String configLocation;
-    @Parameter(property = "format.configRequired")
-    private boolean configRequired;
-    @Parameter(property = "format.parameters")
-    private String parameters;
-    @Parameter(property = "format.skip", defaultValue = "false")
-    private boolean skip;
-    @Parameter(property = "format.skiptest", defaultValue = "false")
+    @Parameter(property = "format.skipTestSources", defaultValue = "false")
     private boolean skipTestSources;
-    @Parameter(property = "format.skipmain", defaultValue = "false")
+    @Parameter(property = "format.skipSources", defaultValue = "false")
     private boolean skipSources;
-    @Parameter(defaultValue = "${project.build.sourceDirectory}", required = true)
+    @Parameter(defaultValue = "${project.build.sourceDirectory}/../scala", required = true)
     private List<File> sourceDirectories;
-    @Parameter(defaultValue = "${project.build.testSourceDirectory}", required = true)
+    @Parameter(defaultValue = "${project.build.testSourceDirectory}/../scala", required = true)
     private List<File> testSourceDirectories;
+    @Parameter(property = "format.respectVersion", defaultValue = "false", required = true)
+    private boolean respectVersion;
 
     public void execute() throws MojoExecutionException {
 
         ArrayList<Object> sources = new ArrayList<>();
-        ArrayList<Object> testSources = new ArrayList<>();
 
         if (!skipSources) {
             sources.addAll(sourceDirectories);
+        } else {
+            getLog().warn("format.skipSources set, ignoring main directories");
         }
 
         if (!skipTestSources) {
-            testSources.addAll(testSourceDirectories);
+            sources.addAll(testSourceDirectories);
+        } else {
+            getLog().warn("format.skipTestSources set, ignoring test directories");
         }
-
-        if(!skip) {
+        if (sources.size() > 0) {
             try {
-                ScalaFormatter.format(
-                        configLocation,
-                        configRequired,
-                        parameters,
-                        sources,
-                        testSources,
-                        getLog());
+                String result = ScalaFormatter.apply(configLocation,getLog(),respectVersion).format(sources);
+                getLog().info(result);
             } catch (Exception e) {
-                throw new MojoExecutionException("Error formatting Scala files", e);
+                getLog().error(e);
+                throw new MojoExecutionException("Error formatting Scala files: " + e.getMessage(), e);
             }
         } else {
-            getLog().info("Skip flag set, skipping formatting");
+            getLog().warn("No sources specified, skipping formatting");
         }
     }
 }
