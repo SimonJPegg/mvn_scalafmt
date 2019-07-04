@@ -10,6 +10,8 @@ A wrapper that allows the use of the [Scalafmt](https://github.com/scalameta/sca
 
 Add the following snippet to your pom.
 
+Note: `version.scala.binary` refers to major releases of scala ie. 2.11 or 2.12 (scalafmt-dynamic doesn't currently support 2.13).  
+
 ```xml
 <plugin>
     <groupId>org.antipathy</groupId>
