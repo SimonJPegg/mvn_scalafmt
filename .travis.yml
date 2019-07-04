@@ -8,6 +8,17 @@ before_install:
   - tar xzvf apache-maven-3.6.0-bin.tar.gz
   - export PATH=`pwd`/apache-maven-3.6.0/bin:$PATH
   - mvn -v
+  - echo $GPG_SECRET_KEYS | base64 --decode | $GPG_EXECUTABLE --import
+  - echo $GPG_OWNERTRUST | base64 --decode | $GPG_EXECUTABLE --import-ownertrust
+  - echo $TRAVIS_BRANCH
 
 script:
-  mvn clean test
+  mvn --settings .maven.xml clean test -ptravis
+
+before_deploy:
+  - mvn help:evaluate -N -Dexpression=project.version|grep -v '\['
+  - export project_version=$(mvn help:evaluate -N -Dexpression=project.version|grep -v '\[')
+
+cache:
+  directories:
+  - ~/.m2/repository
