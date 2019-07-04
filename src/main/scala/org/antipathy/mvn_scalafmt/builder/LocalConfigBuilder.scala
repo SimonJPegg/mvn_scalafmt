@@ -2,13 +2,11 @@ package org.antipathy.mvn_scalafmt.builder
 
 import java.nio.file.Path
 
-import org.antipathy.mvn_scalafmt.io.{Reader, Writer}
+import org.antipathy.mvn_scalafmt.io.{Reader, RemoteConfigReader, RemoteConfigWriter, Writer}
 import org.antipathy.mvn_scalafmt.model.RemoteConfig
-import org.antipathy.mvn_scalafmt.validation.Validator
+import org.antipathy.mvn_scalafmt.validation.{ConfigFileValidator, Validator}
 import org.apache.commons.validator.routines.UrlValidator
-import org.antipathy.mvn_scalafmt.validation.ConfigFileValidator
 import org.apache.maven.plugin.logging.Log
-import org.antipathy.mvn_scalafmt.io.{RemoteConfigReader, RemoteConfigWriter}
 
 /**
   * Class for building a local config from a remote location and validating the path is correct

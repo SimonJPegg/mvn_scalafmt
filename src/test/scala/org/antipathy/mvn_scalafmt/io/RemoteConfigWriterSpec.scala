@@ -1,13 +1,13 @@
 package org.antipathy.mvn_scalafmt.io
 
 import java.io.File
-import org.scalatest.{FlatSpec, GivenWhenThen, Matchers}
-import org.apache.maven.plugin.logging.SystemStreamLog
-import org.antipathy.mvn_scalafmt.model.RemoteConfig
-import java.nio.file.Paths
-import java.nio.file.Files
 import java.nio.charset.StandardCharsets
+import java.nio.file.{Files, Paths}
+
+import org.antipathy.mvn_scalafmt.model.RemoteConfig
 import org.apache.commons.io.FileUtils
+import org.apache.maven.plugin.logging.SystemStreamLog
+import org.scalatest.{FlatSpec, GivenWhenThen, Matchers}
 
 class RemoteConfigWriterSpec extends FlatSpec with GivenWhenThen with Matchers {
 
