@@ -9,10 +9,9 @@ import org.antipathy.mvn_scalafmt.format.{Formatter, SourceFileFormatter}
 import org.antipathy.mvn_scalafmt.io.{FormattedFileWriter, Writer}
 import org.antipathy.mvn_scalafmt.logging.MavenLogReporter
 import org.antipathy.mvn_scalafmt.model.FormatResult
-import org.antipathy.mvn_scalafmt.validation.ConfigFileValidator
 import org.apache.maven.plugin.logging.Log
 import org.scalafmt.interfaces.Scalafmt
-
+import org.antipathy.mvn_scalafmt.builder.LocalConfigBuilder
 import scala.collection.JavaConverters._
 
 /**
@@ -43,7 +42,7 @@ class ScalaFormatter(
 object ScalaFormatter {
 
   def apply(configLocation: String, log: Log, respectVersion: Boolean): ScalaFormatter = {
-    val config = new ConfigFileValidator(log).validate(configLocation)
+    val config = LocalConfigBuilder(log).build(configLocation)
     val sourceBuilder = new SourceFileSequenceBuilder(log)
     val scalafmt = Scalafmt
       .create(this.getClass.getClassLoader)

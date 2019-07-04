@@ -8,7 +8,9 @@ import org.apache.maven.plugin.logging.Log
   * Class for validating the ScalaFmt config
   * @param log The maven logger
   */
-class ConfigFileValidator(log: Log) extends Validator[String, Path] {
+class ConfigFileValidator(
+    log: Log
+) extends Validator[String, Path] {
 
   /**
     * Validate the passed in input
@@ -18,12 +20,16 @@ class ConfigFileValidator(log: Log) extends Validator[String, Path] {
     * @return The validated output
     */
   @throws[IllegalArgumentException]
-  override def validate(location: String): Path =
-    if (location == null || location.trim().equals("") || !Files.exists(Paths.get(location))) {
-      val exception = new IllegalArgumentException(s"Config path is invalid: $location")
-      log.error(exception)
-      throw exception
-    } else {
-      Paths.get(location)
-    }
+  override def validate(location: String): Path = location match {
+    case "" | null => throw buildException(s"Config path is null or empty")
+    case invalidPath if !Files.exists(Paths.get(invalidPath)) =>
+      throw buildException(s"Config path is invalid: $location")
+    case _ => Paths.get(location)
+  }
+
+  private def buildException(message: String): Exception = {
+    val exception = new IllegalArgumentException(message)
+    log.error(exception)
+    exception
+  }
 }

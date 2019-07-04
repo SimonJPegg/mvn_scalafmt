@@ -40,6 +40,8 @@ Note: `version.scala.binary` refers to major releases of scala ie. 2.11 or 2.12 
 </plugin>
 ```
 
+`configLocation` Can either be a local path (e.g. `${project.basedir}/.scalafmt.conf`) or a HTTP url (e.g `https://raw.githubusercontent.com/jozic/scalafmt-config/master/.scalafmt.conf`)
+
 make sure you have set a version in your scalafmt.conf 
 ```yaml
 version = "1.5.1"

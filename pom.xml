@@ -4,7 +4,7 @@
     <groupId>org.antipathy</groupId>
     <artifactId>mvn-scalafmt_${version.scala.binary}</artifactId>
     <packaging>maven-plugin</packaging>
-    <version>1.0.0-RC1</version>
+    <version>1.0.0-RC2</version>
     <name>ScalaFmt Maven Plugin (${version.scala.binary})</name>
     <description>Maven plugin for ScalaFmt</description>
     <url>https://github.com/SimonJPegg/mvn_scalafmt</url>
@@ -35,13 +35,16 @@
     <properties>
         <version.commonsio>2.6</version.commonsio>
         <version.commonslang>3.8</version.commonslang>
+        <version.commonsvalidator>1.4.0</version.commonsvalidator>
         <version.java>1.8</version.java>
         <version.maven.annotations>3.5.2</version.maven.annotations>
         <version.maven.plugin.compiler>3.8.0</version.maven.plugin.compiler>
         <version.maven.plugin.gpg>1.6</version.maven.plugin.gpg>
+        <version.maven.plugin.javadoc>3.1.0</version.maven.plugin.javadoc>
         <version.maven.plugin.nexus.staging>1.6.8</version.maven.plugin.nexus.staging>
         <version.maven.plugin.plugin>3.5.2</version.maven.plugin.plugin>
         <version.maven.plugin.scala>3.4.2</version.maven.plugin.scala>
+        <version.maven.plugin.source>3.1.0</version.maven.plugin.source>
         <version.maven.plugin.scalatest>1.0</version.maven.plugin.scalatest>
         <version.maven.plugin.surefire>2.7</version.maven.plugin.surefire>
         <version.maven>3.5.4</version.maven>
@@ -86,6 +89,11 @@
             <artifactId>commons-io</artifactId>
             <version>${version.commonsio}</version>
             <scope>compile</scope>
+        </dependency>
+        <dependency>
+            <groupId>commons-validator</groupId>
+            <artifactId>commons-validator</artifactId>
+            <version>${version.commonsvalidator}</version>
         </dependency>
         <dependency>
             <groupId>org.scalatest</groupId>
@@ -163,33 +171,6 @@
                 <version>${version.maven.plugin.plugin}</version>
             </plugin>
             <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-source-plugin</artifactId>
-                <executions>
-                    <execution>
-                        <id>attach-sources</id>
-                        <goals>
-                            <goal>jar</goal>
-                        </goals>
-                    </execution>
-                </executions>
-            </plugin>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-javadoc-plugin</artifactId>
-                <executions>
-                    <execution>
-                        <id>attach-javadocs</id>
-                        <goals>
-                            <goal>jar</goal>
-                        </goals>
-                    </execution>
-                </executions>
-                <configuration>
-                    <additionalparam>-Xdoclint:none</additionalparam>
-                </configuration>
-            </plugin>
-            <plugin>
                 <groupId>org.antipathy</groupId>
                 <artifactId>mvn-scalafmt_${version.scala.binary}</artifactId>
                 <version>1.0.0-RC1</version>
@@ -222,6 +203,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-source-plugin</artifactId>
+                <version>${version.maven.plugin.source}</version>
                 <executions>
                     <execution>
                         <id>attach-sources</id>
@@ -234,6 +216,7 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-javadoc-plugin</artifactId>
+                <version>${version.maven.plugin.javadoc}</version>
                 <executions>
                     <execution>
                         <id>attach-javadocs</id>
@@ -242,9 +225,6 @@
                         </goals>
                     </execution>
                 </executions>
-                <configuration>
-                    <additionalparam>-Xdoclint:none</additionalparam>
-                </configuration>
             </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
