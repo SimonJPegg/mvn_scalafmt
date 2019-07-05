@@ -9,4 +9,11 @@ import java.io.File
   * @param originalSource The string value of the unformatted file
   * @param formattedSource The new formatted source
   */
-case class FormatResult(sourceFile: File, originalSource: String, formattedSource: String)
+case class FormatResult(sourceFile: File, originalSource: String, formattedSource: String) {
+
+  /**
+    * Check if a source file has been formatted correctly
+    * @return True if correctly formatted
+    */
+  lazy val isFormatted: Boolean = originalSource.trim.equals(formattedSource.trim)
+}

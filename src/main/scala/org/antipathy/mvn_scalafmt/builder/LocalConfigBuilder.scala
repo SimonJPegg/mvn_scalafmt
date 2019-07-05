@@ -20,7 +20,7 @@ class LocalConfigBuilder(
     urlValidator: UrlValidator,
     configValidator: Validator[String, Path],
     remoteConfigReader: Reader[String, RemoteConfig],
-    remoteConfigWriter: Writer[RemoteConfig],
+    remoteConfigWriter: Writer[RemoteConfig, Path],
     log: Log
 ) extends Builder[String, Path] {
 
@@ -33,8 +33,8 @@ class LocalConfigBuilder(
   override def build(location: String): Path =
     if (urlValidator.isValid(location)) {
       val remoteConfig = remoteConfigReader.read(location)
-      remoteConfigWriter.write(remoteConfig)
-      configValidator.validate(remoteConfig.location.toAbsolutePath.toString)
+      val localConfig = remoteConfigWriter.write(remoteConfig)
+      configValidator.validate(localConfig.toString)
     } else {
       configValidator.validate(location)
     }

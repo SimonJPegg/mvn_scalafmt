@@ -2,10 +2,10 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
     <modelVersion>4.0.0</modelVersion>
     <groupId>org.antipathy</groupId>
-    <artifactId>mvn-scalafmt_${version.scala.binary}</artifactId>
+    <artifactId>mvn-scalafmt_${version.scala.major}</artifactId>
     <packaging>maven-plugin</packaging>
-    <version>1.0.0-RC2</version>
-    <name>ScalaFmt Maven Plugin (${version.scala.binary})</name>
+    <version>1.0.0-RC3</version>
+    <name>ScalaFmt Maven Plugin (${version.scala.major})</name>
     <description>Maven plugin for ScalaFmt</description>
     <url>https://github.com/SimonJPegg/mvn_scalafmt</url>
 
@@ -44,22 +44,25 @@
         <version.maven.plugin.nexus.staging>1.6.8</version.maven.plugin.nexus.staging>
         <version.maven.plugin.plugin>3.5.2</version.maven.plugin.plugin>
         <version.maven.plugin.scala>3.4.2</version.maven.plugin.scala>
-        <version.maven.plugin.source>3.1.0</version.maven.plugin.source>
         <version.maven.plugin.scalatest>1.0</version.maven.plugin.scalatest>
+        <version.maven.plugin.source>3.1.0</version.maven.plugin.source>
         <version.maven.plugin.surefire>2.7</version.maven.plugin.surefire>
         <version.maven>3.5.4</version.maven>
-        <version.scala.binary>2.11</version.scala.binary>
-        <version.scala>2.11.8</version.scala>
+        <version.scala.major>2.11</version.scala.major>
+        <version.scala.minor>.8</version.scala.minor>
         <version.scala.xml>1.2.0</version.scala.xml>
-        <version.scalafmt>2.0.0-RC1</version.scalafmt>
+        <version.scalafmt.dynamic>2.0.0-RC1</version.scalafmt.dynamic>
         <version.scalatest>3.0.5</version.scalatest>
+
+        <maven.compiler.source>${version.java}</maven.compiler.source>
+        <maven.compiler.target>${version.java}</maven.compiler.target>
     </properties>
 
     <dependencies>
         <dependency>
             <groupId>org.scala-lang</groupId>
             <artifactId>scala-library</artifactId>
-            <version>${version.scala}</version>
+            <version>${version.scala.major}${version.scala.minor}</version>
         </dependency>
         <dependency>
             <groupId>org.apache.maven</groupId>
@@ -74,8 +77,8 @@
         </dependency>
         <dependency>
             <groupId>com.geirsson</groupId>
-            <artifactId>scalafmt-dynamic_${version.scala.binary}</artifactId>
-            <version>${version.scalafmt}</version>
+            <artifactId>scalafmt-dynamic_${version.scala.major}</artifactId>
+            <version>${version.scalafmt.dynamic}</version>
             <scope>compile</scope>
         </dependency>
         <dependency>
@@ -97,7 +100,7 @@
         </dependency>
         <dependency>
             <groupId>org.scalatest</groupId>
-            <artifactId>scalatest_${version.scala.binary}</artifactId>
+            <artifactId>scalatest_${version.scala.major}</artifactId>
             <version>${version.scalatest}</version>
             <scope>test</scope>
         </dependency>
@@ -108,7 +111,7 @@
         </dependency>
         <dependency>
             <groupId>org.scala-lang.modules</groupId>
-            <artifactId>scala-xml_${version.scala.binary}</artifactId>
+            <artifactId>scala-xml_${version.scala.major}</artifactId>
             <version>${version.scala.xml}</version>
         </dependency>
     </dependencies>
@@ -172,13 +175,13 @@
             </plugin>
             <plugin>
                 <groupId>org.antipathy</groupId>
-                <artifactId>mvn-scalafmt_${version.scala.binary}</artifactId>
-                <version>1.0.0-RC1</version>
+                <artifactId>mvn-scalafmt_${version.scala.major}</artifactId>
+                <version>1.0.0-RC2</version>
                 <configuration>
                     <configLocation>${project.basedir}/.scalafmt.conf</configLocation>
                     <skipTestSources>false</skipTestSources>
                     <skipSources>false</skipSources>
-                    <respectVersion>true</respectVersion>
+                    <respectVersion>false</respectVersion>
                 </configuration>
                 <executions>
                     <execution>

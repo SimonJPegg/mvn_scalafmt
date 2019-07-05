@@ -13,7 +13,6 @@ class SourceFileSequenceBuilderSpec extends FlatSpec with GivenWhenThen with Mat
     val input = Seq("src/test/scala", "src/main/scala").map(new File(_))
     val result = new SourceFileSequenceBuilder(new SystemStreamLog).build(input).map(_.getName)
 
-    result.contains("ScalaFormatterSpec.scala") should be(true)
     result.contains("SourceFileFormatterSpec.scala") should be(true)
     result.contains("SourceFileSequenceBuilderSpec.scala") should be(true)
     result.contains("ConfigFileValidatorSpec.scala") should be(true)

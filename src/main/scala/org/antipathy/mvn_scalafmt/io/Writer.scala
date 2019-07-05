@@ -2,13 +2,14 @@ package org.antipathy.mvn_scalafmt.io
 
 /**
   * Base trait for writing
-  * @tparam T The type to write
+  * @tparam I The type to write
+  * @tparam O The result of the write operation
   */
-trait Writer[T] {
+trait Writer[I, O] {
 
   /**
     * Write the passed in input
     * @param input The input to write
     */
-  def write(input: T): Unit
+  def write(input: I): O
 }

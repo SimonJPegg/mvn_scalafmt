@@ -28,6 +28,7 @@ Note: `version.scala.binary` refers to major releases of scala ie. 2.11 or 2.12 
         <testSourceDirectories> <!-- (Optional) Paths to test-source-directories. Overrides ${project.build.testSourceDirectory} -->
           <param>${project.basedir}/src/test/scala</param>
         </testSourceDirectories>
+        <validateOnly>false</validateOnly> <!-- check formatting without changing files -->
     </configuration>
     <executions>
         <execution>

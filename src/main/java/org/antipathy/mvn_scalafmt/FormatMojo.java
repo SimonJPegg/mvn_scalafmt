@@ -1,5 +1,6 @@
 package org.antipathy.mvn_scalafmt;
 
+import org.antipathy.mvn_scalafmt.model.Summary;
 import org.apache.maven.plugin.AbstractMojo;
 import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.plugins.annotations.Mojo;
@@ -26,6 +27,8 @@ public class FormatMojo extends AbstractMojo {
     private List<File> testSourceDirectories;
     @Parameter(property = "format.respectVersion", defaultValue = "false", required = true)
     private boolean respectVersion;
+    @Parameter(property = "format.validateOnly", defaultValue = "false")
+    private boolean validateOnly;
 
     public void execute() throws MojoExecutionException {
 
@@ -40,12 +43,15 @@ public class FormatMojo extends AbstractMojo {
         if (!skipTestSources) {
             sources.addAll(testSourceDirectories);
         } else {
-            getLog().warn("format.skipTestSources set, ignoring test directories");
+            getLog().warn("format.skipTestSources set, ignoring validateOnly directories");
         }
         if (sources.size() > 0) {
             try {
-                String result = ScalaFormatter.apply(configLocation,getLog(),respectVersion).format(sources);
-                getLog().info(result);
+                Summary result = ScalaFormatter.apply(configLocation,getLog(),respectVersion, validateOnly).format(sources);
+                getLog().info(result.toString());
+                if (validateOnly && result.unformattedFiles() != 0) {
+                    throw new MojoExecutionException("Scalafmt: Unformatted files found");
+                }
             } catch (Exception e) {
                 getLog().error(e);
                 throw new MojoExecutionException("Error formatting Scala files: " + e.getMessage(), e);

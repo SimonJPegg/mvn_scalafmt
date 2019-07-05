@@ -8,7 +8,7 @@ import org.apache.commons.io.FileUtils
 import org.apache.maven.plugin.logging.SystemStreamLog
 import org.scalatest.{FlatSpec, GivenWhenThen, Matchers}
 
-class FormattedFileWriterSpec extends FlatSpec with GivenWhenThen with Matchers {
+class FormattedFilesWriterSpec extends FlatSpec with GivenWhenThen with Matchers {
 
   behavior of "FormattedFileWriter"
 
@@ -19,11 +19,11 @@ class FormattedFileWriterSpec extends FlatSpec with GivenWhenThen with Matchers 
     FileUtils.writeStringToFile(sourceFile, originalContent, StandardCharsets.UTF_8)
 
     val formatResult = FormatResult(sourceFile, originalContent, changedContent)
-    val fileWriter = new FormattedFileWriter(new SystemStreamLog)
+    val fileWriter = new FormattedFilesWriter(new SystemStreamLog)
 
     scala.io.Source.fromFile(sourceFile).getLines().mkString should be(originalContent)
 
-    fileWriter.write(formatResult)
+    fileWriter.write(Seq(formatResult))
 
     scala.io.Source.fromFile(sourceFile).getLines().mkString should be(changedContent)
 

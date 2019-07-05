@@ -22,14 +22,14 @@ class SourceFileSequenceBuilder(log: Log) extends Builder[Seq[Any], Seq[File]] {
     */
   override def build(paths: Seq[Any]): Seq[File] =
     if (paths == null) {
-      log.error("Could not locate any scala sources to format")
+      log.warn("Could not locate any scala sources to format")
       Seq.empty[File]
     } else {
       val files = paths.map(_.asInstanceOf[File].getCanonicalPath).flatMap { p =>
         if (Files.exists(Paths.get(p))) {
           Some(new File(p))
         } else {
-          log.error(s"Could not locate Scala source at $p")
+          log.warn(s"Could not locate Scala source at $p")
           None
         }
       }

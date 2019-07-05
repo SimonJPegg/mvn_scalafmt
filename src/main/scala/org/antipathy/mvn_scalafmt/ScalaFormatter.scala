@@ -3,12 +3,11 @@ package org.antipathy.mvn_scalafmt
 import java.io.File
 import java.util.{List => JList}
 
-import org.antipathy.mvn_scalafmt.builder.{Builder, LocalConfigBuilder, SourceFileSequenceBuilder, SummaryBuilder}
-import org.antipathy.mvn_scalafmt.filter.{Filter, UnchangedSourceFilter}
+import org.antipathy.mvn_scalafmt.builder.{Builder, LocalConfigBuilder, SourceFileSequenceBuilder}
 import org.antipathy.mvn_scalafmt.format.{Formatter, SourceFileFormatter}
-import org.antipathy.mvn_scalafmt.io.{FormattedFileWriter, Writer}
+import org.antipathy.mvn_scalafmt.io.{FormattedFilesWriter, Writer}
 import org.antipathy.mvn_scalafmt.logging.MavenLogReporter
-import org.antipathy.mvn_scalafmt.model.FormatResult
+import org.antipathy.mvn_scalafmt.model.{FormatResult, Summary}
 import org.apache.maven.plugin.logging.Log
 import org.scalafmt.interfaces.Scalafmt
 
@@ -20,28 +19,24 @@ import scala.collection.JavaConverters._
 class ScalaFormatter(
     sourceBuilder: Builder[Seq[Any], Seq[File]],
     fileFormatter: Formatter[File, FormatResult],
-    unchangedSourceFilter: Filter[FormatResult, Boolean],
-    writer: Writer[FormatResult],
-    summaryBuilder: Builder[Seq[FormatResult], Int => String]
-) extends Formatter[JList[Any], String] {
+    writer: Writer[Seq[FormatResult], Summary]
+) extends Formatter[JList[Any], Summary] {
 
   /**
     * Format the files in the passed in source directories
     * @param sourceDirectories The source directories to format
     * @return A summary of what was done
     */
-  override def format(sourceDirectories: JList[Any]): String = {
+  override def format(sourceDirectories: JList[Any]): Summary = {
     val sources = sourceBuilder.build(sourceDirectories.asScala)
     val formattedSources = sources.map(fileFormatter.format)
-    val sourcesToWrite = formattedSources.filter(unchangedSourceFilter.filter)
-    sourcesToWrite.foreach(writer.write)
-    summaryBuilder.build(sourcesToWrite)(sources.length)
+    writer.write(formattedSources)
   }
 }
 
 object ScalaFormatter {
 
-  def apply(configLocation: String, log: Log, respectVersion: Boolean): ScalaFormatter = {
+  def apply(configLocation: String, log: Log, respectVersion: Boolean, testOnly: Boolean): ScalaFormatter = {
     val config = LocalConfigBuilder(log).build(configLocation)
     val sourceBuilder = new SourceFileSequenceBuilder(log)
     val scalafmt = Scalafmt
@@ -49,9 +44,12 @@ object ScalaFormatter {
       .withReporter(new MavenLogReporter(log))
       .withRespectVersion(respectVersion)
     val sourceFormatter = new SourceFileFormatter(config, scalafmt, log)
-    val unchangedSourceFilter = new UnchangedSourceFilter(log)
-    val fileWriter = new FormattedFileWriter(log)
-    val summaryBuilder = new SummaryBuilder
-    new ScalaFormatter(sourceBuilder, sourceFormatter, unchangedSourceFilter, fileWriter, summaryBuilder)
+    val fileWriter = if (testOnly) {
+      import org.antipathy.mvn_scalafmt.io.TestResultLogWriter
+      new TestResultLogWriter(log)
+    } else {
+      new FormattedFilesWriter(log)
+    }
+    new ScalaFormatter(sourceBuilder, sourceFormatter, fileWriter)
   }
 }
