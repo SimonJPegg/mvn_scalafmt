@@ -1,6 +1,6 @@
 package org.antipathy.mvn_scalafmt.io
 import org.antipathy.mvn_scalafmt.builder.FilesSummaryBuilder
-import org.antipathy.mvn_scalafmt.model.{FormatResult, Summary}
+import org.antipathy.mvn_scalafmt.model.{FileSummaryRequest, FormatResult, Summary}
 import org.apache.maven.plugin.logging.Log
 
 /**
@@ -19,6 +19,10 @@ class TestResultLogWriter(log: Log) extends Writer[Seq[FormatResult], Summary] w
     input.filter(!_.isFormatted).foreach { item =>
       log.error(s"unformatted file at: ${item.sourceFile.getCanonicalPath}")
     }
-    Summary(input.length, input.count(!_.isFormatted), build(input, "Formatted", "Requires formatting"))
+    Summary(
+      input.length,
+      input.count(!_.isFormatted),
+      build(FileSummaryRequest(input, "Formatted", "Requires formatting"))
+    )
   }
 }

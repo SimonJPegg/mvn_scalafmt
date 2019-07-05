@@ -5,7 +5,7 @@ import java.util.{List => JList}
 
 import org.antipathy.mvn_scalafmt.builder.{Builder, LocalConfigBuilder, SourceFileSequenceBuilder}
 import org.antipathy.mvn_scalafmt.format.{Formatter, SourceFileFormatter}
-import org.antipathy.mvn_scalafmt.io.{FormattedFilesWriter, Writer}
+import org.antipathy.mvn_scalafmt.io.{FormattedFilesWriter, TestResultLogWriter, Writer}
 import org.antipathy.mvn_scalafmt.logging.MavenLogReporter
 import org.antipathy.mvn_scalafmt.model.{FormatResult, Summary}
 import org.apache.maven.plugin.logging.Log
@@ -45,7 +45,6 @@ object ScalaFormatter {
       .withRespectVersion(respectVersion)
     val sourceFormatter = new SourceFileFormatter(config, scalafmt, log)
     val fileWriter = if (testOnly) {
-      import org.antipathy.mvn_scalafmt.io.TestResultLogWriter
       new TestResultLogWriter(log)
     } else {
       new FormattedFilesWriter(log)

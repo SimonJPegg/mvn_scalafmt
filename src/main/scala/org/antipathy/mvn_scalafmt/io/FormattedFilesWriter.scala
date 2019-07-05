@@ -4,7 +4,7 @@ import java.io.File
 import java.nio.charset.StandardCharsets
 
 import org.antipathy.mvn_scalafmt.builder.FilesSummaryBuilder
-import org.antipathy.mvn_scalafmt.model.{FormatResult, Summary}
+import org.antipathy.mvn_scalafmt.model.{FileSummaryRequest, FormatResult, Summary}
 import org.apache.commons.io.FileUtils
 import org.apache.maven.plugin.logging.Log
 
@@ -21,7 +21,11 @@ class FormattedFilesWriter(log: Log) extends Writer[Seq[FormatResult], Summary] 
   override def write(input: Seq[FormatResult]): Summary = {
     val unformattedFiles = input.filter(!_.isFormatted)
     unformattedFiles.foreach(writeFile)
-    Summary(input.length, unformattedFiles.length, build((input, "Correctly formatted", "Reformatted")))
+    Summary(
+      input.length,
+      unformattedFiles.length,
+      build(FileSummaryRequest(input, "Correctly formatted", "Reformatted"))
+    )
   }
 
   /**
