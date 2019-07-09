@@ -12,14 +12,14 @@ class RemoteConfigReaderSpec extends FlatSpec with GivenWhenThen with Matchers {
 
     val url =
       "https://raw.githubusercontent.com/SimonJPegg/mvn_scalafmt/35f3863c501b43beb59d84cb49fe124ee99c70a5/.scalafmt.conf"
-    val reader = new RemoteConfigReader(new SystemStreamLog)
+    val reader         = new RemoteConfigReader(new SystemStreamLog)
     val expectedResult = "maxColumn = 120\n"
 
     reader.read(url).contents should be(expectedResult)
   }
 
   it should "raise an exception when unable to retrieve a config" in {
-    val url = "Skyrim belongs to the Nords"
+    val url    = "Skyrim belongs to the Nords"
     val reader = new RemoteConfigReader(new SystemStreamLog)
 
     an[MalformedURLException] should be thrownBy {

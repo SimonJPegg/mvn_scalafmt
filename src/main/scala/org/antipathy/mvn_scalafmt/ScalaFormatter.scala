@@ -17,9 +17,9 @@ import scala.collection.JavaConverters._
   * class to format scala source files using the Scalafmt library
   */
 class ScalaFormatter(
-    sourceBuilder: Builder[Seq[Any], Seq[File]],
-    fileFormatter: Formatter[File, FormatResult],
-    writer: Writer[Seq[FormatResult], Summary]
+  sourceBuilder: Builder[Seq[Any], Seq[File]],
+  fileFormatter: Formatter[File, FormatResult],
+  writer: Writer[Seq[FormatResult], Summary]
 ) extends Formatter[JList[Any], Summary] {
 
   /**
@@ -28,7 +28,7 @@ class ScalaFormatter(
     * @return A summary of what was done
     */
   override def format(sourceDirectories: JList[Any]): Summary = {
-    val sources = sourceBuilder.build(sourceDirectories.asScala)
+    val sources          = sourceBuilder.build(sourceDirectories.asScala)
     val formattedSources = sources.map(fileFormatter.format)
     writer.write(formattedSources)
   }
@@ -37,7 +37,7 @@ class ScalaFormatter(
 object ScalaFormatter {
 
   def apply(configLocation: String, log: Log, respectVersion: Boolean, testOnly: Boolean): ScalaFormatter = {
-    val config = LocalConfigBuilder(log).build(configLocation)
+    val config        = LocalConfigBuilder(log).build(configLocation)
     val sourceBuilder = new SourceFileSequenceBuilder(log)
     val scalafmt = Scalafmt
       .create(this.getClass.getClassLoader)

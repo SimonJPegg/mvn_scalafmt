@@ -14,12 +14,12 @@ class FormattedFilesWriterSpec extends FlatSpec with GivenWhenThen with Matchers
 
   it should "Write files" in {
     val originalContent = "originalContent"
-    val changedContent = "changedContent"
-    val sourceFile = new File(s"${System.getProperty("java.io.tmpdir")}${File.separator}TempFile.scala")
+    val changedContent  = "changedContent"
+    val sourceFile      = new File(s"${System.getProperty("java.io.tmpdir")}${File.separator}TempFile.scala")
     FileUtils.writeStringToFile(sourceFile, originalContent, StandardCharsets.UTF_8)
 
     val formatResult = FormatResult(sourceFile, originalContent, changedContent)
-    val fileWriter = new FormattedFilesWriter(new SystemStreamLog)
+    val fileWriter   = new FormattedFilesWriter(new SystemStreamLog)
 
     scala.io.Source.fromFile(sourceFile).getLines().mkString should be(originalContent)
 

@@ -9,7 +9,7 @@ import org.apache.maven.plugin.logging.Log
   * @param log The maven logger
   */
 class ConfigFileValidator(
-    log: Log
+  log: Log
 ) extends Validator[String, Path] {
 
   /**

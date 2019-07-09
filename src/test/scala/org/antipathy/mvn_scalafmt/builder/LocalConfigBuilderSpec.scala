@@ -11,7 +11,7 @@ class LocalConfigBuilderSpec extends FlatSpec with GivenWhenThen with Matchers {
   it should "Ensure a local config is correct" in {
 
     val builder = LocalConfigBuilder(new SystemStreamLog)
-    val path = ".scalafmt.conf"
+    val path    = ".scalafmt.conf"
 
     val resultPath = builder.build(path)
 
@@ -21,7 +21,7 @@ class LocalConfigBuilderSpec extends FlatSpec with GivenWhenThen with Matchers {
   it should "Retrieve a remote config and store it locally" in {
 
     val builder = LocalConfigBuilder(new SystemStreamLog)
-    val path = "https://raw.githubusercontent.com/SimonJPegg/mvn_scalafmt/master/.scalafmt.conf"
+    val path    = "https://raw.githubusercontent.com/SimonJPegg/mvn_scalafmt/master/.scalafmt.conf"
     val expectedContent = scala.io.Source
       .fromURL("https://raw.githubusercontent.com/SimonJPegg/mvn_scalafmt/master/.scalafmt.conf")
       .mkString

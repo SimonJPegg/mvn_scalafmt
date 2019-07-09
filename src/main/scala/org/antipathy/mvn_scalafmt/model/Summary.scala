@@ -7,9 +7,9 @@ package org.antipathy.mvn_scalafmt.model
   * @param fileDetails Details of each of the files
   */
 case class Summary(
-    totalFiles: Long,
-    unformattedFiles: Long,
-    fileDetails: Seq[FileSummary]
+  totalFiles: Long,
+  unformattedFiles: Long,
+  fileDetails: Seq[FileSummary]
 ) {
 
   override def toString: String =

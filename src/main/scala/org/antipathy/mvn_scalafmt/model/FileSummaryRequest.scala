@@ -7,7 +7,7 @@ package org.antipathy.mvn_scalafmt.model
   * @param unformattedValue The value to use if a file is unformatted
   */
 case class FileSummaryRequest(
-    formatResults: Seq[FormatResult],
-    formattedValue: String,
-    unformattedValue: String
+  formatResults: Seq[FormatResult],
+  formattedValue: String,
+  unformattedValue: String
 )

@@ -14,10 +14,10 @@ class SourceFileFormatterSpec extends FlatSpec with GivenWhenThen with Matchers 
 
   it should "format a source file" in {
 
-    val log = new SystemStreamLog
-    val config = new ConfigFileValidator(log).validate(".scalafmt.conf")
+    val log        = new SystemStreamLog
+    val config     = new ConfigFileValidator(log).validate(".scalafmt.conf")
     val sourceFile = new File("src/main/scala/org/antipathy/mvn_scalafmt/model/FormatResult.scala")
-    val reporter = new MavenLogReporter(log)
+    val reporter   = new MavenLogReporter(log)
     val scalafmt: Scalafmt =
       Scalafmt.create(this.getClass.getClassLoader).withRespectVersion(false).withReporter(reporter)
 

@@ -16,7 +16,7 @@ class RemoteConfigWriterSpec extends FlatSpec with GivenWhenThen with Matchers {
   it should "Write a config to a local path" in {
 
     val localPath = s"${System.getProperty("java.io.tmpdir")}${File.separator}.scalafmt.conf"
-    val contents = """version = "1.5.1"
+    val contents  = """version = "1.5.1"
                      |maxColumn = 120
                      |align = false
                      |rewrite.rules = [SortImports]
@@ -24,8 +24,8 @@ class RemoteConfigWriterSpec extends FlatSpec with GivenWhenThen with Matchers {
                      |importSelectors = singleLine
                      |binPack.parentConstructors = true
                      |includeCurlyBraceInSelectChains = false""".stripMargin
-    val writer = new RemoteConfigWriter(new SystemStreamLog)
-    val input = RemoteConfig(contents, Paths.get(localPath))
+    val writer    = new RemoteConfigWriter(new SystemStreamLog)
+    val input     = RemoteConfig(contents, Paths.get(localPath))
 
     writer.write(input)
 
@@ -37,7 +37,7 @@ class RemoteConfigWriterSpec extends FlatSpec with GivenWhenThen with Matchers {
 
     val localPath = s"${System.getProperty("java.io.tmpdir")}${File.separator}.scalafmt2.conf"
 
-    val contents = """version = "1.5.1"
+    val contents    = """version = "1.5.1"
                      |maxColumn = 120
                      |align = false
                      |rewrite.rules = [SortImports]
@@ -48,7 +48,7 @@ class RemoteConfigWriterSpec extends FlatSpec with GivenWhenThen with Matchers {
     val oldContents = "SomeOldConfig"
 
     val writer = new RemoteConfigWriter(new SystemStreamLog)
-    val input = RemoteConfig(contents, Paths.get(localPath))
+    val input  = RemoteConfig(contents, Paths.get(localPath))
 
     FileUtils.writeStringToFile(new File(localPath), oldContents, StandardCharsets.UTF_8)
     scala.io.Source.fromFile(new File(localPath)).mkString should be(oldContents)

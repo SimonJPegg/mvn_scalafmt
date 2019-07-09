@@ -17,11 +17,11 @@ import org.apache.maven.plugin.logging.Log
   * @param log The maven logger
   */
 class LocalConfigBuilder(
-    urlValidator: UrlValidator,
-    configValidator: Validator[String, Path],
-    remoteConfigReader: Reader[String, RemoteConfig],
-    remoteConfigWriter: Writer[RemoteConfig, Path],
-    log: Log
+  urlValidator: UrlValidator,
+  configValidator: Validator[String, Path],
+  remoteConfigReader: Reader[String, RemoteConfig],
+  remoteConfigWriter: Writer[RemoteConfig, Path],
+  log: Log
 ) extends Builder[String, Path] {
 
   /**
@@ -33,7 +33,7 @@ class LocalConfigBuilder(
   override def build(location: String): Path =
     if (urlValidator.isValid(location)) {
       val remoteConfig = remoteConfigReader.read(location)
-      val localConfig = remoteConfigWriter.write(remoteConfig)
+      val localConfig  = remoteConfigWriter.write(remoteConfig)
       configValidator.validate(localConfig.toString)
     } else {
       configValidator.validate(location)
@@ -43,7 +43,7 @@ class LocalConfigBuilder(
 object LocalConfigBuilder {
 
   def apply(
-      log: Log
+    log: Log
   ): LocalConfigBuilder =
     new LocalConfigBuilder(
       new UrlValidator(Array("http", "https")),

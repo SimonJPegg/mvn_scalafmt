@@ -14,9 +14,9 @@ import org.scalafmt.interfaces.Scalafmt
   * @param log The maven logger
   */
 class SourceFileFormatter(
-    config: Path,
-    inner: Scalafmt,
-    log: Log
+  config: Path,
+  inner: Scalafmt,
+  log: Log
 ) extends Formatter[File, FormatResult] {
 
   /**
