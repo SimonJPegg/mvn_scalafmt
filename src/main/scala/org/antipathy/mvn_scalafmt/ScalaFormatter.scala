@@ -17,17 +17,17 @@ import scala.collection.JavaConverters._
   * class to format scala source files using the Scalafmt library
   */
 class ScalaFormatter(
-  sourceBuilder: Builder[Seq[Any], Seq[File]],
+  sourceBuilder: Builder[Seq[File], Seq[File]],
   fileFormatter: Formatter[File, FormatResult],
   writer: Writer[Seq[FormatResult], Summary]
-) extends Formatter[JList[Any], Summary] {
+) extends Formatter[JList[File], Summary] {
 
   /**
     * Format the files in the passed in source directories
     * @param sourceDirectories The source directories to format
     * @return A summary of what was done
     */
-  override def format(sourceDirectories: JList[Any]): Summary = {
+  override def format(sourceDirectories: JList[File]): Summary = {
     val sources          = sourceBuilder.build(sourceDirectories.asScala)
     val formattedSources = sources.map(fileFormatter.format)
     writer.write(formattedSources)

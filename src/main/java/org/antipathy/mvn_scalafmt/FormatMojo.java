@@ -32,7 +32,7 @@ public class FormatMojo extends AbstractMojo {
 
     public void execute() throws MojoExecutionException {
 
-        ArrayList<Object> sources = new ArrayList<>();
+        ArrayList<File> sources = new ArrayList<>();
 
         if (!skipSources) {
             sources.addAll(sourceDirectories);
