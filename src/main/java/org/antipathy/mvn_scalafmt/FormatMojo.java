@@ -35,8 +35,8 @@ public class FormatMojo extends AbstractMojo {
 
     public void execute() throws MojoExecutionException {
 
-        List<Object> sources = prepareSources(skipSources, sourceDirectories);
-        List<Object> testSources = prepareSources(skipTestSources, testSourceDirectories);
+        List<File> sources = prepareSources(skipSources, sourceDirectories);
+        List<File> testSources = prepareSources(skipTestSources, testSourceDirectories);
 
         if(!skip) {
             try {
@@ -55,8 +55,8 @@ public class FormatMojo extends AbstractMojo {
         }
     }
 
-    private List<Object> prepareSources(boolean skip, List<File> sources) throws MojoExecutionException {
-        ArrayList<Object> prepared = new ArrayList<>();
+    private List<File> prepareSources(boolean skip, List<File> sources) throws MojoExecutionException {
+        ArrayList<File> prepared = new ArrayList<>();
         if(!skip) {
             for (File source : sources) {
                 try {

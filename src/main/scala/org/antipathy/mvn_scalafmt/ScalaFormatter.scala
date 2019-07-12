@@ -4,6 +4,7 @@ import org.scalafmt.cli.{Cli, CliOptions}
 import org.apache.maven.plugin.logging.Log
 import org.scalafmt.util.AbsoluteFile
 import scala.collection.JavaConverters._
+import java.io.File
 import java.nio.file.{Files, Paths}
 import java.util.{List => JList}
 
@@ -26,8 +27,8 @@ object ScalaFormatter {
       configLocation: String,
       configRequired: Boolean,
       parameters: String,
-      sourceRoots: JList[Any],
-      testSourceRoots: JList[Any],
+      sourceRoots: JList[File],
+      testSourceRoots: JList[File],
       log: Log
   ): Unit = {
 
@@ -72,7 +73,7 @@ object ScalaFormatter {
     * @param paths the paths to filter
     * @return a sequence of valid paths
     */
-  private[mvn_scalafmt] def getSourcePaths(paths: Seq[Any]): Seq[String] =
+  private[mvn_scalafmt] def getSourcePaths(paths: Seq[File]): Seq[String] =
     if (paths == null) {
       Seq[String]()
     } else {

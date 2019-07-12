@@ -1,5 +1,7 @@
 package org.antipathy.mvn_scalafmt
 
+import java.io.File
+
 import org.scalatest.{FlatSpec, GivenWhenThen, Matchers}
 import org.apache.maven.plugin.logging.SystemStreamLog
 
@@ -58,12 +60,13 @@ class ScalaFormatterSpec extends FlatSpec with GivenWhenThen with Matchers {
   }
 
   it should "Create a sequence of valid source paths" in {
+    val sources = Seq(new File("src/main/scala"), new File("src/test/scala"))
     val expectedResult = Seq("src/main/scala", "src/test/scala")
-    ScalaFormatter.getSourcePaths(expectedResult) should be(expectedResult)
+    ScalaFormatter.getSourcePaths(sources) should be(expectedResult)
   }
 
   it should "Create an empty sequence when given invalid paths" in {
-    ScalaFormatter.getSourcePaths(Seq("src/main1/scala", "src/test1/scala")) should be(Seq())
+    ScalaFormatter.getSourcePaths(Seq(new File("src/main1/scala"), new File("src/test1/scala"))) should be(Seq())
   }
 
   it should "Create an empty sequence when given null values" in {
