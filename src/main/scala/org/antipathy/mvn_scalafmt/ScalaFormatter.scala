@@ -35,8 +35,8 @@ object ScalaFormatter {
     val config = parseConfigLocation(configLocation, configRequired, log)
     val params = parseParametersString(parameters, log)
 
-    val sources: Seq[String] = getSourcePaths(sourceRoots.asScala) ++
-      getSourcePaths(testSourceRoots.asScala)
+    val sources: Seq[String] = getSourcePaths(sourceRoots.asScala, log) ++
+      getSourcePaths(testSourceRoots.asScala, log)
 
     if (sources.nonEmpty) {
       val cliOptions = getCLiOptions(sources, config, params)
@@ -73,11 +73,18 @@ object ScalaFormatter {
     * @param paths the paths to filter
     * @return a sequence of valid paths
     */
-  private[mvn_scalafmt] def getSourcePaths(paths: Seq[File]): Seq[String] =
+  private[mvn_scalafmt] def getSourcePaths(paths: Seq[File], log: Log): Seq[String] =
     if (paths == null) {
       Seq[String]()
     } else {
-      paths.map(_.toString).filter(p => Files.exists(Paths.get(p)))
+      paths.map(_.getCanonicalPath).flatMap { p =>
+        if (Files.exists(Paths.get(p))) {
+          Some(p)
+        } else {
+          log.error(s"Could not locate Scala source at $p")
+          None
+        }
+      }
     }
 
   /** Parses the config string and returns a sequence used for formatting

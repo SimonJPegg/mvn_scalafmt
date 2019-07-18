@@ -62,15 +62,19 @@ class ScalaFormatterSpec extends FlatSpec with GivenWhenThen with Matchers {
   it should "Create a sequence of valid source paths" in {
     val sources = Seq(new File("src/main/scala"), new File("src/test/scala"))
     val expectedResult = Seq("src/main/scala", "src/test/scala")
-    ScalaFormatter.getSourcePaths(sources) should be(expectedResult)
+    canonical(ScalaFormatter.getSourcePaths(sources, new SystemStreamLog)) should be(canonical(expectedResult))
   }
 
   it should "Create an empty sequence when given invalid paths" in {
-    ScalaFormatter.getSourcePaths(Seq(new File("src/main1/scala"), new File("src/test1/scala"))) should be(Seq())
+    ScalaFormatter.getSourcePaths(Seq(new File("src/main1/scala"), new File("src/test1/scala")), new SystemStreamLog) should be(
+      Seq())
   }
 
   it should "Create an empty sequence when given null values" in {
-    ScalaFormatter.getSourcePaths(null) should be(Seq())
+    ScalaFormatter.getSourcePaths(null, new SystemStreamLog) should be(Seq())
   }
+
+  private def canonical(paths: Seq[String]) =
+    paths.map(new File(_).getCanonicalFile)
 
 }

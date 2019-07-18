@@ -34,18 +34,14 @@ public class FormatMojo extends AbstractMojo {
     private List<File> testSourceDirectories;
 
     public void execute() throws MojoExecutionException {
-
-        List<File> sources = prepareSources(skipSources, sourceDirectories);
-        List<File> testSources = prepareSources(skipTestSources, testSourceDirectories);
-
         if(!skip) {
             try {
                 ScalaFormatter.format(
                         configLocation,
                         configRequired,
                         parameters,
-                        sources,
-                        testSources,
+                        skipSources ? Collections.emptyList() : sourceDirectories,
+                        skipTestSources ? Collections.emptyList() : testSourceDirectories,
                         getLog());
             } catch (Exception e) {
                 throw new MojoExecutionException("Error formatting Scala files", e);
@@ -53,19 +49,5 @@ public class FormatMojo extends AbstractMojo {
         } else {
             getLog().info("Skip flag set, skipping formatting");
         }
-    }
-
-    private List<File> prepareSources(boolean skip, List<File> sources) throws MojoExecutionException {
-        ArrayList<File> prepared = new ArrayList<>();
-        if(!skip) {
-            for (File source : sources) {
-                try {
-                    prepared.add(source.getCanonicalFile());
-                } catch (IOException e) {
-                    throw new MojoExecutionException("Can't get canonical file for " + source.toString(), e);
-                }
-            }
-        }
-        return Collections.unmodifiableList(prepared);
     }
 }
