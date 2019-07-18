@@ -40,7 +40,6 @@ object ScalaFormatter {
 
     if (sources.nonEmpty) {
       val cliOptions = getCLiOptions(sources, config, params)
-      log.info(sources.toString())
       log.info(s"Formatting ${sources.mkString(",")}")
       Cli.run(cliOptions)
     } else {
