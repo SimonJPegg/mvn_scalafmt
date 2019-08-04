@@ -36,10 +36,10 @@ passed through to the CLI as is.
     <skipmain>false</skipmain> <!-- (Optional) Skip formatting main sources -->
     <configLocation>${project.basedir}/path/to/scalafmt.conf</configLocation> <!-- (Optional) config location -->
     <configRequired>false</configRequired><!-- (Optional) raise an error if configLocation is missing or invalid (otherwise use Scalafmt defaults) -->
-    <sourceDirectories> <!-- (Optional) Paths to source-directories. Overrides ${project.build.sourceDirectory} -->
+    <sourceDirectories> <!-- (Optional) Paths to source-directories. Overrides ${project.build.sourceDirectory}/../scala -->
       <param>${project.basedir}/src/main/scala</param>
     </sourceDirectories>
-    <testSourceDirectories> <!-- (Optional) Paths to test-source-directories. Overrides ${project.build.testSourceDirectory} -->
+    <testSourceDirectories> <!-- (Optional) Paths to test-source-directories. Overrides ${project.build.testSourceDirectory}/../scala -->
       <param>${project.basedir}/src/test/scala</param>
     </testSourceDirectories>
   </configuration>

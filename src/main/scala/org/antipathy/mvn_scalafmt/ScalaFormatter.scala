@@ -4,6 +4,7 @@ import org.scalafmt.cli.{Cli, CliOptions}
 import org.apache.maven.plugin.logging.Log
 import org.scalafmt.util.AbsoluteFile
 import scala.collection.JavaConverters._
+import java.io.File
 import java.nio.file.{Files, Paths}
 import java.util.{List => JList}
 
@@ -26,20 +27,19 @@ object ScalaFormatter {
       configLocation: String,
       configRequired: Boolean,
       parameters: String,
-      sourceRoots: JList[Any],
-      testSourceRoots: JList[Any],
+      sourceRoots: JList[File],
+      testSourceRoots: JList[File],
       log: Log
   ): Unit = {
 
     val config = parseConfigLocation(configLocation, configRequired, log)
     val params = parseParametersString(parameters, log)
 
-    val sources: Seq[String] = getSourcePaths(sourceRoots.asScala) ++
-      getSourcePaths(testSourceRoots.asScala)
+    val sources: Seq[String] = getSourcePaths(sourceRoots.asScala, log) ++
+      getSourcePaths(testSourceRoots.asScala, log)
 
     if (sources.nonEmpty) {
       val cliOptions = getCLiOptions(sources, config, params)
-      log.info(sources.toString())
       log.info(s"Formatting ${sources.mkString(",")}")
       Cli.run(cliOptions)
     } else {
@@ -72,11 +72,18 @@ object ScalaFormatter {
     * @param paths the paths to filter
     * @return a sequence of valid paths
     */
-  private[mvn_scalafmt] def getSourcePaths(paths: Seq[Any]): Seq[String] =
+  private[mvn_scalafmt] def getSourcePaths(paths: Seq[File], log: Log): Seq[String] =
     if (paths == null) {
       Seq[String]()
     } else {
-      paths.map(_.toString).filter(p => Files.exists(Paths.get(p)))
+      paths.map(_.getCanonicalPath).flatMap { p =>
+        if (Files.exists(Paths.get(p))) {
+          Some(p)
+        } else {
+          log.error(s"Could not locate Scala source at $p")
+          None
+        }
+      }
     }
 
   /** Parses the config string and returns a sequence used for formatting

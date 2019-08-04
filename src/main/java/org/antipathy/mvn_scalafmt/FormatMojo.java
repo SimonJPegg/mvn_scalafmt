@@ -5,7 +5,7 @@ import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.plugins.annotations.Mojo;
 import org.apache.maven.plugins.annotations.Parameter;
 import java.io.File;
-import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -26,32 +26,20 @@ public class FormatMojo extends AbstractMojo {
     private boolean skipTestSources;
     @Parameter(property = "format.skipmain", defaultValue = "false")
     private boolean skipSources;
-    @Parameter(defaultValue = "${project.build.sourceDirectory}", required = true)
+    @Parameter(defaultValue = "${project.build.sourceDirectory}/../scala", required = true)
     private List<File> sourceDirectories;
-    @Parameter(defaultValue = "${project.build.testSourceDirectory}", required = true)
+    @Parameter(defaultValue = "${project.build.testSourceDirectory}/../scala", required = true)
     private List<File> testSourceDirectories;
 
     public void execute() throws MojoExecutionException {
-
-        ArrayList<Object> sources = new ArrayList<>();
-        ArrayList<Object> testSources = new ArrayList<>();
-
-        if (!skipSources) {
-            sources.addAll(sourceDirectories);
-        }
-
-        if (!skipTestSources) {
-            testSources.addAll(testSourceDirectories);
-        }
-
         if(!skip) {
             try {
                 ScalaFormatter.format(
                         configLocation,
                         configRequired,
                         parameters,
-                        sources,
-                        testSources,
+                        skipSources ? Collections.emptyList() : sourceDirectories,
+                        skipTestSources ? Collections.emptyList() : testSourceDirectories,
                         getLog());
             } catch (Exception e) {
                 throw new MojoExecutionException("Error formatting Scala files", e);

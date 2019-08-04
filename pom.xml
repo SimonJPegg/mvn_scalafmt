@@ -4,7 +4,7 @@
     <groupId>org.antipathy</groupId>
     <artifactId>mvn-scalafmt_${version.scala.binary}</artifactId>
     <packaging>maven-plugin</packaging>
-    <version>0.11_${version.scalafmt}</version>
+    <version>0.12_${version.scalafmt}</version>
     <name>ScalaFmt Maven Plugin (${version.scala.binary})</name>
     <description>Maven plugin for ScalaFmt</description>
     <url>https://github.com/SimonJPegg/mvn_scalafmt</url>
