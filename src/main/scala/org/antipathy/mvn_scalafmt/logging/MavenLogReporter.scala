@@ -4,14 +4,16 @@ import java.io.PrintWriter
 import java.nio.file.Path
 
 import org.apache.maven.plugin.logging.Log
-import org.scalafmt.dynamic.ScalafmtException
 import org.scalafmt.interfaces.ScalafmtReporter
+import org.scalafmt.dynamic.exceptions.ScalafmtException
 
 /**
   * Class for logging Scalafmt events via the maven log
   * @param log A maven log instance
   */
 class MavenLogReporter(log: Log) extends ScalafmtReporter {
+
+
 
   /**
     * log errors

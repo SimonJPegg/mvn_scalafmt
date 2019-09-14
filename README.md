@@ -16,7 +16,7 @@ Note: `version.scala.binary` refers to major releases of scala ie. 2.11 or 2.12 
 <plugin>
     <groupId>org.antipathy</groupId>
     <artifactId>mvn-scalafmt_${version.scala.binary}</artifactId>
-    <version>1.0.0-RC1</version>
+    <version>1.0.1</version>
     <configuration>
         <configLocation>${project.basedir}/.scalafmt.conf</configLocation> <!-- path to config -->
         <skipTestSources>false</skipTestSources> <!-- (Optional) skip formatting test sources -->
