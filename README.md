@@ -6,52 +6,46 @@
 
 A wrapper that allows the use of the [Scalafmt](https://github.com/scalameta/scalafmt/) formatter in Maven.
 
-## Versioning 
-
-The versioning of this plugin follows the following format:
-
-```xml
-<artifactId>mvn-scalafmt_${scala.version}</artifactId>
-<version>${plugin-version}-${scalafmt-version}</version>
-```
- 
-Current supported versions (of Scalafmt) are 1.1.0 - 1.5.1. For example, to use the latest version 
-of the plugin with the latest version of scala-fmt you should set the version to 0.10_1.5.1 in your pom.
-Note `scala.version` refers to binary versions of scala i.e. `2.11` or `2.12`.
-
 ## Usage
 
-Add the following snippet to your pom; anything in \<parameters\> will be
-passed through to the CLI as is.
+Add the following snippet to your pom.
+
+Note: `version.scala.binary` refers to major releases of scala ie. 2.11 or 2.12 (scalafmt-dynamic doesn't currently support 2.13).  
 
 ```xml
 <plugin>
-  <groupId>org.antipathy</groupId>
-  <artifactId>mvn-scalafmt_${scala.version}</artifactId>
-  <version>0.10_${scalafmt.version}</version>
-  <configuration>
-    <parameters>--diff</parameters> <!-- (Optional) Additional command line arguments -->
-    <skip>false</skip> <!-- (Optional) skip formatting -->
-    <skiptest>false</skiptest> <!-- (Optional) Skip formatting test sources -->
-    <skipmain>false</skipmain> <!-- (Optional) Skip formatting main sources -->
-    <configLocation>${project.basedir}/path/to/scalafmt.conf</configLocation> <!-- (Optional) config location -->
-    <configRequired>false</configRequired><!-- (Optional) raise an error if configLocation is missing or invalid (otherwise use Scalafmt defaults) -->
-    <sourceDirectories> <!-- (Optional) Paths to source-directories. Overrides ${project.build.sourceDirectory}/../scala -->
-      <param>${project.basedir}/src/main/scala</param>
-    </sourceDirectories>
-    <testSourceDirectories> <!-- (Optional) Paths to test-source-directories. Overrides ${project.build.testSourceDirectory}/../scala -->
-      <param>${project.basedir}/src/test/scala</param>
-    </testSourceDirectories>
-  </configuration>
-  <executions>
-    <execution>
-      <phase>validate</phase>
-      <goals>
-        <goal>format</goal>
-      </goals>
-    </execution>
-  </executions>
+    <groupId>org.antipathy</groupId>
+    <artifactId>mvn-scalafmt_${version.scala.binary}</artifactId>
+    <version>1.0.1</version>
+    <configuration>
+        <configLocation>${project.basedir}/.scalafmt.conf</configLocation> <!-- path to config -->
+        <skipTestSources>false</skipTestSources> <!-- (Optional) skip formatting test sources -->
+        <skipSources>false</skipSources> <!-- (Optional) skip formatting main sources -->
+        <respectVersion>false</respectVersion> <!-- (Optional) fail if no version set in scalafmt.conf -->
+        <sourceDirectories> <!-- (Optional) Paths to source-directories. Overrides ${project.build.sourceDirectory} -->
+          <param>${project.basedir}/src/main/scala</param>
+        </sourceDirectories>
+        <testSourceDirectories> <!-- (Optional) Paths to test-source-directories. Overrides ${project.build.testSourceDirectory} -->
+          <param>${project.basedir}/src/test/scala</param>
+        </testSourceDirectories>
+        <validateOnly>false</validateOnly> <!-- check formatting without changing files -->
+    </configuration>
+    <executions>
+        <execution>
+            <phase>validate</phase>
+            <goals>
+                <goal>format</goal>
+            </goals>
+        </execution>
+    </executions>
 </plugin>
+```
+
+`configLocation` Can either be a local path (e.g. `${project.basedir}/.scalafmt.conf`) or a HTTP url (e.g `https://raw.githubusercontent.com/jozic/scalafmt-config/master/.scalafmt.conf`)
+
+make sure you have set a version in your scalafmt.conf 
+```yaml
+version = "1.5.1"
 ```
 
 [licenseimg]: https://img.shields.io/badge/Licence-Apache%202.0-blue.svg

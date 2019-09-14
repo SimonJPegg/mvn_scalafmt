@@ -1,133 +1,54 @@
 package org.antipathy.mvn_scalafmt
 
-import org.scalafmt.cli.{Cli, CliOptions}
-import org.apache.maven.plugin.logging.Log
-import org.scalafmt.util.AbsoluteFile
-import scala.collection.JavaConverters._
 import java.io.File
-import java.nio.file.{Files, Paths}
 import java.util.{List => JList}
 
+import org.antipathy.mvn_scalafmt.builder.{Builder, LocalConfigBuilder, SourceFileSequenceBuilder}
+import org.antipathy.mvn_scalafmt.format.{Formatter, SourceFileFormatter}
+import org.antipathy.mvn_scalafmt.io.{FormattedFilesWriter, TestResultLogWriter, Writer}
+import org.antipathy.mvn_scalafmt.logging.MavenLogReporter
+import org.antipathy.mvn_scalafmt.model.{FormatResult, Summary}
+import org.apache.maven.plugin.logging.Log
+import org.scalafmt.interfaces.Scalafmt
+
+import scala.collection.JavaConverters._
+
 /**
-  * Object to format scala source files using the Scalafmt library
+  * class to format scala source files using the Scalafmt library
   */
-object ScalaFormatter {
+class ScalaFormatter(
+  sourceBuilder: Builder[Seq[File], Seq[File]],
+  fileFormatter: Formatter[File, FormatResult],
+  writer: Writer[Seq[FormatResult], Summary]
+) extends Formatter[JList[File], Summary] {
 
   /**
-    * Format the specified sources using the specified config and  parameters
-    *
-    * @param configLocation the location of the scalafmt.conf file
-    * @param configRequired should the source be formatted if no config exists
-    * @param parameters any paramters to pass to scalafmt
-    * @param sourceRoots the main src locations
-    * @param testSourceRoots the test source locations
-    * @param log a maven logger
+    * Format the files in the passed in source directories
+    * @param sourceDirectories The source directories to format
+    * @return A summary of what was done
     */
-  def format(
-      configLocation: String,
-      configRequired: Boolean,
-      parameters: String,
-      sourceRoots: JList[File],
-      testSourceRoots: JList[File],
-      log: Log
-  ): Unit = {
-
-    val config = parseConfigLocation(configLocation, configRequired, log)
-    val params = parseParametersString(parameters, log)
-
-    val sources: Seq[String] = getSourcePaths(sourceRoots.asScala, log) ++
-      getSourcePaths(testSourceRoots.asScala, log)
-
-    if (sources.nonEmpty) {
-      val cliOptions = getCLiOptions(sources, config, params)
-      log.info(s"Formatting ${sources.mkString(",")}")
-      Cli.run(cliOptions)
-    } else {
-      log.error("No source files found, skipping formatting!")
-    }
+  override def format(sourceDirectories: JList[File]): Summary = {
+    val sources          = sourceBuilder.build(sourceDirectories.asScala)
+    val formattedSources = sources.map(fileFormatter.format)
+    writer.write(formattedSources)
   }
+}
 
-  /** Get the commandline options object for scalafmt
-    *
-    * @param sources a collection of source directories
-    * @param config the config file location
-    * @param params the parameters to pass to scalafmt
-    * @return a CLi config object
-    */
-  private[mvn_scalafmt] def getCLiOptions(
-      sources: Seq[String],
-      config: Seq[String],
-      params: Seq[String]
-  ): CliOptions = {
+object ScalaFormatter {
 
-    val options = CliOptions(customFiles = sources.flatMap(path => AbsoluteFile.fromPath(path)))
-    Cli.getConfig((params ++ config).toArray, options) match {
-      case Some(cliConfig) => cliConfig
-      case None => options
+  def apply(configLocation: String, log: Log, respectVersion: Boolean, testOnly: Boolean): ScalaFormatter = {
+    val config        = LocalConfigBuilder(log).build(configLocation)
+    val sourceBuilder = new SourceFileSequenceBuilder(log)
+    val scalafmt = Scalafmt
+      .create(this.getClass.getClassLoader)
+      .withReporter(new MavenLogReporter(log))
+      .withRespectVersion(respectVersion)
+    val sourceFormatter = new SourceFileFormatter(config, scalafmt, log)
+    val fileWriter = if (testOnly) {
+      new TestResultLogWriter(log)
+    } else {
+      new FormattedFilesWriter(log)
     }
+    new ScalaFormatter(sourceBuilder, sourceFormatter, fileWriter)
   }
-
-  /** Filters the passed in Sequence for valid file paths
-    *
-    * @param paths the paths to filter
-    * @return a sequence of valid paths
-    */
-  private[mvn_scalafmt] def getSourcePaths(paths: Seq[File], log: Log): Seq[String] =
-    if (paths == null) {
-      Seq[String]()
-    } else {
-      paths.map(_.getCanonicalPath).flatMap { p =>
-        if (Files.exists(Paths.get(p))) {
-          Some(p)
-        } else {
-          log.error(s"Could not locate Scala source at $p")
-          None
-        }
-      }
-    }
-
-  /** Parses the config string and returns a sequence used for formatting
-    *
-    * @param location The location of the config file
-    * @param configRequired should the source be formatted if no config exists
-    * @param log a Maven logger
-    * @throws IllegalArgumentException when the path is invalid
-    * @return a Sequence containing the config location
-    */
-  @throws[IllegalArgumentException]
-  private[mvn_scalafmt] def parseConfigLocation(location: String, configRequired: Boolean, log: Log): Seq[String] = {
-    val configExists = if (location == null || location.trim().equals("")) {
-      false
-    } else {
-      Files.exists(Paths.get(location))
-    }
-
-    (configExists, configRequired) match {
-      case (true, _) =>
-        log.info(s"Using config at path: $location")
-        Seq("--config", location)
-      case (_, true) =>
-        val exception = new IllegalArgumentException(s"configRequired is set and config path is invalid: $location")
-        log.error(exception)
-        throw exception
-      case (_, false) =>
-        log.warn("No configuration file specified, using scalafmt defaults")
-        Seq[String]()
-    }
-  }
-
-  /** Parse the passed in parameter string into a sequence of strings
-    *
-    * @param params The parameter string to parse
-    * @param log a Maven logger
-    * @return a sequence of the passed in string
-    */
-  private[mvn_scalafmt] def parseParametersString(params: String, log: Log): Seq[String] =
-    if (params == null || params.trim().equals("")) {
-      log.info("No options specified")
-      Seq()
-    } else {
-      log.info(s"Options: $params ")
-      params.split(" ")
-    }
 }
