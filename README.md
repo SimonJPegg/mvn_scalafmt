@@ -13,6 +13,8 @@ Add the following snippet to your pom.
 Note: `version.scala.binary` refers to major releases of scala ie. 2.11, 2.12 or 2.13.  
 mvn_scalafmt_2.11 will soon be deprecated and may not receive future releases
 
+You can also invoke the plugin directly via `mvn scalafmt:format`.
+
 ## Versioning 
 
 This plugin follows the following versioning convention:

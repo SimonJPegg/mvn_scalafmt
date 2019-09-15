@@ -245,6 +245,9 @@
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-plugin-plugin</artifactId>
                 <version>${version.maven.plugin.plugin}</version>
+                <configuration>
+                    <goalPrefix>scalafmt</goalPrefix>
+                </configuration>
             </plugin>
             <plugin>
                 <groupId>org.antipathy</groupId>
