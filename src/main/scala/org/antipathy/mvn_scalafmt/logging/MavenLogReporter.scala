@@ -4,8 +4,8 @@ import java.io.PrintWriter
 import java.nio.file.Path
 
 import org.apache.maven.plugin.logging.Log
-import org.scalafmt.interfaces.ScalafmtReporter
 import org.scalafmt.dynamic.exceptions.ScalafmtException
+import org.scalafmt.interfaces.ScalafmtReporter
 
 /**
   * Class for logging Scalafmt events via the maven log
@@ -13,17 +13,17 @@ import org.scalafmt.dynamic.exceptions.ScalafmtException
   */
 class MavenLogReporter(log: Log) extends ScalafmtReporter {
 
-
-
   /**
     * log errors
     */
-  override def error(path: Path, message: String): Unit = log.error(s"ScalaFmt: error: $path: $message")
+  override def error(path: Path, message: String): Unit =
+    throw new ScalafmtException(message, null)
 
   /**
     * log errors with exceptions
     */
-  override def error(file: Path, e: Throwable): Unit = error(file, ScalafmtException(e.getMessage, e))
+  override def error(file: Path, e: Throwable): Unit =
+    throw e
 
   /**
     * log excluded files
