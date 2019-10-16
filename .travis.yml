@@ -4,15 +4,12 @@ jdk:
   - openjdk8
 
 before_install:
-  - wget http://apache.mirror.gtcomm.net/maven/maven-3/3.6.1/binaries/apache-maven-3.6.1-bin.tar.gz
-  - tar xzvf apache-maven-3.6.1-bin.tar.gz
-  - export PATH=`pwd`/apache-maven-3.6.1/bin:$PATH
-  - echo $GPG_SECRET_KEYS | base64 --decode | $GPG_EXECUTABLE --import
-  - echo $GPG_OWNERTRUST | base64 --decode | $GPG_EXECUTABLE --import-ownertrust
-  - echo $TRAVIS_BRANCH
+  - wget http://apache.mirror.gtcomm.net/maven/maven-3/3.6.2/binaries/apache-maven-3.6.2-bin.tar.gz
+  - tar xzvf apache-maven-3.6.2-bin.tar.gz
+  - export PATH=`pwd`/apache-maven-3.6.2/bin:$PATH
 
 install:
-  mvn --settings .maven.xml install -B -V
+  mvn --settings .maven.xml clean test -B -V
 
 cache:
   directories:
