@@ -4,7 +4,7 @@
     <groupId>org.antipathy</groupId>
     <artifactId>mvn-scalafmt_${version.scala.major}</artifactId>
     <packaging>maven-plugin</packaging>
-    <version>1.0.1</version>
+    <version>1.0.2-SNAPSHOT</version>
     <name>ScalaFmt Maven Plugin (${version.scala.major})</name>
     <description>Maven plugin for ScalaFmt</description>
     <url>https://github.com/SimonJPegg/mvn_scalafmt</url>
@@ -44,15 +44,15 @@
         <version.maven.plugin.nexus.staging>1.6.8</version.maven.plugin.nexus.staging>
         <version.maven.plugin.plugin>3.5.2</version.maven.plugin.plugin>
         <version.maven.plugin.scala>3.4.2</version.maven.plugin.scala>
-        <version.maven.plugin.scalatest>1.0</version.maven.plugin.scalatest>
+        <version.maven.plugin.scalatest>2.0.0</version.maven.plugin.scalatest>
         <version.maven.plugin.source>3.1.0</version.maven.plugin.source>
         <version.maven.plugin.surefire>2.7</version.maven.plugin.surefire>
         <version.maven>3.5.4</version.maven>
         <version.scala.major>2.12</version.scala.major>
-        <version.scala.minor>.8</version.scala.minor>
+        <version.scala.minor>.10</version.scala.minor>
         <version.scala.xml>1.2.0</version.scala.xml>
         <version.scalafmt.dynamic>2.0.1</version.scalafmt.dynamic>
-        <version.scalatest>3.0.5</version.scalatest>
+        <version.scalatest>3.0.8</version.scalatest>
 
         <maven.compiler.source>${version.java}</maven.compiler.source>
         <maven.compiler.target>${version.java}</maven.compiler.target>
@@ -176,12 +176,12 @@
             <plugin>
                 <groupId>org.antipathy</groupId>
                 <artifactId>mvn-scalafmt_${version.scala.major}</artifactId>
-                <version>1.0.0-RC2</version>
+                <version>1.0.1</version>
                 <configuration>
                     <configLocation>${project.basedir}/.scalafmt.conf</configLocation>
                     <skipTestSources>false</skipTestSources>
                     <skipSources>false</skipSources>
-                    <respectVersion>false</respectVersion>
+                    <respectVersion>true</respectVersion>
                 </configuration>
                 <executions>
                     <execution>
