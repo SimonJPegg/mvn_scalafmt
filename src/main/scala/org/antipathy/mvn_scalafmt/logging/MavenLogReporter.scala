@@ -13,6 +13,8 @@ import org.scalafmt.interfaces.ScalafmtReporter
   */
 class MavenLogReporter(log: Log) extends ScalafmtReporter {
 
+  import java.io.OutputStreamWriter
+
   /**
     * log errors
     */
@@ -41,4 +43,8 @@ class MavenLogReporter(log: Log) extends ScalafmtReporter {
     */
   override def downloadWriter(): PrintWriter = new PrintWriter(System.err)
 
+  /**
+    * This method appears to be used to print download information,  sys.err should be fine here.
+    */
+  override def downloadOutputStreamWriter(): OutputStreamWriter = new OutputStreamWriter(System.err)
 }
