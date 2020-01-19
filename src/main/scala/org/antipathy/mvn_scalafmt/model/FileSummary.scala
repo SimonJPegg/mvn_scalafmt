@@ -7,5 +7,5 @@ package org.antipathy.mvn_scalafmt.model
   */
 case class FileSummary(name: String, details: String) {
 
-  override def toString: String = s"$name: $details"
+  override def toString: String = s"$details: $name"
 }

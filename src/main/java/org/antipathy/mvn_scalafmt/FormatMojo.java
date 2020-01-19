@@ -5,6 +5,8 @@ import org.apache.maven.plugin.AbstractMojo;
 import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.plugins.annotations.Mojo;
 import org.apache.maven.plugins.annotations.Parameter;
+import org.apache.maven.project.MavenProject;
+
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
@@ -29,10 +31,17 @@ public class FormatMojo extends AbstractMojo {
     private boolean respectVersion;
     @Parameter(property = "format.validateOnly", defaultValue = "false")
     private boolean validateOnly;
+    @Parameter(property = "format.onlyChangedFiles", defaultValue = "false")
+    private boolean onlyChangedFiles;
+    @Parameter(property = "format.branch", defaultValue = "master")
+    private String branch;
+    @Parameter(readonly = true, defaultValue = "${project}")
+    private MavenProject project;
+
 
     public void execute() throws MojoExecutionException {
 
-        ArrayList<File> sources = new ArrayList<>();
+        List<File> sources = new ArrayList<>();
 
         if (!skipSources) {
             sources.addAll(sourceDirectories);
@@ -47,7 +56,16 @@ public class FormatMojo extends AbstractMojo {
         }
         if (sources.size() > 0) {
             try {
-                Summary result = ScalaFormatter.apply(configLocation,getLog(),respectVersion, validateOnly).format(sources);
+
+                Summary result = ScalaFormatter.apply(
+                        configLocation,
+                        getLog(),
+                        respectVersion,
+                        validateOnly,
+                        onlyChangedFiles,
+                        branch,
+                        project.getBasedir()
+                ).format(sources);
                 getLog().info(result.toString());
                 if (validateOnly && result.unformattedFiles() != 0) {
                     throw new MojoExecutionException("Scalafmt: Unformatted files found");

@@ -28,8 +28,9 @@ class LocalConfigBuilderSpec extends FlatSpec with GivenWhenThen with Matchers {
 
     builder.build(path)
 
-    val result = scala.io.Source.fromFile(new File(".scalafmt.conf")).getLines().mkString(System.lineSeparator())
-
+    val source = scala.io.Source.fromFile(new File(".scalafmt.conf"))
+    val result = source.getLines().mkString(System.lineSeparator())
+    source.close()
     result.trim should be(expectedContent.trim)
   }
 

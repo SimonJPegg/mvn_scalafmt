@@ -33,7 +33,6 @@ class SourceFileSequenceBuilder(log: Log) extends Builder[Seq[File], Seq[File]] 
           None
         }
       }
-
       files.flatMap(file => FileUtils.listFiles(file, Array("scala", "sc", "sbt"), true).asScala)
     }
 }
