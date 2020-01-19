@@ -10,13 +10,14 @@ A wrapper that allows the use of the [Scalafmt](https://github.com/scalameta/sca
 
 Add the following snippet to your pom.
 
-Note: `version.scala.binary` refers to major releases of scala ie. 2.11 or 2.12 (scalafmt-dynamic doesn't currently support 2.13).  
+Note: `version.scala.binary` refers to major releases of scala ie. 2.11, 2.12 or 2.13.  
+
 
 ```xml
 <plugin>
     <groupId>org.antipathy</groupId>
     <artifactId>mvn-scalafmt_${version.scala.binary}</artifactId>
-    <version>1.0.1</version>
+    <version>1.0.3</version>
     <configuration>
         <configLocation>${project.basedir}/.scalafmt.conf</configLocation> <!-- path to config -->
         <skipTestSources>false</skipTestSources> <!-- (Optional) skip formatting test sources -->
@@ -29,6 +30,8 @@ Note: `version.scala.binary` refers to major releases of scala ie. 2.11 or 2.12 
           <param>${project.basedir}/src/test/scala</param>
         </testSourceDirectories>
         <validateOnly>false</validateOnly> <!-- check formatting without changing files -->
+        <onlyChangedFiles>true</onlyChangedFiles> <!-- only format (staged) files that have been changed from the specified git branch -->
+        <branch>master</branch> <!-- The git branch to check against -->
     </configuration>
     <executions>
         <execution>
