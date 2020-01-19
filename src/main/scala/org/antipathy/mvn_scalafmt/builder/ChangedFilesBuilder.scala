@@ -2,8 +2,8 @@ package org.antipathy.mvn_scalafmt.builder
 
 import java.io.File
 import org.apache.maven.plugin.logging.Log
-import scala.util.control.NonFatal
 import scala.sys.process.ProcessLogger
+import scala.util.{Try, Success, Failure}
 
 /**
   * Class for building a list of files that have changed from a specified git branch
@@ -24,7 +24,7 @@ class ChangedFilesBuilder(log: Log, diff: Boolean, branch: String, changeFunctio
   override def build(input: Seq[File]): Seq[File] =
     if (diff) {
       log.info(s"Checking for files changed from $branch")
-      try {
+      Try {
         val names: Seq[String] =
           Predef.augmentString(changeFunction()).linesIterator.toSeq
         val changedFiles = names.map(new File(_).getAbsolutePath)
@@ -38,8 +38,9 @@ class ChangedFilesBuilder(log: Log, diff: Boolean, branch: String, changeFunctio
           path.endsWith("sbt")
 
         }
-      } catch {
-        case NonFatal(e) =>
+      } match {
+        case Success(value) => value
+        case Failure(e) =>
           log.error("Could not obtain list of changed files", e)
           throw e
       }

@@ -24,7 +24,7 @@ class FormattedFilesWriter(log: Log) extends Writer[Seq[FormatResult], Summary] 
     Summary(
       input.length,
       unformattedFiles.length,
-      build(FileSummaryRequest(input, "Correctly formatted: ", "Reformatted: "))
+      build(FileSummaryRequest(input, "Correctly formatted", "Reformatted"))
     )
   }
 
