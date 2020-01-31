@@ -54,10 +54,10 @@ object ChangedFilesBuilder {
 
     def run(cmd: String) = Process(cmd, workingDirectory).!!(logger).trim
 
-    val actualBranch = branch match {
-      case s": $x" => run(x)
-      case x       => x
-    }
+    val prefix = ": "
+    val actualBranch =
+      if (!branch.startsWith(prefix)) branch
+      else run(branch.substring(prefix.length))
 
     def processFunction(): Seq[File] = {
       val diffOutput    = run(s"git diff --name-only --diff-filter=d $actualBranch")
