@@ -2,6 +2,7 @@ language: scala
 
 jdk:
   - openjdk8
+  - openjdk11
 
 before_install:
   - wget http://apache.mirror.gtcomm.net/maven/maven-3/3.6.3/binaries/apache-maven-3.6.3-bin.tar.gz
