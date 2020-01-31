@@ -43,7 +43,7 @@
         <version.maven.plugin.javadoc>3.1.0</version.maven.plugin.javadoc>
         <version.maven.plugin.nexus.staging>1.6.8</version.maven.plugin.nexus.staging>
         <version.maven.plugin.plugin>3.5.2</version.maven.plugin.plugin>
-        <version.maven.plugin.scala>3.4.2</version.maven.plugin.scala>
+        <version.maven.plugin.scala>4.3.1</version.maven.plugin.scala>
         <version.maven.plugin.scalatest>2.0.0</version.maven.plugin.scalatest>
         <version.maven.plugin.source>3.1.0</version.maven.plugin.source>
         <version.maven.plugin.surefire>2.7</version.maven.plugin.surefire>
@@ -52,7 +52,7 @@
         <version.scala.minor>.1</version.scala.minor>
         <version.scala.xml>1.2.0</version.scala.xml>
         <version.scalafmt.dynamic>2.3.2</version.scalafmt.dynamic>
-        <version.scalatest>3.0.8</version.scalatest>
+        <version.scalatest>3.1.0</version.scalatest>
 
         <maven.compiler.source>${version.java}</maven.compiler.source>
         <maven.compiler.target>${version.java}</maven.compiler.target>
@@ -150,6 +150,13 @@
             <plugin>
                 <groupId>net.alchim31.maven</groupId>
                 <artifactId>scala-maven-plugin</artifactId>
+                <configuration>
+                    <args>
+                        <arg>-target:jvm-1.8</arg>
+                        <arg>-deprecation</arg>
+                        <arg>-feature</arg>
+                    </args>
+                </configuration>
                 <executions>
                     <execution>
                         <id>scala-compile-first</id>
