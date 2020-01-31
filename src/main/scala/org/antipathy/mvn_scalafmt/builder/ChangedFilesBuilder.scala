@@ -1,9 +1,12 @@
 package org.antipathy.mvn_scalafmt.builder
 
 import java.io.File
+import java.nio.file.Paths
+
 import org.apache.maven.plugin.logging.Log
-import scala.sys.process.ProcessLogger
-import scala.util.{Try, Success, Failure}
+
+import scala.sys.process.{Process, ProcessLogger}
+import scala.util.{Failure, Success, Try}
 
 /**
   * Class for building a list of files that have changed from a specified git branch
@@ -12,8 +15,12 @@ import scala.util.{Try, Success, Failure}
   * @param branch the git branch to compare against
   * @param changeFunction Function to identify changed files
   */
-class ChangedFilesBuilder(log: Log, diff: Boolean, branch: String, changeFunction: () => String)
+class ChangedFilesBuilder(log: Log, diff: Boolean, branch: String, changeFunction: () => Seq[File])
     extends Builder[Seq[File], Seq[File]] {
+
+  private def isSupportedFile(f: File): Boolean =
+    Seq(".scala", ".sc", ".sbt")
+      .exists(f.getName.endsWith)
 
   /**
     * Build a list of files that have changed in git from the specified input
@@ -25,19 +32,9 @@ class ChangedFilesBuilder(log: Log, diff: Boolean, branch: String, changeFunctio
     if (diff) {
       log.info(s"Checking for files changed from $branch")
       Try {
-        val names: Seq[String] =
-          Predef.augmentString(changeFunction()).linesIterator.toSeq
-        val changedFiles = names.map(new File(_).getAbsolutePath)
-        changedFiles.foreach { f =>
-          log.info(s"Changed from $branch: $f")
-        }
-        changedFiles.map(new File(_)).filter { f =>
-          val path = f.getAbsolutePath
-          path.endsWith("scala") ||
-          path.endsWith("sc") ||
-          path.endsWith("sbt")
-
-        }
+        val changedFiles = changeFunction()
+        log.info(changedFiles.mkString(s"Changed from $branch:\n", "\n", ""))
+        changedFiles.filter(isSupportedFile)
       } match {
         case Success(value) => value
         case Failure(e) =>
@@ -53,12 +50,25 @@ class ChangedFilesBuilder(log: Log, diff: Boolean, branch: String, changeFunctio
 object ChangedFilesBuilder {
 
   def apply(log: Log, diff: Boolean, branch: String, workingDirectory: File): ChangedFilesBuilder = {
+    val logger: ProcessLogger = ProcessLogger(_ => (), err => log.error(err))
 
-    def command(branch: String): String = s"git diff --name-only --diff-filter=d $branch"
-    val logger: ProcessLogger           = sys.process.ProcessLogger(_ => (), err => log.error(err))
-    def processFunction: () => String = () => {
-      sys.process.Process(command(branch), workingDirectory).!!(logger)
+    def run(cmd: String) = Process(cmd, workingDirectory).!!(logger).trim
+
+    val actualBranch = branch match {
+      case s": $x" => run(x)
+      case x       => x
     }
-    new ChangedFilesBuilder(log, diff, branch, processFunction)
+
+    def processFunction(): Seq[File] = {
+      val diffOutput    = run(s"git diff --name-only --diff-filter=d $actualBranch")
+      val gitRootOutput = run("git rev-parse --show-toplevel")
+      val gitRootPath   = Paths.get(gitRootOutput)
+      diffOutput.linesIterator
+        .map(gitRootPath.resolve)
+        .map(_.toFile)
+        .toSeq
+    }
+
+    new ChangedFilesBuilder(log, diff, actualBranch, processFunction)
   }
 }

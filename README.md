@@ -31,7 +31,11 @@ Note: `version.scala.binary` refers to major releases of scala ie. 2.11, 2.12 or
         </testSourceDirectories>
         <validateOnly>false</validateOnly> <!-- check formatting without changing files -->
         <onlyChangedFiles>true</onlyChangedFiles> <!-- only format (staged) files that have been changed from the specified git branch -->
-        <branch>master</branch> <!-- The git branch to check against -->
+        <!-- The git branch to check against
+             If branch.startsWith(": ") the value in <branch> tag is used as a command to run
+             and the output will be used as the actual branch-->
+        <branch>: git rev-parse --abbrev-ref HEAD</branch> <!-- the current branch-->
+        <!-- <branch>master</branch>-->
     </configuration>
     <executions>
         <execution>

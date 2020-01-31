@@ -19,7 +19,7 @@ class ChangedFilesBuilderSpec extends FlatSpec with GivenWhenThen with Matchers 
       "/mvn_scalafmt/src/test/scala/org/antipathy/mvn_scalafmt/builder/LocalConfigBuilderSpec.scala"
     )
 
-    val changeFunction = () => changedFiles.mkString(System.lineSeparator())
+    val changeFunction = () => changedFiles.map(new File(_))
 
     val result = new ChangedFilesBuilder(log, true, "master", changeFunction).build(sources)
     result should be(changedFiles.map(new File(_)))
