@@ -182,8 +182,10 @@
             </plugin>
             <plugin>
                 <groupId>org.antipathy</groupId>
-                <artifactId>mvn-scalafmt_${version.scala.major}</artifactId>
-                <version>1.0.2</version>
+                <!-- Always use mvn-scalafmt_2.13.
+                     We don't need to use the same scala version setting as in the maven ${project} -->
+                <artifactId>mvn-scalafmt_2.13</artifactId>
+                <version>1.0.3</version>
                 <configuration>
                     <configLocation>${project.basedir}/.scalafmt.conf</configLocation>
                     <skipTestSources>false</skipTestSources>
