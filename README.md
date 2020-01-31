@@ -16,7 +16,10 @@ Note: `version.scala.binary` refers to major releases of scala ie. 2.11, 2.12 or
 ```xml
 <plugin>
     <groupId>org.antipathy</groupId>
-    <artifactId>mvn-scalafmt_${version.scala.binary}</artifactId>
+    <!-- Always use mvn-scalafmt_2.13.
+         We don't need to use the same scala version setting as in the maven ${project} -->
+    <artifactId>mvn-scalafmt_2.13</artifactId>
+    <!-- <artifactId>mvn-scalafmt_${version.scala.binary}</artifactId> -->
     <version>1.0.3</version>
     <configuration>
         <configLocation>${project.basedir}/.scalafmt.conf</configLocation> <!-- path to config -->
