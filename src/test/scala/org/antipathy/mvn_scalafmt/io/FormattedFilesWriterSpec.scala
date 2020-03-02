@@ -2,6 +2,7 @@ package org.antipathy.mvn_scalafmt.io
 
 import java.io.File
 import java.nio.charset.StandardCharsets
+import java.nio.file.Files
 
 import org.antipathy.mvn_scalafmt.model.FormatResult
 import org.apache.commons.io.FileUtils
@@ -21,11 +22,11 @@ class FormattedFilesWriterSpec extends FlatSpec with GivenWhenThen with Matchers
     val formatResult = FormatResult(sourceFile, originalContent, changedContent)
     val fileWriter   = new FormattedFilesWriter(new SystemStreamLog)
 
-    scala.io.Source.fromFile(sourceFile).getLines().mkString should be(originalContent)
+    new String(Files.readAllBytes(sourceFile.toPath)) should be(originalContent)
 
     fileWriter.write(Seq(formatResult))
 
-    scala.io.Source.fromFile(sourceFile).getLines().mkString should be(changedContent)
+    new String(Files.readAllBytes(sourceFile.toPath)) should be(changedContent)
 
     sourceFile.delete()
   }

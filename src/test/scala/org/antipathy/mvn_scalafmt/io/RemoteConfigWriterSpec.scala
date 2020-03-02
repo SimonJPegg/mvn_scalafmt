@@ -29,7 +29,7 @@ class RemoteConfigWriterSpec extends FlatSpec with GivenWhenThen with Matchers {
 
     writer.write(input)
 
-    scala.io.Source.fromFile(new File(localPath)).mkString should be(contents)
+    new String(Files.readAllBytes(new File(localPath).toPath))
     Files.delete(input.location)
   }
 
@@ -51,11 +51,11 @@ class RemoteConfigWriterSpec extends FlatSpec with GivenWhenThen with Matchers {
     val input  = RemoteConfig(contents, Paths.get(localPath))
 
     FileUtils.writeStringToFile(new File(localPath), oldContents, StandardCharsets.UTF_8)
-    scala.io.Source.fromFile(new File(localPath)).mkString should be(oldContents)
+    new String(Files.readAllBytes(new File(localPath).toPath)) should be(oldContents)
 
     writer.write(input)
 
-    scala.io.Source.fromFile(new File(localPath)).mkString should be(contents)
+    new String(Files.readAllBytes(new File(localPath).toPath)) should be(contents)
     Files.delete(input.location)
   }
 
