@@ -2,6 +2,7 @@ package org.antipathy.mvn_scalafmt.builder
 
 import org.scalatest.{FlatSpec, GivenWhenThen, Matchers}
 import java.io.File
+import java.nio.file.Paths
 
 import org.apache.maven.plugin.logging.SystemStreamLog
 
@@ -27,5 +28,5 @@ class ChangedFilesBuilderSpec extends FlatSpec with GivenWhenThen with Matchers 
   }
 
   def getAbsolutePathFrom(path: String): String =
-    new File(path).getAbsolutePath
+    Paths.get(path).normalize.toAbsolutePath.toString
 }
