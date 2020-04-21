@@ -48,33 +48,29 @@ object ScalaFormatter {
     * @param onlyChangedFiles Should only changed files be formatted
     * @param branch The branch to compare against for changed files
     * @param workingDirectory The project working directory
+    * @param mavenRepositoryUrls The maven repositories to be used to dynamically load scalafmt, empty if maven central
+    *                            should be used.
     * @return a new ScalaFormatter instance
     */
   def apply(
-    configLocation: String,
-    log: Log,
-    respectVersion: Boolean,
-    testOnly: Boolean,
-    onlyChangedFiles: Boolean,
-    branch: String,
-    workingDirectory: File,
-    useSpecifiedRepositories: Boolean,
-    mavenRepositories: JList[String]
+             configLocation: String,
+             log: Log,
+             respectVersion: Boolean,
+             testOnly: Boolean,
+             onlyChangedFiles: Boolean,
+             branch: String,
+             workingDirectory: File,
+             mavenRepositoryUrls: JList[String]
   ): ScalaFormatter = {
     val config              = LocalConfigBuilder(log).build(configLocation)
     val sourceBuilder       = new SourceFileSequenceBuilder(log)
     val changedFilesBuilder = ChangedFilesBuilder(log, onlyChangedFiles, branch, workingDirectory)
 
-    val mvnReps = mavenRepositories.asScala
-
-    val scalafmtBuilder = Scalafmt
+    val scalafmt = Scalafmt
       .create(this.getClass.getClassLoader)
       .withReporter(new MavenLogReporter(log))
       .withRespectVersion(respectVersion)
-
-    val scalafmt =
-      if (useSpecifiedRepositories && mvnReps.nonEmpty) scalafmtBuilder.withMavenRepositories(mvnReps.toSeq: _*)
-      else scalafmtBuilder
+      .withMavenRepositories(mavenRepositoryUrls.asScala.toSeq: _*)
 
     val sourceFormatter = new SourceFileFormatter(config, scalafmt, log)
 

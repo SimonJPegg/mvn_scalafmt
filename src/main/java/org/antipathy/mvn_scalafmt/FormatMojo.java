@@ -10,7 +10,9 @@ import org.apache.maven.model.Repository;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * Get the location of the config file and pass to Formatter
@@ -38,21 +40,18 @@ public class FormatMojo extends AbstractMojo {
     private String branch;
     @Parameter(readonly = true, defaultValue = "${project}")
     private MavenProject project;
-    @Parameter(property = "format.use.specified.repositories", defaultValue = "false", required = false)
+    @Parameter(property = "format.useSpecifiedRepositories", defaultValue = "false")
     private boolean useSpecifiedRepositories;
-    @Parameter(property = "format.maven.repositories", defaultValue = "${project.repositories}", required = false)
+    @Parameter(readonly = true, defaultValue = "${project.repositories}")
     private List<Repository> mavenRepositories;
 
+    private List<String> getRepositoriesUrls(List<Repository> repositories) {
+        return repositories.stream().map(Repository::getUrl).collect(Collectors.toList());
+    }
 
     public void execute() throws MojoExecutionException {
 
         List<File> sources = new ArrayList<>();
-
-        List<String> mavenRepositoriesUrls = new ArrayList<>(mavenRepositories.size());
-
-        for (Repository r: mavenRepositories) {
-            mavenRepositoriesUrls.add(r.getUrl());
-        }
 
         if (!skipSources) {
             sources.addAll(sourceDirectories);
@@ -65,7 +64,7 @@ public class FormatMojo extends AbstractMojo {
         } else {
             getLog().warn("format.skipTestSources set, ignoring validateOnly directories");
         }
-        if (sources.size() > 0) {
+        if (!sources.isEmpty()) {
             try {
 
                 Summary result = ScalaFormatter.apply(
@@ -76,8 +75,7 @@ public class FormatMojo extends AbstractMojo {
                         onlyChangedFiles,
                         branch,
                         project.getBasedir(),
-                        useSpecifiedRepositories,
-                        mavenRepositoriesUrls
+                        useSpecifiedRepositories ? getRepositoriesUrls(mavenRepositories) : Collections.emptyList()
                 ).format(sources);
                 getLog().info(result.toString());
                 if (validateOnly && result.unformattedFiles() != 0) {
