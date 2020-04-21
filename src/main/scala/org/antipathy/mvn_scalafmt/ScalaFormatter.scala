@@ -53,14 +53,14 @@ object ScalaFormatter {
     * @return a new ScalaFormatter instance
     */
   def apply(
-             configLocation: String,
-             log: Log,
-             respectVersion: Boolean,
-             testOnly: Boolean,
-             onlyChangedFiles: Boolean,
-             branch: String,
-             workingDirectory: File,
-             mavenRepositoryUrls: JList[String]
+    configLocation: String,
+    log: Log,
+    respectVersion: Boolean,
+    testOnly: Boolean,
+    onlyChangedFiles: Boolean,
+    branch: String,
+    workingDirectory: File,
+    mavenRepositoryUrls: JList[String]
   ): ScalaFormatter = {
     val config              = LocalConfigBuilder(log).build(configLocation)
     val sourceBuilder       = new SourceFileSequenceBuilder(log)
