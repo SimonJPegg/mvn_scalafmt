@@ -12,7 +12,7 @@ import org.apache.maven.plugin.logging.Log
 import org.scalafmt.interfaces.Scalafmt
 import org.antipathy.mvn_scalafmt.builder.ChangedFilesBuilder
 
-import scala.jdk.CollectionConverters._
+import scala.collection.JavaConverters._
 
 /**
   * class to format scala source files using the Scalafmt library
@@ -57,16 +57,25 @@ object ScalaFormatter {
     testOnly: Boolean,
     onlyChangedFiles: Boolean,
     branch: String,
-    workingDirectory: File
+    workingDirectory: File,
+    useSpecifiedRepositories: Boolean,
+    mavenRepositories: JList[String]
   ): ScalaFormatter = {
     val config              = LocalConfigBuilder(log).build(configLocation)
     val sourceBuilder       = new SourceFileSequenceBuilder(log)
     val changedFilesBuilder = ChangedFilesBuilder(log, onlyChangedFiles, branch, workingDirectory)
 
-    val scalafmt = Scalafmt
+    val mvnReps = mavenRepositories.asScala
+
+    val scalafmtBuilder = Scalafmt
       .create(this.getClass.getClassLoader)
       .withReporter(new MavenLogReporter(log))
       .withRespectVersion(respectVersion)
+
+    val scalafmt =
+      if (useSpecifiedRepositories && mvnReps.nonEmpty) scalafmtBuilder.withMavenRepositories(mvnReps.toSeq: _*)
+      else scalafmtBuilder
+
     val sourceFormatter = new SourceFileFormatter(config, scalafmt, log)
 
     val fileWriter = if (testOnly) {

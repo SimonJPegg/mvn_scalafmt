@@ -6,6 +6,7 @@ import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.plugins.annotations.Mojo;
 import org.apache.maven.plugins.annotations.Parameter;
 import org.apache.maven.project.MavenProject;
+import org.apache.maven.model.Repository;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -37,11 +38,21 @@ public class FormatMojo extends AbstractMojo {
     private String branch;
     @Parameter(readonly = true, defaultValue = "${project}")
     private MavenProject project;
+    @Parameter(property = "format.use.specified.repositories", defaultValue = "false", required = false)
+    private boolean useSpecifiedRepositories;
+    @Parameter(property = "format.maven.repositories", defaultValue = "${project.repositories}", required = false)
+    private List<Repository> mavenRepositories;
 
 
     public void execute() throws MojoExecutionException {
 
         List<File> sources = new ArrayList<>();
+
+        List<String> mavenRepositoriesUrls = new ArrayList<>(mavenRepositories.size());
+
+        for (Repository r: mavenRepositories) {
+            mavenRepositoriesUrls.add(r.getUrl());
+        }
 
         if (!skipSources) {
             sources.addAll(sourceDirectories);
@@ -64,7 +75,9 @@ public class FormatMojo extends AbstractMojo {
                         validateOnly,
                         onlyChangedFiles,
                         branch,
-                        project.getBasedir()
+                        project.getBasedir(),
+                        useSpecifiedRepositories,
+                        mavenRepositoriesUrls
                 ).format(sources);
                 getLog().info(result.toString());
                 if (validateOnly && result.unformattedFiles() != 0) {
