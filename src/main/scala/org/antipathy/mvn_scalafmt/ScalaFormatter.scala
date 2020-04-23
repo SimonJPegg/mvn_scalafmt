@@ -81,4 +81,6 @@ object ScalaFormatter {
     }
     new ScalaFormatter(sourceBuilder, changedFilesBuilder, sourceFormatter, fileWriter)
   }
+
+  lazy val fileEncoding: String = System.getProperty("file.encoding")
 }
