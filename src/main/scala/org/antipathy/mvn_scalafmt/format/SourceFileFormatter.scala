@@ -6,6 +6,7 @@ import java.nio.file.Path
 import org.antipathy.mvn_scalafmt.model.FormatResult
 import org.apache.maven.plugin.logging.Log
 import org.scalafmt.interfaces.Scalafmt
+import java.nio.file.Files
 
 /**
   * Class for formatting source files
@@ -26,7 +27,7 @@ class SourceFileFormatter(
     */
   override def format(sourceFile: File): FormatResult = {
     log.debug(s"Parsing file: ${sourceFile.getCanonicalPath}")
-    val unformattedSource = scala.io.Source.fromFile(sourceFile).getLines().mkString(System.lineSeparator())
+    val unformattedSource = new String(Files.readAllBytes(sourceFile.toPath))
     FormatResult(sourceFile, unformattedSource, inner.format(config, sourceFile.toPath, unformattedSource))
   }
 }

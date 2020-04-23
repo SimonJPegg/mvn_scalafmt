@@ -15,6 +15,6 @@ case class Summary(
   override def toString: String =
     s"""Scalafmt results: $unformattedFiles of $totalFiles were unformatted
        |Details:
-       |${fileDetails.mkString("\n")}
+       |${fileDetails.mkString(System.lineSeparator)}
      """.stripMargin
 }
