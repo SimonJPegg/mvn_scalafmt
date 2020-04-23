@@ -32,6 +32,7 @@ Note: `version.scala.binary` refers to major releases of scala ie. 2.11, 2.12 or
         <validateOnly>false</validateOnly> <!-- check formatting without changing files -->
         <onlyChangedFiles>true</onlyChangedFiles> <!-- only format (staged) files that have been changed from the specified git branch -->
         <branch>master</branch> <!-- The git branch to check against -->
+        <useSpecifiedRepositories>false</useSpecifiedRepositories> <!-- use project repositories configuration for scalafmt dynamic loading -->
     </configuration>
     <executions>
         <execution>
