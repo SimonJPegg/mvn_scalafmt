@@ -12,7 +12,7 @@ import org.apache.maven.plugin.logging.Log
 import org.scalafmt.interfaces.Scalafmt
 import org.antipathy.mvn_scalafmt.builder.ChangedFilesBuilder
 
-import scala.jdk.CollectionConverters._
+import scala.collection.JavaConverters._
 
 /**
   * class to format scala source files using the Scalafmt library
@@ -48,6 +48,8 @@ object ScalaFormatter {
     * @param onlyChangedFiles Should only changed files be formatted
     * @param branch The branch to compare against for changed files
     * @param workingDirectory The project working directory
+    * @param mavenRepositoryUrls The maven repositories to be used to dynamically load scalafmt, empty if maven central
+    *                            should be used.
     * @return a new ScalaFormatter instance
     */
   def apply(
@@ -57,7 +59,8 @@ object ScalaFormatter {
     testOnly: Boolean,
     onlyChangedFiles: Boolean,
     branch: String,
-    workingDirectory: File
+    workingDirectory: File,
+    mavenRepositoryUrls: JList[String]
   ): ScalaFormatter = {
     val config              = LocalConfigBuilder(log).build(configLocation)
     val sourceBuilder       = new SourceFileSequenceBuilder(log)
@@ -67,6 +70,8 @@ object ScalaFormatter {
       .create(this.getClass.getClassLoader)
       .withReporter(new MavenLogReporter(log))
       .withRespectVersion(respectVersion)
+      .withMavenRepositories(mavenRepositoryUrls.asScala.toSeq: _*)
+
     val sourceFormatter = new SourceFileFormatter(config, scalafmt, log)
 
     val fileWriter = if (testOnly) {
