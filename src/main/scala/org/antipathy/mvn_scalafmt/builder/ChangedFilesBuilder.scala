@@ -28,9 +28,7 @@ class ChangedFilesBuilder(log: Log, diff: Boolean, branch: String, changeFunctio
         val names: Seq[String] =
           Predef.augmentString(changeFunction()).linesIterator.toSeq
         val changedFiles = names.map(new File(_).getAbsolutePath)
-        changedFiles.foreach { f =>
-          log.info(s"Changed from $branch: $f")
-        }
+        changedFiles.foreach(f => log.info(s"Changed from $branch: $f"))
         changedFiles.map(new File(_)).filter { f =>
           val path = f.getAbsolutePath
           path.endsWith("scala") ||
