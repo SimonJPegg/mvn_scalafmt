@@ -100,9 +100,9 @@ jobs:
         uses: oleksiyrudenko/gha-git-credentials@v1
         with:
           name: 'Ciaran Kearney'
-            email: 'ciaran@antipathy.org'
-            actor: 'SimonJPegg'
-            token: '${{ secrets.GITHUB_TOKEN }}'
+          email: 'ciaran@antipathy.org'
+          actor: 'SimonJPegg'
+          token: '${{ secrets.GITHUB_TOKEN }}'
       - run: bash create_release.sh 2.13 .1 SimonJPegg/mvn_scalafmt "$GITHUB_TOKEN"
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

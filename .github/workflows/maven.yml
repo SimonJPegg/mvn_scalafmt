@@ -23,16 +23,6 @@ jobs:
         restore-keys: ${{ runner.os }}-m2
     - name: Build with Maven
       run: mvn clean package --file pom.xml -Dversion.scala.major=2.11 -Dversion.scala.minor=.8
-    - name: tag repo
-      uses: oleksiyrudenko/gha-git-credentials@v1
-      with:
-        name: 'Ciaran Kearney'
-        email: 'ciaran@antipathy.org'
-        actor: 'SimonJPegg'
-        token: '${{ secrets.GITHUB_TOKEN }}'
-    - run: bash create_release.sh 2.13 .1 SimonJPegg/mvn_scalafmt "$GITHUB_TOKEN"
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
   test_2_12:
     runs-on: ubuntu-latest
     steps:
