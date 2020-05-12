@@ -16,13 +16,17 @@ jobs:
       with:
         java-version: 8
     - name: Cache Maven packages
-        uses: actions/cache@v1
-        with:
-          path: ~/.m2
-          key: ${{ runner.os }}-m2-${{ hashFiles('**/pom.xml') }}
-          restore-keys: ${{ runner.os }}-m2
+      uses: actions/cache@v1
+      with:
+        path: ~/.m2
+        key: ${{ runner.os }}-m2-${{ hashFiles('**/pom.xml') }}
+        restore-keys: ${{ runner.os }}-m2
     - name: Build with Maven
       run: mvn clean package --file pom.xml -Dversion.scala.major=2.11 -Dversion.scala.minor=.8
+    - name: tag repo
+      run: mvn -Dversion.scala.major=2.11 -Dversion.scala.minor=.8 -Drevision=$(git show -s --format=%ct.%h) scm:tag
+      env:
+        GITHUB_TOKEN: ${{ github.token }}
   test_2_12:
     runs-on: ubuntu-latest
     steps:
@@ -48,10 +52,10 @@ jobs:
       with:
         java-version: 8
     - name: Cache Maven packages
-        uses: actions/cache@v1
-        with:
-          path: ~/.m2
-          key: ${{ runner.os }}-m2-${{ hashFiles('**/pom.xml') }}
-          restore-keys: ${{ runner.os }}-m2
+      uses: actions/cache@v1
+      with:
+        path: ~/.m2
+        key: ${{ runner.os }}-m2-${{ hashFiles('**/pom.xml') }}
+        restore-keys: ${{ runner.os }}-m2
     - name: Build with Maven
       run: mvn clean package --file pom.xml -Dversion.scala.major=2.13 -Dversion.scala.minor=.1
