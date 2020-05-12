@@ -16,11 +16,11 @@ jobs:
         with:
           java-version: 8
       - name: Cache Maven packages
-          uses: actions/cache@v1
-          with:
-            path: ~/.m2
-            key: ${{ runner.os }}-m2-${{ hashFiles('**/pom.xml') }}
-            restore-keys: ${{ runner.os }}-m2
+        uses: actions/cache@v1
+        with:
+          path: ~/.m2
+          key: ${{ runner.os }}-m2-${{ hashFiles('**/pom.xml') }}
+          restore-keys: ${{ runner.os }}-m2
       - name: Release Maven package
         uses: samuelmeuli/action-maven-publish@v1
         with:
@@ -44,11 +44,11 @@ jobs:
         with:
           java-version: 8
       - name: Cache Maven packages
-          uses: actions/cache@v1
-          with:
-            path: ~/.m2
-            key: ${{ runner.os }}-m2-${{ hashFiles('**/pom.xml') }}
-            restore-keys: ${{ runner.os }}-m2
+        uses: actions/cache@v1
+        with:
+          path: ~/.m2
+          key: ${{ runner.os }}-m2-${{ hashFiles('**/pom.xml') }}
+          restore-keys: ${{ runner.os }}-m2
       - name: Release Maven package
         uses: samuelmeuli/action-maven-publish@v1
         with:
@@ -66,17 +66,16 @@ jobs:
     steps:
       - name: Check out Git repository
         uses: actions/checkout@v2
-
       - name: Install Java and Maven
         uses: actions/setup-java@v1
         with:
           java-version: 8
       - name: Cache Maven packages
-          uses: actions/cache@v1
-          with:
-            path: ~/.m2
-            key: ${{ runner.os }}-m2-${{ hashFiles('**/pom.xml') }}
-            restore-keys: ${{ runner.os }}-m2
+        uses: actions/cache@v1
+        with:
+          path: ~/.m2
+          key: ${{ runner.os }}-m2-${{ hashFiles('**/pom.xml') }}
+          restore-keys: ${{ runner.os }}-m2
       - name: Release Maven package
         uses: samuelmeuli/action-maven-publish@v1
         with:
