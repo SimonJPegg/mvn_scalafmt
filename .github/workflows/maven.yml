@@ -30,9 +30,9 @@ jobs:
         email: 'ciaran@antipathy.org'
         actor: 'SimonJPegg'
         token: '${{ secrets.GITHUB_TOKEN }}'
-    - run: mvn -Dversion.scala.major=2.11 -Dversion.scala.minor=.8 -Drevision=$(git show -s --format=%ct.%h) scm:tag
+    - run: bash create_release.sh 2.13 .1 SimonJPegg/mvn_scalafmt "$GITHUB_TOKEN"
       env:
-        GITHUB_TOKEN: ${{ github.token }}
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
   test_2_12:
     runs-on: ubuntu-latest
     steps:

@@ -30,9 +30,15 @@ jobs:
           nexus_password: ${{ secrets.nexus_password }}
           maven_args: -Dversion.scala.major=2.11 -Dversion.scala.minor=.8 -Drevision=$(git show -s --format=%ct.%h)
       - name: tag repo
-        run: mvn -Dversion.scala.major=2.11 -Dversion.scala.minor=.8 -Drevision=$(git show -s --format=%ct.%h) scm:tag
+        uses: oleksiyrudenko/gha-git-credentials@v1
+        with:
+          name: 'Ciaran Kearney'
+          email: 'ciaran@antipathy.org'
+          actor: 'SimonJPegg'
+          token: '${{ secrets.GITHUB_TOKEN }}'
+      - run: bash create_release.sh 2.11 .8 SimonJPegg/mvn_scalafmt "$GITHUB_TOKEN"
         env:
-          GITHUB_TOKEN: ${{ github.token }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
   release_2_12:
     runs-on: ubuntu-18.04
@@ -58,9 +64,15 @@ jobs:
           nexus_password: ${{ secrets.nexus_password }}
           maven_args: -Dversion.scala.major=2.12 -Dversion.scala.minor=.10 -Drevision=$(git show -s --format=%ct.%h)
       - name: tag repo
-        run: mvn -Dversion.scala.major=2.12 -Dversion.scala.minor=.10 -Drevision=$(git show -s --format=%ct.%h) scm:tag
+        uses: oleksiyrudenko/gha-git-credentials@v1
+        with:
+          name: 'Ciaran Kearney'
+          email: 'ciaran@antipathy.org'
+          actor: 'SimonJPegg'
+          token: '${{ secrets.GITHUB_TOKEN }}'
+      - run: bash create_release.sh 2.12 .10 SimonJPegg/mvn_scalafmt "$GITHUB_TOKEN"
         env:
-          GITHUB_TOKEN: ${{ github.token }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
   release_2_13:
     runs-on: ubuntu-18.04
     steps:
@@ -85,6 +97,12 @@ jobs:
           nexus_password: ${{ secrets.nexus_password }}
           maven_args: -Dversion.scala.major=2.13 -Dversion.scala.minor=.1 -Drevision=$(git show -s --format=%ct.%h)
       - name: tag repo
-        run: mvn -Dversion.scala.major=2.11 -Dversion.scala.minor=.8 -Drevision=$(git show -s --format=%ct.%h) scm:tag
+        uses: oleksiyrudenko/gha-git-credentials@v1
+        with:
+          name: 'Ciaran Kearney'
+            email: 'ciaran@antipathy.org'
+            actor: 'SimonJPegg'
+            token: '${{ secrets.GITHUB_TOKEN }}'
+      - run: bash create_release.sh 2.13 .1 SimonJPegg/mvn_scalafmt "$GITHUB_TOKEN"
         env:
-          GITHUB_TOKEN: ${{ github.token }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
