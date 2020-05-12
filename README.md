@@ -1,4 +1,4 @@
-[![licenseimg]][licenselink]  [![Codacy][codacyimg]][codacylink] ![Build Status](https://github.com/SimonJPegg/mvn_scalafmt/workflows/Release/badge.svg)
+[![licenseimg]][licenselink]  [![Codacy][codacyimg]][codacylink] ![Build Status][BuildImg]
 
 [![releasebadge]][releaselink] [![Maven][mavenimg]][mavenlink]
 
@@ -17,7 +17,7 @@ mvn_scalafmt_2.11 will soon be deprecated and may not receive future releases
 
 This plugin follows the following versioning convention:
 
-* major.minor.epoch.commithash
+  * major.minor.epoch.commithash
 
 The latest release should be visible at the top of this readme.
 
@@ -68,6 +68,8 @@ version = "2.5.2"
 
 [licenseimg]: https://img.shields.io/badge/Licence-Apache%202.0-blue.svg
 [licenselink]: ./LICENSE
+
+[BuildImg]: https://github.com/SimonJPegg/mvn_scalafmt/workflows/Release/badge.svg
 
 [codacyimg]: https://api.codacy.com/project/badge/Grade/15b50622fcf349cc89301b6c3d40fc4e
 [codacylink]: https://app.codacy.com/project/Antipathy_org/mvn_scalafmt/dashboard?branchId=11175791
