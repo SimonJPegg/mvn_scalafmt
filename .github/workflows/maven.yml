@@ -30,7 +30,7 @@ jobs:
         email: 'ciaran@antipathy.org'
         actor: 'SimonJPegg'
         token: '${{ secrets.GITHUB_TOKEN }}'
-      run: mvn -Dversion.scala.major=2.11 -Dversion.scala.minor=.8 -Drevision=$(git show -s --format=%ct.%h) scm:tag
+    - run: mvn -Dversion.scala.major=2.11 -Dversion.scala.minor=.8 -Drevision=$(git show -s --format=%ct.%h) scm:tag
       env:
         GITHUB_TOKEN: ${{ github.token }}
   test_2_12:
