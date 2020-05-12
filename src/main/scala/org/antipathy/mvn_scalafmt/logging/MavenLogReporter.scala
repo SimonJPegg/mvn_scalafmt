@@ -1,6 +1,6 @@
 package org.antipathy.mvn_scalafmt.logging
 
-import java.io.PrintWriter
+import java.io.{OutputStreamWriter, PrintWriter}
 import java.nio.file.Path
 
 import org.apache.maven.plugin.logging.Log
@@ -12,8 +12,6 @@ import org.scalafmt.interfaces.ScalafmtReporter
   * @param log A maven log instance
   */
 class MavenLogReporter(log: Log) extends ScalafmtReporter {
-
-  import java.io.OutputStreamWriter
 
   /**
     * log errors

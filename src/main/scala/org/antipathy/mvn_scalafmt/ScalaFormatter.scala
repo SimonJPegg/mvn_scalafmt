@@ -3,14 +3,13 @@ package org.antipathy.mvn_scalafmt
 import java.io.File
 import java.util.{List => JList}
 
-import org.antipathy.mvn_scalafmt.builder.{Builder, LocalConfigBuilder, SourceFileSequenceBuilder}
+import org.antipathy.mvn_scalafmt.builder.{Builder, ChangedFilesBuilder, LocalConfigBuilder, SourceFileSequenceBuilder}
 import org.antipathy.mvn_scalafmt.format.{Formatter, SourceFileFormatter}
 import org.antipathy.mvn_scalafmt.io.{FormattedFilesWriter, TestResultLogWriter, Writer}
 import org.antipathy.mvn_scalafmt.logging.MavenLogReporter
 import org.antipathy.mvn_scalafmt.model.{FormatResult, Summary}
 import org.apache.maven.plugin.logging.Log
 import org.scalafmt.interfaces.Scalafmt
-import org.antipathy.mvn_scalafmt.builder.ChangedFilesBuilder
 
 import scala.jdk.CollectionConverters._
 

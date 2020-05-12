@@ -1,4 +1,4 @@
-[![licenseimg]][licenselink]  [![Codacy][codacyimg]][codacylink] [![Build Status](https://travis-ci.com/SimonJPegg/mvn_scalafmt.svg?branch=master)](https://travis-ci.com/SimonJPegg/mvn_scalafmt)
+[![licenseimg]][licenselink]  [![Codacy][codacyimg]][codacylink] ![Build Status][buildimg]
 
 [![releasebadge]][releaselink] [![Maven][mavenimg]][mavenlink]
 
@@ -11,16 +11,23 @@ A wrapper that allows the use of the [Scalafmt](https://github.com/scalameta/sca
 Add the following snippet to your pom.
 
 Note: `version.scala.binary` refers to major releases of scala ie. 2.11, 2.12 or 2.13.  
+mvn_scalafmt_2.11 will soon be deprecated and may not receive future releases
 
+## Versioning 
+
+This plugin follows the following versioning convention:
+
+`mvn_scalafmt_(scalaversion)-(major).(minor).(commitepoch).(commithash)`
+
+The latest release should be visible at the top of this readme.
 
 ```xml
 <plugin>
     <groupId>org.antipathy</groupId>
-    <!-- Always use mvn-scalafmt_2.13.
-         We don't need to use the same scala version setting as in the maven ${project} -->
-    <artifactId>mvn-scalafmt_2.13</artifactId>
+    <!-- The scala binary here doesn't need to match the project version -->
+    <artifactId>mvn-scalafmt_${version.scala.binary}</artifactId>
     <!-- <artifactId>mvn-scalafmt_${version.scala.binary}</artifactId> -->
-    <version>1.0.3</version>
+    <version>1.0.somerelease</version>
     <configuration>
         <configLocation>${project.basedir}/.scalafmt.conf</configLocation> <!-- path to config -->
         <skipTestSources>false</skipTestSources> <!-- (Optional) skip formatting test sources -->
@@ -56,11 +63,13 @@ Note: `version.scala.binary` refers to major releases of scala ie. 2.11, 2.12 or
 
 make sure you have set a version in your scalafmt.conf 
 ```yaml
-version = "1.5.1"
+version = "2.5.2"
 ```
 
 [licenseimg]: https://img.shields.io/badge/Licence-Apache%202.0-blue.svg
 [licenselink]: ./LICENSE
+
+[buildimg]: https://github.com/SimonJPegg/mvn_scalafmt/workflows/Release/badge.svg
 
 [codacyimg]: https://api.codacy.com/project/badge/Grade/15b50622fcf349cc89301b6c3d40fc4e
 [codacylink]: https://app.codacy.com/project/Antipathy_org/mvn_scalafmt/dashboard?branchId=11175791
