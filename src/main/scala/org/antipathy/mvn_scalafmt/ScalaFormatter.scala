@@ -12,7 +12,7 @@ import org.apache.maven.plugin.logging.Log
 import org.scalafmt.interfaces.Scalafmt
 import org.antipathy.mvn_scalafmt.builder.ChangedFilesBuilder
 
-import scala.collection.JavaConverters._
+import scala.jdk.CollectionConverters._
 
 /**
   * class to format scala source files using the Scalafmt library

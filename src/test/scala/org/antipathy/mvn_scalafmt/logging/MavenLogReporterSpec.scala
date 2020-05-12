@@ -5,9 +5,11 @@ import java.io.File
 import org.apache.maven.monitor.logging.DefaultLog
 import org.codehaus.plexus.logging.console.ConsoleLogger
 import org.scalafmt.dynamic.exceptions.ScalafmtException
-import org.scalatest.{FlatSpec, GivenWhenThen, Matchers}
+import org.scalatest.flatspec.AnyFlatSpec
+import org.scalatest.GivenWhenThen
+import org.scalatest.matchers.should.Matchers
 
-class MavenLogReporterSpec extends FlatSpec with GivenWhenThen with Matchers {
+class MavenLogReporterSpec extends AnyFlatSpec with GivenWhenThen with Matchers {
 
   val reporter = new MavenLogReporter(new DefaultLog(new ConsoleLogger()))
 

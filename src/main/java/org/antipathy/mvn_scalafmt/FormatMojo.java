@@ -12,7 +12,6 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-import java.util.stream.Collectors;
 
 /**
  * Get the location of the config file and pass to Formatter
@@ -52,7 +51,11 @@ public class FormatMojo extends AbstractMojo {
     private List<Repository> mavenRepositories;
 
     private List<String> getRepositoriesUrls(List<Repository> repositories) {
-        return repositories.stream().map(Repository::getUrl).collect(Collectors.toList());
+        ArrayList<String> urls = new ArrayList<String>();
+        for (Repository repository : repositories) {
+            urls.add(repository.getUrl());
+        }
+        return urls;
     }
 
     public void execute() throws MojoExecutionException {
@@ -81,7 +84,7 @@ public class FormatMojo extends AbstractMojo {
                         onlyChangedFiles,
                         branch,
                         project.getBasedir(),
-                        useSpecifiedRepositories ? getRepositoriesUrls(mavenRepositories) : Collections.emptyList()
+                        useSpecifiedRepositories ? getRepositoriesUrls(mavenRepositories) : new ArrayList<String>()
                 ).format(sources);
                 getLog().info(result.toString());
                 if (validateOnly && result.unformattedFiles() != 0) {

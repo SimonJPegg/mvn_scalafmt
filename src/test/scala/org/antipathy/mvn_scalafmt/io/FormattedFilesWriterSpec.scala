@@ -7,9 +7,11 @@ import java.nio.file.Files
 import org.antipathy.mvn_scalafmt.model.FormatResult
 import org.apache.commons.io.FileUtils
 import org.apache.maven.plugin.logging.SystemStreamLog
-import org.scalatest.{FlatSpec, GivenWhenThen, Matchers}
+import org.scalatest.flatspec.AnyFlatSpec
+import org.scalatest.GivenWhenThen
+import org.scalatest.matchers.should.Matchers
 
-class FormattedFilesWriterSpec extends FlatSpec with GivenWhenThen with Matchers {
+class FormattedFilesWriterSpec extends AnyFlatSpec with GivenWhenThen with Matchers {
 
   behavior of "FormattedFileWriter"
 

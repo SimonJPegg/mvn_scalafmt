@@ -1,11 +1,13 @@
 package org.antipathy.mvn_scalafmt.builder
 
-import org.scalatest.{FlatSpec, GivenWhenThen, Matchers}
+import org.scalatest.flatspec.AnyFlatSpec
+import org.scalatest.GivenWhenThen
+import org.scalatest.matchers.should.Matchers
 import org.apache.maven.plugin.logging.SystemStreamLog
 import java.io.File
 import java.nio.file.Files
 
-class LocalConfigBuilderSpec extends FlatSpec with GivenWhenThen with Matchers {
+class LocalConfigBuilderSpec extends AnyFlatSpec with GivenWhenThen with Matchers {
 
   behavior of "LocalConfigBuilder"
 

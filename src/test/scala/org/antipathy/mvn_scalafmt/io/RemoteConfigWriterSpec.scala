@@ -7,9 +7,11 @@ import java.nio.file.{Files, Paths}
 import org.antipathy.mvn_scalafmt.model.RemoteConfig
 import org.apache.commons.io.FileUtils
 import org.apache.maven.plugin.logging.SystemStreamLog
-import org.scalatest.{FlatSpec, GivenWhenThen, Matchers}
+import org.scalatest.flatspec.AnyFlatSpec
+import org.scalatest.GivenWhenThen
+import org.scalatest.matchers.should.Matchers
 
-class RemoteConfigWriterSpec extends FlatSpec with GivenWhenThen with Matchers {
+class RemoteConfigWriterSpec extends AnyFlatSpec with GivenWhenThen with Matchers {
 
   behavior of "RemoteConfigWriter"
 

@@ -3,9 +3,11 @@ package org.antipathy.mvn_scalafmt.builder
 import java.io.File
 
 import org.apache.maven.plugin.logging.SystemStreamLog
-import org.scalatest.{FlatSpec, GivenWhenThen, Matchers}
+import org.scalatest.flatspec.AnyFlatSpec
+import org.scalatest.GivenWhenThen
+import org.scalatest.matchers.should.Matchers
 
-class SourceFileSequenceBuilderSpec extends FlatSpec with GivenWhenThen with Matchers {
+class SourceFileSequenceBuilderSpec extends AnyFlatSpec with GivenWhenThen with Matchers {
 
   behavior of "SourceFileSequenceBuilder"
 

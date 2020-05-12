@@ -1,10 +1,12 @@
 package org.antipathy.mvn_scalafmt.io
 
-import org.scalatest.{FlatSpec, GivenWhenThen, Matchers}
+import org.scalatest.flatspec.AnyFlatSpec
+import org.scalatest.GivenWhenThen
+import org.scalatest.matchers.should.Matchers
 import org.apache.maven.plugin.logging.SystemStreamLog
 import java.net.MalformedURLException
 
-class RemoteConfigReaderSpec extends FlatSpec with GivenWhenThen with Matchers {
+class RemoteConfigReaderSpec extends AnyFlatSpec with GivenWhenThen with Matchers {
 
   behavior of "RemoteConfigReader"
 

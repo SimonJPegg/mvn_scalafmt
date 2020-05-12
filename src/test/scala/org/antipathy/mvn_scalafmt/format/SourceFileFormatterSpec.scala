@@ -7,9 +7,11 @@ import org.antipathy.mvn_scalafmt.logging.MavenLogReporter
 import org.antipathy.mvn_scalafmt.validation.ConfigFileValidator
 import org.apache.maven.plugin.logging.SystemStreamLog
 import org.scalafmt.interfaces.Scalafmt
-import org.scalatest.{FlatSpec, GivenWhenThen, Matchers}
+import org.scalatest.flatspec.AnyFlatSpec
+import org.scalatest.GivenWhenThen
+import org.scalatest.matchers.should.Matchers
 
-class SourceFileFormatterSpec extends FlatSpec with GivenWhenThen with Matchers {
+class SourceFileFormatterSpec extends AnyFlatSpec with GivenWhenThen with Matchers {
 
   behavior of "SourceFileFormatter"
 

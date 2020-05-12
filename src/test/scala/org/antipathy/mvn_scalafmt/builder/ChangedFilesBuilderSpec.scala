@@ -1,12 +1,14 @@
 package org.antipathy.mvn_scalafmt.builder
 
-import org.scalatest.{FlatSpec, GivenWhenThen, Matchers}
 import java.io.File
 import java.nio.file.Paths
 
 import org.apache.maven.plugin.logging.SystemStreamLog
+import org.scalatest.flatspec.AnyFlatSpec
+import org.scalatest.GivenWhenThen
+import org.scalatest.matchers.should.Matchers
 
-class ChangedFilesBuilderSpec extends FlatSpec with GivenWhenThen with Matchers {
+class ChangedFilesBuilderSpec extends AnyFlatSpec with GivenWhenThen with Matchers {
 
   behavior of "ChangedFilesBuilder"
 

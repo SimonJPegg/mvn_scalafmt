@@ -3,9 +3,11 @@ package org.antipathy.mvn_scalafmt.validation
 import java.nio.file.Paths
 
 import org.apache.maven.plugin.logging.SystemStreamLog
-import org.scalatest.{FlatSpec, GivenWhenThen, Matchers}
+import org.scalatest.flatspec.AnyFlatSpec
+import org.scalatest.GivenWhenThen
+import org.scalatest.matchers.should.Matchers
 
-class ConfigFileValidatorSpec extends FlatSpec with GivenWhenThen with Matchers {
+class ConfigFileValidatorSpec extends AnyFlatSpec with GivenWhenThen with Matchers {
 
   behavior of "ConfigFileValidator"
 
