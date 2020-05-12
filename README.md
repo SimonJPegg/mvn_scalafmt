@@ -1,4 +1,4 @@
-[![licenseimg]][licenselink]  [![Codacy][codacyimg]][codacylink] [![Build Status](https://travis-ci.com/SimonJPegg/mvn_scalafmt.svg?branch=master)](https://travis-ci.com/SimonJPegg/mvn_scalafmt)
+[![licenseimg]][licenselink]  [![Codacy][codacyimg]][codacylink] ![Build Status](https://github.com/SimonJPegg/mvn_scalafmt/workflows/Release/badge.svg)
 
 [![releasebadge]][releaselink] [![Maven][mavenimg]][mavenlink]
 
@@ -11,7 +11,7 @@ A wrapper that allows the use of the [Scalafmt](https://github.com/scalameta/sca
 Add the following snippet to your pom.
 
 Note: `version.scala.binary` refers to major releases of scala ie. 2.11, 2.12 or 2.13.  
-
+mvn_scalafmt_2.11 will soon be deprecated and may not receive future releases
 
 ```xml
 <plugin>
@@ -56,7 +56,7 @@ Note: `version.scala.binary` refers to major releases of scala ie. 2.11, 2.12 or
 
 make sure you have set a version in your scalafmt.conf 
 ```yaml
-version = "1.5.1"
+version = "2.5.2"
 ```
 
 [licenseimg]: https://img.shields.io/badge/Licence-Apache%202.0-blue.svg
