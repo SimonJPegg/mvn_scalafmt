@@ -2,6 +2,8 @@ package org.antipathy.mvn_scalafmt.builder
 
 import org.scalatest.{FlatSpec, GivenWhenThen, Matchers}
 import java.io.File
+import java.nio.file.Paths
+
 import org.apache.maven.plugin.logging.SystemStreamLog
 
 class ChangedFilesBuilderSpec extends FlatSpec with GivenWhenThen with Matchers {
@@ -17,11 +19,14 @@ class ChangedFilesBuilderSpec extends FlatSpec with GivenWhenThen with Matchers 
       "/mvn_scalafmt/src/main/scala/org/antipathy/mvn_scalafmt/builder/SourceFileSequenceBuilder.scala",
       "/mvn_scalafmt/src/test/scala/org/antipathy/mvn_scalafmt/builder/ChangedFilesBuilderSpec.scala",
       "/mvn_scalafmt/src/test/scala/org/antipathy/mvn_scalafmt/builder/LocalConfigBuilderSpec.scala"
-    )
+    ).map(x => getAbsolutePathFrom(x))
 
     val changeFunction = () => changedFiles.map(new File(_))
 
     val result = new ChangedFilesBuilder(log, true, "master", changeFunction).build(sources)
     result should be(changedFiles.map(new File(_)))
   }
+
+  def getAbsolutePathFrom(path: String): String =
+    Paths.get(path).normalize.toAbsolutePath.toString
 }

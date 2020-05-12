@@ -39,6 +39,7 @@ Note: `version.scala.binary` refers to major releases of scala ie. 2.11, 2.12 or
              and the output will be used as the actual branch-->
         <branch>: git rev-parse --abbrev-ref HEAD</branch> <!-- the current branch-->
         <!-- <branch>master</branch>-->
+        <useSpecifiedRepositories>false</useSpecifiedRepositories> <!-- use project repositories configuration for scalafmt dynamic loading -->
     </configuration>
     <executions>
         <execution>

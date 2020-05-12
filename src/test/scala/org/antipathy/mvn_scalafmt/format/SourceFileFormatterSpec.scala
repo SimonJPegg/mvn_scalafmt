@@ -1,6 +1,7 @@
 package org.antipathy.mvn_scalafmt.format
 
 import java.io.File
+import java.nio.file.Files
 
 import org.antipathy.mvn_scalafmt.logging.MavenLogReporter
 import org.antipathy.mvn_scalafmt.validation.ConfigFileValidator
@@ -23,6 +24,6 @@ class SourceFileFormatterSpec extends FlatSpec with GivenWhenThen with Matchers 
 
     val result = new SourceFileFormatter(config, scalafmt, log).format(sourceFile).formattedSource
 
-    result.trim should be(scala.io.Source.fromFile(sourceFile).getLines().mkString(System.lineSeparator()).trim)
+    result.trim should be(new String(Files.readAllBytes(sourceFile.toPath)).trim)
   }
 }

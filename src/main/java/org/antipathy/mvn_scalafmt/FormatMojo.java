@@ -6,10 +6,13 @@ import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.plugins.annotations.Mojo;
 import org.apache.maven.plugins.annotations.Parameter;
 import org.apache.maven.project.MavenProject;
+import org.apache.maven.model.Repository;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * Get the location of the config file and pass to Formatter
@@ -43,7 +46,14 @@ public class FormatMojo extends AbstractMojo {
     private String branch;
     @Parameter(readonly = true, defaultValue = "${project}")
     private MavenProject project;
+    @Parameter(property = "format.useSpecifiedRepositories", defaultValue = "false")
+    private boolean useSpecifiedRepositories;
+    @Parameter(readonly = true, defaultValue = "${project.repositories}")
+    private List<Repository> mavenRepositories;
 
+    private List<String> getRepositoriesUrls(List<Repository> repositories) {
+        return repositories.stream().map(Repository::getUrl).collect(Collectors.toList());
+    }
 
     public void execute() throws MojoExecutionException {
 
@@ -60,7 +70,7 @@ public class FormatMojo extends AbstractMojo {
         } else {
             getLog().warn("format.skipTestSources set, ignoring validateOnly directories");
         }
-        if (sources.size() > 0) {
+        if (!sources.isEmpty()) {
             try {
 
                 Summary result = ScalaFormatter.apply(
@@ -70,7 +80,8 @@ public class FormatMojo extends AbstractMojo {
                         validateOnly,
                         onlyChangedFiles,
                         branch,
-                        project.getBasedir()
+                        project.getBasedir(),
+                        useSpecifiedRepositories ? getRepositoriesUrls(mavenRepositories) : Collections.emptyList()
                 ).format(sources);
                 getLog().info(result.toString());
                 if (validateOnly && result.unformattedFiles() != 0) {

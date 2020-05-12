@@ -34,11 +34,12 @@ class FormattedFilesWriter(log: Log) extends Writer[Seq[FormatResult], Summary] 
     * @param input The input to write
     */
   private def writeFile(input: FormatResult): Unit = {
+    import org.antipathy.mvn_scalafmt.ScalaFormatter
     log.debug(s"Writing ${input.sourceFile.getName} to ${input.sourceFile.getCanonicalPath}")
 
     val newFilePath = input.sourceFile.getCanonicalPath
     input.sourceFile.delete()
 
-    FileUtils.writeStringToFile(new File(newFilePath), input.formattedSource, StandardCharsets.UTF_8)
+    FileUtils.writeStringToFile(new File(newFilePath), input.formattedSource, ScalaFormatter.fileEncoding)
   }
 }

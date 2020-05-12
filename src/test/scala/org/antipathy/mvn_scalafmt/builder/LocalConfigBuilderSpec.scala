@@ -3,6 +3,7 @@ package org.antipathy.mvn_scalafmt.builder
 import org.scalatest.{FlatSpec, GivenWhenThen, Matchers}
 import org.apache.maven.plugin.logging.SystemStreamLog
 import java.io.File
+import java.nio.file.Files
 
 class LocalConfigBuilderSpec extends FlatSpec with GivenWhenThen with Matchers {
 
@@ -28,9 +29,7 @@ class LocalConfigBuilderSpec extends FlatSpec with GivenWhenThen with Matchers {
 
     builder.build(path)
 
-    val source = scala.io.Source.fromFile(new File(".scalafmt.conf"))
-    val result = source.getLines().mkString(System.lineSeparator())
-    source.close()
+    val result = new String(Files.readAllBytes(new File(".scalafmt.conf").toPath))
     result.trim should be(expectedContent.trim)
   }
 
