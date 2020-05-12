@@ -16,7 +16,10 @@ Note: `version.scala.binary` refers to major releases of scala ie. 2.11, 2.12 or
 ```xml
 <plugin>
     <groupId>org.antipathy</groupId>
-    <artifactId>mvn-scalafmt_${version.scala.binary}</artifactId>
+    <!-- Always use mvn-scalafmt_2.13.
+         We don't need to use the same scala version setting as in the maven ${project} -->
+    <artifactId>mvn-scalafmt_2.13</artifactId>
+    <!-- <artifactId>mvn-scalafmt_${version.scala.binary}</artifactId> -->
     <version>1.0.3</version>
     <configuration>
         <configLocation>${project.basedir}/.scalafmt.conf</configLocation> <!-- path to config -->
@@ -31,7 +34,11 @@ Note: `version.scala.binary` refers to major releases of scala ie. 2.11, 2.12 or
         </testSourceDirectories>
         <validateOnly>false</validateOnly> <!-- check formatting without changing files -->
         <onlyChangedFiles>true</onlyChangedFiles> <!-- only format (staged) files that have been changed from the specified git branch -->
-        <branch>master</branch> <!-- The git branch to check against -->
+        <!-- The git branch to check against
+             If branch.startsWith(": ") the value in <branch> tag is used as a command to run
+             and the output will be used as the actual branch-->
+        <branch>: git rev-parse --abbrev-ref HEAD</branch> <!-- the current branch-->
+        <!-- <branch>master</branch>-->
         <useSpecifiedRepositories>false</useSpecifiedRepositories> <!-- use project repositories configuration for scalafmt dynamic loading -->
     </configuration>
     <executions>

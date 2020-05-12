@@ -36,6 +36,12 @@ public class FormatMojo extends AbstractMojo {
     private boolean validateOnly;
     @Parameter(property = "format.onlyChangedFiles", defaultValue = "false")
     private boolean onlyChangedFiles;
+    /** if branch.startsWith(": "), ex set in pom.xml:
+      * <pre>{@code
+      * <!-- the current branch-->
+      * <branch>: git rev-parse --abbrev-ref HEAD</branch>
+      * }</pre>
+      * then we consider the value in {@code <branch>} tag as a command to run and the output will be used as the actual branch */
     @Parameter(property = "format.branch", defaultValue = "master")
     private String branch;
     @Parameter(readonly = true, defaultValue = "${project}")
