@@ -4,7 +4,7 @@
     <groupId>org.antipathy</groupId>
     <artifactId>mvn-scalafmt_${version.scala.major}</artifactId>
     <packaging>maven-plugin</packaging>
-    <version>1.0.4</version>
+    <version>1.0.${revision}</version>
     <name>ScalaFmt Maven Plugin (${version.scala.major})</name>
     <description>Maven plugin for ScalaFmt</description>
     <url>https://github.com/SimonJPegg/mvn_scalafmt</url>
@@ -28,11 +28,13 @@
 
     <scm>
         <url>https://github.com/SimonJPegg/mvn_scalafmt</url>
-        <connection>scm:git:git://github.com/SimonJPegg/mvn_scalafmt.git</connection>
+        <connection>scm:git:https://github.com/SimonJPegg/mvn_scalafmt/</connection>
         <developerConnection>scm:git:git@github.com/SimonJPegg/mvn_scalafmt.git</developerConnection>
+        <tag>v${version.scala.major}-${project.version}</tag>
     </scm>
 
     <properties>
+        <revision>0.SNAPSHOT</revision>
         <version.commonsio>2.6</version.commonsio>
         <version.commonslang>3.10</version.commonslang>
         <version.commonsvalidator>1.6</version.commonsvalidator>
@@ -50,7 +52,6 @@
         <version.maven.plugin.compiler>3.8.1</version.maven.plugin.compiler>
         <version.maven.plugin.deploy>3.0.0-M1</version.maven.plugin.deploy>
         <version.maven.plugin.flatten>1.2.1</version.maven.plugin.flatten>
-        <version.maven.plugin.genjavadoc>0.16</version.maven.plugin.genjavadoc>
         <version.maven.plugin.gpg>1.6</version.maven.plugin.gpg>
         <version.maven.plugin.install>3.0.0-M1</version.maven.plugin.install>
         <version.maven.plugin.jar>3.2.0</version.maven.plugin.jar>
@@ -60,6 +61,7 @@
         <version.maven.plugin.resources>3.1.0</version.maven.plugin.resources>
         <version.maven.plugin.scala>4.3.1</version.maven.plugin.scala>
         <version.maven.plugin.scalatest>2.0.0</version.maven.plugin.scalatest>
+        <version.maven.plugin.scm>1.11.2</version.maven.plugin.scm>
         <version.maven.plugin.source>3.1.0</version.maven.plugin.source>
         <version.maven.plugin.surefire>2.7</version.maven.plugin.surefire>
         <version.maven.plugin.versions>2.5</version.maven.plugin.versions>
@@ -365,6 +367,14 @@
                         </goals>
                     </execution>
                 </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-scm-plugin</artifactId>
+                <version>${version.maven.plugin.scm}</version>
+                <configuration>
+                    <tag>v${version.scala.major}-${project.version}</tag>
+                </configuration>
             </plugin>
         </plugins>
     </build>

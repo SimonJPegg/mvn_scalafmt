@@ -1,6 +1,5 @@
-name: Release
+name: Build
 
-# Run workflow on commits to the `master` branch
 on:
   push:
     branches:
@@ -12,12 +11,16 @@ jobs:
     steps:
       - name: Check out Git repository
         uses: actions/checkout@v2
-
       - name: Install Java and Maven
         uses: actions/setup-java@v1
         with:
           java-version: 8
-
+      - name: Cache Maven packages
+          uses: actions/cache@v1
+          with:
+            path: ~/.m2
+            key: ${{ runner.os }}-m2-${{ hashFiles('**/pom.xml') }}
+            restore-keys: ${{ runner.os }}-m2
       - name: Release Maven package
         uses: samuelmeuli/action-maven-publish@v1
         with:
@@ -25,19 +28,27 @@ jobs:
           gpg_passphrase: ${{ secrets.gpg_passphrase }}
           nexus_username: ${{ secrets.nexus_username }}
           nexus_password: ${{ secrets.nexus_password }}
-          maven_args: -Dversion.scala.major=2.11 -Dversion.scala.minor=.8
+          maven_args: -Dversion.scala.major=2.11 -Dversion.scala.minor=.8 -Drevision=$(git show -s --format=%ct.%h)
+      - name: tag repo
+        run: mvn -Dversion.scala.major=2.11 -Dversion.scala.minor=.8 -Drevision=$(git show -s --format=%ct.%h) scm:tag
+          env:
+            GITHUB_TOKEN: ${{ github.token }}
 
   release_2_12:
     runs-on: ubuntu-18.04
     steps:
       - name: Check out Git repository
         uses: actions/checkout@v2
-
       - name: Install Java and Maven
         uses: actions/setup-java@v1
         with:
           java-version: 8
-
+      - name: Cache Maven packages
+          uses: actions/cache@v1
+          with:
+            path: ~/.m2
+            key: ${{ runner.os }}-m2-${{ hashFiles('**/pom.xml') }}
+            restore-keys: ${{ runner.os }}-m2
       - name: Release Maven package
         uses: samuelmeuli/action-maven-publish@v1
         with:
@@ -45,8 +56,11 @@ jobs:
           gpg_passphrase: ${{ secrets.gpg_passphrase }}
           nexus_username: ${{ secrets.nexus_username }}
           nexus_password: ${{ secrets.nexus_password }}
-          maven_args: -Dversion.scala.major=2.12 -Dversion.scala.minor=.10
-
+          maven_args: -Dversion.scala.major=2.12 -Dversion.scala.minor=.10 -Drevision=$(git show -s --format=%ct.%h)
+      - name: tag repo
+          run: mvn -Dversion.scala.major=2.12 -Dversion.scala.minor=.10 -Drevision=$(git show -s --format=%ct.%h) scm:tag
+            env:
+              GITHUB_TOKEN: ${{ github.token }}
   release_2_13:
     runs-on: ubuntu-18.04
     steps:
@@ -57,7 +71,12 @@ jobs:
         uses: actions/setup-java@v1
         with:
           java-version: 8
-
+      - name: Cache Maven packages
+          uses: actions/cache@v1
+          with:
+            path: ~/.m2
+            key: ${{ runner.os }}-m2-${{ hashFiles('**/pom.xml') }}
+            restore-keys: ${{ runner.os }}-m2
       - name: Release Maven package
         uses: samuelmeuli/action-maven-publish@v1
         with:
@@ -65,4 +84,8 @@ jobs:
           gpg_passphrase: ${{ secrets.gpg_passphrase }}
           nexus_username: ${{ secrets.nexus_username }}
           nexus_password: ${{ secrets.nexus_password }}
-          maven_args: -Dversion.scala.major=2.13 -Dversion.scala.minor=.1
+          maven_args: -Dversion.scala.major=2.13 -Dversion.scala.minor=.1 -Drevision=$(git show -s --format=%ct.%h)
+      - name: tag repo
+          run: mvn -Dversion.scala.major=2.11 -Dversion.scala.minor=.8 -Drevision=$(git show -s --format=%ct.%h) scm:tag
+            env:
+              GITHUB_TOKEN: ${{ github.token }}

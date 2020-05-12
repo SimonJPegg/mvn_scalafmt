@@ -13,14 +13,21 @@ Add the following snippet to your pom.
 Note: `version.scala.binary` refers to major releases of scala ie. 2.11, 2.12 or 2.13.  
 mvn_scalafmt_2.11 will soon be deprecated and may not receive future releases
 
+## Versioning 
+
+This plugin follows the following versioning convention:
+
+* major.minor.epoch.commithash
+
+The latest release should be visible at the top of this readme.
+
 ```xml
 <plugin>
     <groupId>org.antipathy</groupId>
-    <!-- Always use mvn-scalafmt_2.13.
-         We don't need to use the same scala version setting as in the maven ${project} -->
-    <artifactId>mvn-scalafmt_2.13</artifactId>
+    <!-- The scala binary here doesn't need to match the project version -->
+    <artifactId>mvn-scalafmt_${version.scala.binary}</artifactId>
     <!-- <artifactId>mvn-scalafmt_${version.scala.binary}</artifactId> -->
-    <version>1.0.3</version>
+    <version>1.0.somerelease</version>
     <configuration>
         <configLocation>${project.basedir}/.scalafmt.conf</configLocation> <!-- path to config -->
         <skipTestSources>false</skipTestSources> <!-- (Optional) skip formatting test sources -->
