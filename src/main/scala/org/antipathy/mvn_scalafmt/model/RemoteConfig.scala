@@ -2,6 +2,7 @@ package org.antipathy.mvn_scalafmt.model
 
 import java.nio.file.{Path, Paths}
 
+// $COVERAGE-OFF$
 /**
   * Container class for a remote scalafmt config
   *
@@ -9,3 +10,4 @@ import java.nio.file.{Path, Paths}
   * @param location The local path where the config will be stored
   */
 case class RemoteConfig(contents: String, location: Path = Paths.get(".scalafmt.conf"))
+// $COVERAGE-ON$

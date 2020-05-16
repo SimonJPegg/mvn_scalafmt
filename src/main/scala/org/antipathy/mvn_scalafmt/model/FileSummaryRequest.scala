@@ -1,5 +1,6 @@
 package org.antipathy.mvn_scalafmt.model
 
+// $COVERAGE-OFF$
 /**
   * Class representing a request to build a file summary
   * @param formatResults the formatResults
@@ -11,3 +12,4 @@ case class FileSummaryRequest(
   formattedValue: String,
   unformattedValue: String
 )
+// $COVERAGE-ON$

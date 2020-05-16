@@ -35,7 +35,7 @@ class ScalaFormatter(
     writer.write(formattedSources)
   }
 }
-
+// $COVERAGE-OFF$
 object ScalaFormatter {
 
   /**
@@ -83,3 +83,4 @@ object ScalaFormatter {
 
   lazy val fileEncoding: String = System.getProperty("file.encoding")
 }
+// $COVERAGE-ON$

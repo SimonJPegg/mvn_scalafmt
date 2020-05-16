@@ -1,4 +1,4 @@
-[![licenseimg]][licenselink]  [![Codacy][codacyimg]][codacylink] ![Build Status][buildimg]
+[![licenseimg]][licenselink]  [![Codacy][codacyimg]][codacylink] ![Coverage][covimg] ![Build Status][buildimg]
 
 [![releasebadge]][releaselink] [![Maven][mavenimg]][mavenlink]
 
@@ -68,14 +68,11 @@ version = "2.5.2"
 
 [licenseimg]: https://img.shields.io/badge/Licence-Apache%202.0-blue.svg
 [licenselink]: ./LICENSE
-
-[buildimg]: https://github.com/SimonJPegg/mvn_scalafmt/workflows/Release/badge.svg
-
+[buildimg]: https://github.com/SimonJPegg/mvn_scalafmt/workflows/Build/badge.svg
+[covimg]: https://app.codacy.com/project/badge/Coverage/15b50622fcf349cc89301b6c3d40fc4e
 [codacyimg]: https://api.codacy.com/project/badge/Grade/15b50622fcf349cc89301b6c3d40fc4e
 [codacylink]: https://app.codacy.com/project/Antipathy_org/mvn_scalafmt/dashboard?branchId=11175791
-
 [mavenimg]: https://maven-badges.herokuapp.com/maven-central/org.antipathy/mvn-scalafmt_2.11/badge.svg
 [mavenlink]: https://search.maven.org/search?q=org.antipathy.mvn-scalafmt
-
 [releasebadge]: https://img.shields.io/github/release/simonjpegg/mvn_scalafmt.svg?style=flat
 [releaselink]: https://github.com/SimonJPegg/mvn_scalafmt/releases
