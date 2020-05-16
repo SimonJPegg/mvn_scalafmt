@@ -1,5 +1,6 @@
 package org.antipathy.mvn_scalafmt.format
 
+// $COVERAGE-OFF$
 /**
   * Base trait for formatting
   * @tparam I Input type
@@ -14,3 +15,4 @@ trait Formatter[I, O] {
     */
   def format(input: I): O
 }
+// $COVERAGE-ON$

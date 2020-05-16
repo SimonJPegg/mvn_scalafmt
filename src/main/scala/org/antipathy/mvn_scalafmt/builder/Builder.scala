@@ -1,5 +1,6 @@
 package org.antipathy.mvn_scalafmt.builder
 
+// $COVERAGE-OFF$
 /**
   * Base trait for building objects
   * @tparam I The input type
@@ -14,3 +15,4 @@ trait Builder[I, O] {
     */
   def build(input: I): O
 }
+// $COVERAGE-ON$

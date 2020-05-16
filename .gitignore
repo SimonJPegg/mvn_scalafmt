@@ -98,3 +98,4 @@ buildNumber.properties
 .idea/modules.xml
 .idea/scala_compiler.xml
 .idea/vcs.xml
+.codacy-coverage

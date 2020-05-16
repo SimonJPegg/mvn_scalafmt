@@ -47,6 +47,7 @@ class ChangedFilesBuilder(log: Log, diff: Boolean, branch: String, changeFunctio
 
 }
 
+// $COVERAGE-OFF$
 object ChangedFilesBuilder {
 
   def apply(log: Log, diff: Boolean, branch: String, workingDirectory: File): ChangedFilesBuilder = {
@@ -72,3 +73,4 @@ object ChangedFilesBuilder {
     new ChangedFilesBuilder(log, diff, actualBranch, processFunction)
   }
 }
+// $COVERAGE-ON$

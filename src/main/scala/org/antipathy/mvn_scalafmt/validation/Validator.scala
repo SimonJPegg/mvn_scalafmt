@@ -1,5 +1,6 @@
 package org.antipathy.mvn_scalafmt.validation
 
+// $COVERAGE-OFF$
 /**
   * Base trait for validation
   *
@@ -15,3 +16,4 @@ trait Validator[I, O] {
     */
   def validate(i: I): O
 }
+// $COVERAGE-ON$

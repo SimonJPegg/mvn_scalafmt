@@ -40,6 +40,7 @@ class LocalConfigBuilder(
     }
 }
 
+// $COVERAGE-OFF$
 object LocalConfigBuilder {
 
   def apply(
@@ -53,3 +54,4 @@ object LocalConfigBuilder {
       log
     )
 }
+// $COVERAGE-ON$

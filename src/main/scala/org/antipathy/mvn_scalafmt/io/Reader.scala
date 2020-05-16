@@ -1,5 +1,6 @@
 package org.antipathy.mvn_scalafmt.io
 
+// $COVERAGE-OFF$
 /**
   * Base trait for reading
   * @tparam I The input type
@@ -14,3 +15,4 @@ trait Reader[I, O] {
     */
   def read(location: I): O
 }
+// $COVERAGE-ON$

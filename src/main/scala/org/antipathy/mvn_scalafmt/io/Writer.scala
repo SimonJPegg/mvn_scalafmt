@@ -1,5 +1,6 @@
 package org.antipathy.mvn_scalafmt.io
 
+// $COVERAGE-OFF$
 /**
   * Base trait for writing
   * @tparam I The type to write
@@ -13,3 +14,4 @@ trait Writer[I, O] {
     */
   def write(input: I): O
 }
+// $COVERAGE-ON$
