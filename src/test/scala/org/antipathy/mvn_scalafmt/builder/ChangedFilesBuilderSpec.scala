@@ -1,11 +1,10 @@
 package org.antipathy.mvn_scalafmt.builder
 
-import java.io.File
+import java.io.{File, FileNotFoundException}
 import java.nio.file.Paths
-
 import org.apache.maven.plugin.logging.SystemStreamLog
-import org.scalatest.flatspec.AnyFlatSpec
 import org.scalatest.GivenWhenThen
+import org.scalatest.flatspec.AnyFlatSpec
 import org.scalatest.matchers.should.Matchers
 
 class ChangedFilesBuilderSpec extends AnyFlatSpec with GivenWhenThen with Matchers {
@@ -41,7 +40,6 @@ class ChangedFilesBuilderSpec extends AnyFlatSpec with GivenWhenThen with Matche
   }
 
   it should "re-throw exceptions it encounters" in {
-    import java.io.FileNotFoundException
     val log        = new SystemStreamLog
     val sourceDirs = Seq("src/test/scala", "src/main/scala").map(new File(_))
     val sources    = new SourceFileSequenceBuilder(log).build(sourceDirs)

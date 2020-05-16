@@ -1,15 +1,15 @@
 package org.antipathy.mvn_scalafmt
 
 import java.io.File
-
 import org.antipathy.mvn_scalafmt.builder.Builder
 import org.antipathy.mvn_scalafmt.format.Formatter
 import org.antipathy.mvn_scalafmt.io.Writer
 import org.antipathy.mvn_scalafmt.model.{FormatResult, Summary}
-import org.mockito.Mockito
+import org.mockito.{ArgumentMatchers, Mockito}
 import org.scalatest.GivenWhenThen
 import org.scalatest.flatspec.AnyFlatSpec
 import org.scalatest.matchers.should.Matchers
+
 import scala.jdk.CollectionConverters._
 
 class ScalaFormatterSpec extends AnyFlatSpec with GivenWhenThen with Matchers {
@@ -17,7 +17,6 @@ class ScalaFormatterSpec extends AnyFlatSpec with GivenWhenThen with Matchers {
   behavior of "ScalaFormatter"
 
   it should "format scala files" in {
-    import org.mockito.ArgumentMatchers
     val sourceBuilder       = Mockito.mock(classOf[Builder[Seq[File], Seq[File]]])
     val changedFilesBuilder = Mockito.mock(classOf[Builder[Seq[File], Seq[File]]])
     val fileFormatter       = Mockito.mock(classOf[Formatter[File, FormatResult]])

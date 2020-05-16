@@ -1,4 +1,4 @@
-[![licenseimg]][licenselink]  [![Codacy][codacyimg]][codacylink] ![covtext][covimg] ![Build Status][buildimg]
+[![licenseimg]][licenselink]  [![Codacy][codacyimg]][codacylink] ![Coverage][covimg] ![Build Status][buildimg]
 
 [![releasebadge]][releaselink] [![Maven][mavenimg]][mavenlink]
 
@@ -69,7 +69,6 @@ version = "2.5.2"
 [licenseimg]: https://img.shields.io/badge/Licence-Apache%202.0-blue.svg
 [licenselink]: ./LICENSE
 [buildimg]: https://github.com/SimonJPegg/mvn_scalafmt/workflows/Build/badge.svg
-[covtext]: https://www.codacy.com/manual/Antipathy_org/mvn_scalafmt?utm_source=github.com&utm_medium=referral&utm_content=SimonJPegg/mvn_scalafmt&utm_campaign=Badge_Coverage
 [covimg]: https://app.codacy.com/project/badge/Coverage/15b50622fcf349cc89301b6c3d40fc4e
 [codacyimg]: https://api.codacy.com/project/badge/Grade/15b50622fcf349cc89301b6c3d40fc4e
 [codacylink]: https://app.codacy.com/project/Antipathy_org/mvn_scalafmt/dashboard?branchId=11175791
