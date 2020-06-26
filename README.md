@@ -21,13 +21,46 @@ This plugin follows the following versioning convention:
 
 The latest release should be visible at the top of this readme.
 
+## Minimal Working POM XML:
+```xml
+    <plugin>
+        <groupId>org.antipathy</groupId>
+        <!-- The scala binary here doesn't need to match the project version -->
+        <artifactId>mvn-scalafmt_${version.scala.binary}</artifactId>
+        <!-- This represents the desired version of the plugin, whould be in the form:
+             (major).(minor).(commitepoch).(commithash), which can be found here:
+             https://github.com/simonjpegg/mvn_scalafmt/releases
+             e.g. <version>1.0.1589620826.41b214a</version>
+             Note: The SCALA version is OMITTED from this value
+        -->
+        <version>__DESIRED_MVN_SCALAFMT_VERSION__</version>
+        <configuration>
+            <configLocation>${project.basedir}/.scalafmt.conf</configLocation> <!-- path to config -->
+        </configuration>
+        <executions>
+            <execution>
+                <phase>validate</phase>
+                <goals>
+                    <goal>format</goal>
+                </goals>
+            </execution>
+        </executions>
+    </plugin>
+```
+
+## FULL SNIPPET
 ```xml
 <plugin>
     <groupId>org.antipathy</groupId>
     <!-- The scala binary here doesn't need to match the project version -->
     <artifactId>mvn-scalafmt_${version.scala.binary}</artifactId>
-    <!-- <artifactId>mvn-scalafmt_${version.scala.binary}</artifactId> -->
-    <version>1.0.somerelease</version>
+    <!-- This represents the desired version of the plugin, whould be in the form:
+         (major).(minor).(commitepoch).(commithash), which can be found here:
+         https://github.com/simonjpegg/mvn_scalafmt/releases
+         e.g. <version>1.0.1589620826.41b214a</version>
+         Note: The SCALA version is OMITTED from this value
+    -->
+    <version>__DESIRED_MVN_SCALAFMT_VERSION__</version>
     <configuration>
         <configLocation>${project.basedir}/.scalafmt.conf</configLocation> <!-- path to config -->
         <skipTestSources>false</skipTestSources> <!-- (Optional) skip formatting test sources -->
