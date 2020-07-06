@@ -23,7 +23,7 @@ jobs:
       - name: Build with Maven
         run: mvn clean test scoverage:report
       - name: upload coverage_data
-        run: wget -qO - https://coverage.codacy.com/get.sh | sh
+        run: wget -qO - https://coverage.codacy.com/get.sh | bash
         env:
           CODACY_PROJECT_TOKEN: ${{ secrets.CODACY_PROJECT_TOKEN }}
   release_2_11:
