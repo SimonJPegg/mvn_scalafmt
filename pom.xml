@@ -249,7 +249,7 @@
             <plugin>
                 <groupId>org.antipathy</groupId>
                 <artifactId>mvn-scalafmt_${version.scala.major}</artifactId>
-                <version>1.0.2</version>
+                <version>1.0.1594484807.4330767</version>
                 <configuration>
                     <configLocation>${project.basedir}/.scalafmt.conf</configLocation>
                     <skipTestSources>false</skipTestSources>
