@@ -8,10 +8,13 @@ import org.scalafmt.dynamic.exceptions.ScalafmtException
 import org.scalatest.flatspec.AnyFlatSpec
 import org.scalatest.GivenWhenThen
 import org.scalatest.matchers.should.Matchers
+import org.codehaus.plexus.logging.Logger
 
 class MavenLogReporterSpec extends AnyFlatSpec with GivenWhenThen with Matchers {
 
-  val reporter = new MavenLogReporter(new DefaultLog(new ConsoleLogger()))
+  val reporter = new MavenLogReporter(
+    new DefaultLog(new ConsoleLogger(Logger.LEVEL_DEBUG, this.getClass.getSimpleName))
+  )
 
   behavior of "MavenLogReporter"
 
