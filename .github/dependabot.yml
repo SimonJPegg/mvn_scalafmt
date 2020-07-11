@@ -8,6 +8,6 @@ updates:
   target-branch: master
   ignore:
     - dependency-name: "org.apache.maven:maven-plugin-api"
-
+    - dependency-name: "org.antipathy:*"
 
 
