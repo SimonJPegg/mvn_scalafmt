@@ -41,9 +41,8 @@ class ChangedFilesBuilder(log: Log, diff: Boolean, branch: String, changeFunctio
           log.error("Could not obtain list of changed files", e)
           throw e
       }
-    } else {
+    } else
       input
-    }
 
 }
 
@@ -70,7 +69,7 @@ object ChangedFilesBuilder {
         .toSeq
     }
 
-    new ChangedFilesBuilder(log, diff, actualBranch, processFunction)
+    new ChangedFilesBuilder(log, diff, actualBranch, processFunction _)
   }
 }
 // $COVERAGE-ON$

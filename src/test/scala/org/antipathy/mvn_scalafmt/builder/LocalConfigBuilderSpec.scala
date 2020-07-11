@@ -25,14 +25,15 @@ class LocalConfigBuilderSpec extends AnyFlatSpec with GivenWhenThen with Matcher
 
     val builder = LocalConfigBuilder(new SystemStreamLog)
     val path    = "https://raw.githubusercontent.com/SimonJPegg/mvn_scalafmt/master/.scalafmt.conf"
-    val expectedContent = scala.io.Source
+    val source = scala.io.Source
       .fromURL("https://raw.githubusercontent.com/SimonJPegg/mvn_scalafmt/master/.scalafmt.conf")
-      .mkString
+    val expectedContent = source.mkString
 
     builder.build(path)
 
     val result = new String(Files.readAllBytes(new File(".scalafmt.conf").toPath))
     result.trim should be(expectedContent.trim)
+    source.close()
   }
 
 }

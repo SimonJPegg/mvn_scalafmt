@@ -96,7 +96,7 @@ The latest release should be visible at the top of this readme.
 
 make sure you have set a version in your scalafmt.conf 
 ```yaml
-version = "2.5.2"
+version = "2.6.2"
 ```
 [lgtmimg]: https://img.shields.io/lgtm/alerts/g/SimonJPegg/mvn_scalafmt.svg?logo=lgtm&logoWidth=18
 [lgtmlink]: https://lgtm.com/projects/g/SimonJPegg/mvn_scalafmt/alerts/

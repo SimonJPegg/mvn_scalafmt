@@ -22,7 +22,7 @@ jobs:
           key: ${{ runner.os }}-m2-${{ hashFiles('**/pom.xml') }}
           restore-keys: ${{ runner.os }}-m2
       - name: Build with Maven
-        run: mvn clean test scoverage:check
+        run: mvn clean test scoverage:check -Dversion.scala.major=2.12 -Dversion.scala.minor=.10
   test_2_11:
     runs-on: ubuntu-latest
     steps:

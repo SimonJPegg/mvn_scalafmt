@@ -23,9 +23,8 @@ class RemoteConfigWriter(log: Log) extends Writer[RemoteConfig, Path] {
 
     log.info(s"Writing remote config to ${input.location.toAbsolutePath}")
 
-    if (Files.exists(input.location)) {
+    if (Files.exists(input.location))
       Files.delete(input.location)
-    }
 
     val newConfig = new File(input.location.toAbsolutePath.toString)
     FileUtils.writeStringToFile(

@@ -22,9 +22,12 @@ class RemoteConfigReader(log: Log) extends Reader[String, RemoteConfig] {
   override def read(location: String): RemoteConfig =
     Try {
       log.info(s"Reading config from $location")
-      RemoteConfig(
-        contents = scala.io.Source.fromURL(new URL(location)).mkString
+      val source = scala.io.Source.fromURL(new URL(location))
+      val result = RemoteConfig(
+        contents = source.mkString
       )
+      source.close()
+      result
     } match {
       case Success(value) => value
       case Failure(exception) =>

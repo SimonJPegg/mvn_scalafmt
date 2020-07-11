@@ -1,5 +1,7 @@
 package org.antipathy.mvn_scalafmt.model
 
+// $COVERAGE-OFF$
+
 /**
   * Class representing the result of a run of the plugin
   * @param totalFiles The total number of files checked
@@ -18,3 +20,5 @@ case class Summary(
        |${fileDetails.mkString(System.lineSeparator)}
      """.stripMargin
 }
+
+// $COVERAGE-ON$

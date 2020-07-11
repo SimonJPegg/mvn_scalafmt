@@ -73,11 +73,11 @@ object ScalaFormatter {
 
     val sourceFormatter = new SourceFileFormatter(config, scalafmt, log)
 
-    val fileWriter = if (testOnly) {
-      new TestResultLogWriter(log)
-    } else {
-      new FormattedFilesWriter(log)
-    }
+    val fileWriter =
+      if (testOnly)
+        new TestResultLogWriter(log)
+      else
+        new FormattedFilesWriter(log)
     new ScalaFormatter(sourceBuilder, changedFilesBuilder, sourceFormatter, fileWriter)
   }
 

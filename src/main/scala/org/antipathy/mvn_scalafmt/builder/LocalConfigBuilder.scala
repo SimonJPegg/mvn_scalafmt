@@ -35,9 +35,8 @@ class LocalConfigBuilder(
       val remoteConfig = remoteConfigReader.read(location)
       val localConfig  = remoteConfigWriter.write(remoteConfig)
       configValidator.validate(localConfig.toString)
-    } else {
+    } else
       configValidator.validate(location)
-    }
 }
 
 // $COVERAGE-OFF$
