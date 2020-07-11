@@ -17,7 +17,7 @@ class MavenLogReporter(log: Log) extends ScalafmtReporter {
     * log errors
     */
   override def error(path: Path, message: String): Unit =
-    throw new ScalafmtException(message, null)
+    throw ScalafmtException(message, null)
 
   /**
     * log errors with exceptions
@@ -39,7 +39,7 @@ class MavenLogReporter(log: Log) extends ScalafmtReporter {
   /**
     * This method appears to be used to print download information,  sys.err should be fine here.
     */
-  override def downloadWriter(): PrintWriter = new PrintWriter(System.err)
+  @Deprecated override def downloadWriter(): PrintWriter = new PrintWriter(System.err)
 
   /**
     * This method appears to be used to print download information,  sys.err should be fine here.

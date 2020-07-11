@@ -20,12 +20,13 @@ class ConfigFileValidator(
     * @return The validated output
     */
   @throws[IllegalArgumentException]
-  override def validate(location: String): Path = location match {
-    case "" | null => throw buildException(s"Config path is null or empty")
-    case invalidPath if !Files.exists(Paths.get(invalidPath)) =>
-      throw buildException(s"Config path is invalid: $location")
-    case _ => Paths.get(location)
-  }
+  override def validate(location: String): Path =
+    location match {
+      case "" | null => throw buildException(s"Config path is null or empty")
+      case invalidPath if !Files.exists(Paths.get(invalidPath)) =>
+        throw buildException(s"Config path is invalid: $location")
+      case _ => Paths.get(location)
+    }
 
   private def buildException(message: String): Exception = {
     val exception = new IllegalArgumentException(message)

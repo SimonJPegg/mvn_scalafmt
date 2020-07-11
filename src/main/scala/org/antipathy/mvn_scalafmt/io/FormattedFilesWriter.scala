@@ -1,8 +1,6 @@
 package org.antipathy.mvn_scalafmt.io
 
 import java.io.File
-import java.nio.charset.StandardCharsets
-
 import org.antipathy.mvn_scalafmt.builder.FilesSummaryBuilder
 import org.antipathy.mvn_scalafmt.model.{FileSummaryRequest, FormatResult, Summary}
 import org.apache.commons.io.FileUtils

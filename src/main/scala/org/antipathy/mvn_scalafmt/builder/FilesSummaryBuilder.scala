@@ -1,6 +1,6 @@
 package org.antipathy.mvn_scalafmt.builder
 
-import org.antipathy.mvn_scalafmt.model.{FileSummary, FileSummaryRequest, FormatResult}
+import org.antipathy.mvn_scalafmt.model.{FileSummary, FileSummaryRequest}
 
 /**
   * Trait for building file summaries
@@ -12,12 +12,13 @@ trait FilesSummaryBuilder extends Builder[FileSummaryRequest, Seq[FileSummary]] 
     * @param input The input to build from
     * @return The built output
     */
-  override def build(input: FileSummaryRequest): Seq[FileSummary] = input.formatResults.map { item =>
-    val details = if (item.isFormatted) {
-      input.formattedValue
-    } else {
-      input.unformattedValue
+  override def build(input: FileSummaryRequest): Seq[FileSummary] =
+    input.formatResults.map { item =>
+      val details =
+        if (item.isFormatted)
+          input.formattedValue
+        else
+          input.unformattedValue
+      FileSummary(item.sourceFile.getName, details)
     }
-    FileSummary(item.sourceFile.getName, details)
-  }
 }

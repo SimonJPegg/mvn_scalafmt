@@ -50,7 +50,7 @@ public class FormatMojo extends AbstractMojo {
     private List<Repository> mavenRepositories;
 
     private List<String> getRepositoriesUrls(List<Repository> repositories) {
-        ArrayList<String> urls = new ArrayList<String>();
+        ArrayList<String> urls = new ArrayList<>();
         for (Repository repository : repositories) {
             urls.add(repository.getUrl());
         }

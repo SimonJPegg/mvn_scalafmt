@@ -26,9 +26,9 @@ class SourceFileSequenceBuilder(log: Log) extends Builder[Seq[File], Seq[File]] 
       Seq.empty[File]
     } else {
       val files = paths.map(_.getCanonicalPath).flatMap { p =>
-        if (Files.exists(Paths.get(p))) {
+        if (Files.exists(Paths.get(p)))
           Some(new File(p))
-        } else {
+        else {
           log.warn(s"Could not locate Scala source at $p")
           None
         }

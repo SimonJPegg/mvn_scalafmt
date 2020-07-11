@@ -43,12 +43,6 @@ class ChangedFilesBuilderSpec extends AnyFlatSpec with GivenWhenThen with Matche
     val log        = new SystemStreamLog
     val sourceDirs = Seq("src/test/scala", "src/main/scala").map(new File(_))
     val sources    = new SourceFileSequenceBuilder(log).build(sourceDirs)
-    val changedFiles = Seq(
-      "/mvn_scalafmt/src/main/scala/org/antipathy/mvn_scalafmt/builder/ChangedFilesBuilder.scala",
-      "/mvn_scalafmt/src/main/scala/org/antipathy/mvn_scalafmt/builder/SourceFileSequenceBuilder.scala",
-      "/mvn_scalafmt/src/test/scala/org/antipathy/mvn_scalafmt/builder/ChangedFilesBuilderSpec.scala",
-      "/mvn_scalafmt/src/test/scala/org/antipathy/mvn_scalafmt/builder/LocalConfigBuilderSpec.scala"
-    ).map(x => getAbsolutePathFrom(x))
 
     val changeFunction = () => throw new FileNotFoundException("Ooops")
 
