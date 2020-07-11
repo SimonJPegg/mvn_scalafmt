@@ -47,7 +47,7 @@
         <version.scala.minor>.1</version.scala.minor>
         <version.scala.xml>1.2.0</version.scala.xml>
         <version.scalafmt.dynamic>2.6.3</version.scalafmt.dynamic>
-        <version.scalatest>3.1.2</version.scalatest>
+        <version.scalatest>3.3.0-SNAP2</version.scalatest>
 
         <version.maven.plugin.clean>3.1.0</version.maven.plugin.clean>
         <version.maven.plugin.compiler>3.8.1</version.maven.plugin.compiler>
