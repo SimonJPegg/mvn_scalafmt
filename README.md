@@ -1,4 +1,4 @@
-[![licenseimg]][licenselink]  [![Codacy][codacyimg]][codacylink] ![Coverage][covimg] ![Build Status][buildimg]
+[![licenseimg]][licenselink]  [![Codacy][codacyimg]][codacylink] ![Coverage][covimg] ![Build Status][buildimg] [![Total alerts][lgtmimg]][lgtmlink]
 
 [![releasebadge]][releaselink] [![Maven][mavenimg]][mavenlink]
 
@@ -98,7 +98,8 @@ make sure you have set a version in your scalafmt.conf
 ```yaml
 version = "2.5.2"
 ```
-
+[lgtmimg]: https://img.shields.io/lgtm/alerts/g/SimonJPegg/mvn_scalafmt.svg?logo=lgtm&logoWidth=18
+[lgtmlink]: https://lgtm.com/projects/g/SimonJPegg/mvn_scalafmt/alerts/
 [licenseimg]: https://img.shields.io/badge/Licence-Apache%202.0-blue.svg
 [licenselink]: ./LICENSE
 [buildimg]: https://github.com/SimonJPegg/mvn_scalafmt/workflows/Build/badge.svg
