@@ -6,7 +6,7 @@ REPO_FULL_NAME="$3"
 TOKEN="$4"
 
 releaseVersion="$(mvn -Dversion.scala.major="$SCALA_MAJOR_VERSION" -Dversion.scala.minor="$SCALA_MINOR_VERSION" -Drevision=$(git show -s --format=%ct.%h) help:evaluate -Dexpression=project.version -q -DforceStdout)"
-message=$(git log -1 --pretty=%B)
+message=$(git log -n 1 --pretty=format:'%s')
 generate_post_data()
 {
   cat <<EOF
