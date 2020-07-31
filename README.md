@@ -102,7 +102,7 @@ version = "2.6.2"
 [lgtmlink]: https://lgtm.com/projects/g/SimonJPegg/mvn_scalafmt/alerts/
 [licenseimg]: https://img.shields.io/badge/Licence-Apache%202.0-blue.svg
 [licenselink]: ./LICENSE
-[buildimg]: https://github.com/SimonJPegg/mvn_scalafmt/workflows/Build/badge.svg
+[buildimg]: https://github.com/SimonJPegg/mvn_scalafmt/workflows/Build213/badge.svg
 [covimg]: https://app.codacy.com/project/badge/Coverage/15b50622fcf349cc89301b6c3d40fc4e
 [codacyimg]: https://api.codacy.com/project/badge/Grade/15b50622fcf349cc89301b6c3d40fc4e
 [codacylink]: https://app.codacy.com/project/Antipathy_org/mvn_scalafmt/dashboard?branchId=11175791

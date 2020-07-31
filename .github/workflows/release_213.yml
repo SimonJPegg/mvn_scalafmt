@@ -1,0 +1,41 @@
+name: Build213
+
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  release_2_13:
+    runs-on: ubuntu-18.04
+    steps:
+      - name: Check out Git repository
+        uses: actions/checkout@v2
+      - name: Install Java and Maven
+        uses: actions/setup-java@v1
+        with:
+          java-version: 8
+      - name: Cache Maven packages
+        uses: actions/cache@v1
+        with:
+          path: ~/.m2
+          key: ${{ runner.os }}-m2-${{ hashFiles('**/pom.xml') }}
+          restore-keys: ${{ runner.os }}-m2
+      - name: Release Maven package
+        uses: samuelmeuli/action-maven-publish@v1
+        with:
+          gpg_private_key: ${{ secrets.gpg_private_key }}
+          gpg_passphrase: ${{ secrets.gpg_passphrase }}
+          nexus_username: ${{ secrets.nexus_username }}
+          nexus_password: ${{ secrets.nexus_password }}
+          maven_args: -Dversion.scala.major=2.13 -Dversion.scala.minor=.1 -Drevision=$(git show -s --format=%ct.%h)
+      - name: tag repo
+        uses: oleksiyrudenko/gha-git-credentials@v1
+        with:
+          name: 'Ciaran Kearney'
+          email: 'ciaran@antipathy.org'
+          actor: 'SimonJPegg'
+          token: '${{ secrets.GITHUB_TOKEN }}'
+      - run: bash create_release.sh 2.13 .1 SimonJPegg/mvn_scalafmt "$GITHUB_TOKEN"
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
