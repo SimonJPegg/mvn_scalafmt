@@ -37,7 +37,7 @@
         <revision>0.SNAPSHOT</revision>
         <version.commonsio>2.7</version.commonsio>
         <version.commonslang>3.11</version.commonslang>
-        <version.commonsvalidator>1.6</version.commonsvalidator>
+        <version.commonsvalidator>1.7</version.commonsvalidator>
         <version.java>1.8</version.java>
         <version.maven.annotations>3.6.0</version.maven.annotations>
         <version.maven>3.6.0</version.maven>
