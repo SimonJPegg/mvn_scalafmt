@@ -35,7 +35,7 @@
 
     <properties>
         <revision>0.SNAPSHOT</revision>
-        <version.commonsio>2.7</version.commonsio>
+        <version.commonsio>2.8.0</version.commonsio>
         <version.commonslang>3.11</version.commonslang>
         <version.commonsvalidator>1.7</version.commonsvalidator>
         <version.java>1.8</version.java>
