@@ -13,8 +13,7 @@ import org.scalafmt.interfaces.Scalafmt
 
 import scala.jdk.CollectionConverters._
 
-/**
-  * class to format scala source files using the Scalafmt library
+/** class to format scala source files using the Scalafmt library
   */
 class ScalaFormatter(
   sourceBuilder: Builder[Seq[File], Seq[File]],
@@ -23,8 +22,7 @@ class ScalaFormatter(
   writer: Writer[Seq[FormatResult], Summary]
 ) extends Formatter[JList[File], Summary] {
 
-  /**
-    * Format the files in the passed in source directories
+  /** Format the files in the passed in source directories
     * @param sourceDirectories The source directories to format
     * @return A summary of what was done
     */
@@ -38,8 +36,7 @@ class ScalaFormatter(
 // $COVERAGE-OFF$
 object ScalaFormatter {
 
-  /**
-    *  Create a new ScalaFormatter instance
+  /**  Create a new ScalaFormatter instance
     * @param configLocation The location of the scalafmt.conf
     * @param log The maven logger
     * @param respectVersion should we respect the version in the scalafmt.conf

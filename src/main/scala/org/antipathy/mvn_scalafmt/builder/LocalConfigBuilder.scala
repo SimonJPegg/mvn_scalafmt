@@ -8,8 +8,7 @@ import org.antipathy.mvn_scalafmt.validation.{ConfigFileValidator, Validator}
 import org.apache.commons.validator.routines.UrlValidator
 import org.apache.maven.plugin.logging.Log
 
-/**
-  * Class for building a local config from a remote location and validating the path is correct
+/** Class for building a local config from a remote location and validating the path is correct
   * @param urlValidator Class for validating if string is a valid url
   * @param configValidator Class for validating a local config's path
   * @param remoteConfigReader Class for reading a remote config
@@ -24,8 +23,7 @@ class LocalConfigBuilder(
   log: Log
 ) extends Builder[String, Path] {
 
-  /**
-    * Read an object from the specified location
+  /** Read an object from the specified location
     *
     * @param location The location to read from
     * @return The object at the location

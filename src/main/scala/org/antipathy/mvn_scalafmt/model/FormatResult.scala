@@ -2,8 +2,7 @@ package org.antipathy.mvn_scalafmt.model
 
 import java.io.File
 
-/**
-  * Class used to contain a format result
+/** Class used to contain a format result
   *
   * @param sourceFile The source file
   * @param originalSource The string value of the unformatted file
@@ -11,8 +10,7 @@ import java.io.File
   */
 case class FormatResult(sourceFile: File, originalSource: String, formattedSource: String) {
 
-  /**
-    * Check if a source file has been formatted correctly
+  /** Check if a source file has been formatted correctly
     * @return True if correctly formatted
     */
   lazy val isFormatted: Boolean = originalSource.trim.equals(formattedSource.trim)

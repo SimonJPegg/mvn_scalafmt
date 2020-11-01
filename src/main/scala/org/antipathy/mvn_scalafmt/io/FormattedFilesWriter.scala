@@ -6,13 +6,11 @@ import org.antipathy.mvn_scalafmt.model.{FileSummaryRequest, FormatResult, Summa
 import org.apache.commons.io.FileUtils
 import org.apache.maven.plugin.logging.Log
 
-/**
-  * Class for writing formatted source files
+/** Class for writing formatted source files
   */
 class FormattedFilesWriter(log: Log) extends Writer[Seq[FormatResult], Summary] with FilesSummaryBuilder {
 
-  /**
-    * Write the passed in input
+  /** Write the passed in input
     *
     * @param input The input to write
     */
@@ -26,8 +24,7 @@ class FormattedFilesWriter(log: Log) extends Writer[Seq[FormatResult], Summary] 
     )
   }
 
-  /**
-    * Write each FormatResult to disk
+  /** Write each FormatResult to disk
     *
     * @param input The input to write
     */
