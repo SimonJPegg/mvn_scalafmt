@@ -8,14 +8,12 @@ import org.apache.commons.io.FileUtils
 import org.apache.maven.plugin.logging.Log
 import java.nio.file.{Files, Path}
 
-/**
-  * Class for writing a remote config to a local path
+/** Class for writing a remote config to a local path
   * @param log The maven logger
   */
 class RemoteConfigWriter(log: Log) extends Writer[RemoteConfig, Path] {
 
-  /**
-    * Write the passed in remote config to a local file
+  /** Write the passed in remote config to a local file
     *
     * @param input The input to write
     */

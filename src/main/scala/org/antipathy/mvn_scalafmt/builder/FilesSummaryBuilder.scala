@@ -2,13 +2,11 @@ package org.antipathy.mvn_scalafmt.builder
 
 import org.antipathy.mvn_scalafmt.model.{FileSummary, FileSummaryRequest}
 
-/**
-  * Trait for building file summaries
+/** Trait for building file summaries
   */
 trait FilesSummaryBuilder extends Builder[FileSummaryRequest, Seq[FileSummary]] {
 
-  /**
-    * Build a summary of the format run from the passed in `FormatResult`s
+  /** Build a summary of the format run from the passed in `FormatResult`s
     * @param input The input to build from
     * @return The built output
     */

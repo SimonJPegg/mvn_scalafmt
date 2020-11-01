@@ -4,16 +4,14 @@ import java.nio.file.{Files, Path, Paths}
 
 import org.apache.maven.plugin.logging.Log
 
-/**
-  * Class for validating the ScalaFmt config
+/** Class for validating the ScalaFmt config
   * @param log The maven logger
   */
 class ConfigFileValidator(
   log: Log
 ) extends Validator[String, Path] {
 
-  /**
-    * Validate the passed in input
+  /** Validate the passed in input
     *
     * @param location The input to validate
     * @throws IllegalArgumentException when the path is invalid
