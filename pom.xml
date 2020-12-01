@@ -41,7 +41,7 @@
         <version.java>1.8</version.java>
         <version.maven.annotations>3.6.0</version.maven.annotations>
         <version.maven>3.6.0</version.maven>
-        <version.mockito.core>3.6.0</version.mockito.core>
+        <version.mockito.core>3.6.28</version.mockito.core>
         <version.scala.collection.compat>2.2.0</version.scala.collection.compat>
         <version.scala.major>2.13</version.scala.major>
         <version.scala.minor>.3</version.scala.minor>
