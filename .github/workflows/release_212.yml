@@ -30,7 +30,7 @@ jobs:
           nexus_password: ${{ secrets.nexus_password }}
           maven_args: -Dversion.scala.major=2.12 -Dversion.scala.minor=.10 -Drevision=$(git show -s --format=%ct.%h)
       - name: tag repo
-        uses: oleksiyrudenko/gha-git-credentials@v1
+        uses: oleksiyrudenko/gha-git-credentials@v2-latest
         with:
           name: 'Ciaran Kearney'
           email: 'ciaran@antipathy.org'
