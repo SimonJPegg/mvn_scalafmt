@@ -70,4 +70,4 @@ jobs:
         key: ${{ runner.os }}-m2-${{ hashFiles('**/pom.xml') }}
         restore-keys: ${{ runner.os }}-m2
     - name: Build with Maven
-      run: mvn clean package --file pom.xml -Dversion.scala.major=2.13 -Dversion.scala.minor=.3
+      run: mvn clean package --file pom.xml -Dversion.scala.major=2.13 -Dversion.scala.minor=.5
