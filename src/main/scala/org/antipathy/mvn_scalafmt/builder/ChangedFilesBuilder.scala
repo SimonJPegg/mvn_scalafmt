@@ -58,7 +58,7 @@ object ChangedFilesBuilder {
       else run(branch.substring(prefix.length))
 
     def processFunction(): Seq[File] = {
-      val diffOutput    = run(s"git diff --name-only --diff-filter=d $actualBranch -- workingDirectory")
+      val diffOutput    = run(s"git diff --name-only --diff-filter=d $actualBranch -- $workingDirectory")
       val gitRootOutput = run("git rev-parse --show-toplevel")
       val gitRootPath   = Paths.get(gitRootOutput)
       diffOutput.linesIterator
