@@ -6,6 +6,7 @@ import org.antipathy.mvn_scalafmt.model.{FileSummary, FormatResult, Summary}
   */
 abstract class FormatResultsWriter extends Writer[Seq[FormatResult], Summary] {
 
+  protected val showReformattedOnly: Boolean
   protected val formattedDetail: String
   protected val unformattedDetail: String
   protected def processUnformattedFile(input: FormatResult): Unit
@@ -17,7 +18,8 @@ abstract class FormatResultsWriter extends Writer[Seq[FormatResult], Summary] {
   final override def write(input: Seq[FormatResult]): Summary = {
     val unformattedFiles = input.filter(!_.isFormatted)
     unformattedFiles.foreach(processUnformattedFile)
-    Summary(input.length, unformattedFiles.length, build(input))
+    val results = if (showReformattedOnly) unformattedFiles else input
+    Summary(input.length, unformattedFiles.length, build(results))
   }
 
   /** Build a summary of the format run from the passed in `FormatResult`s

@@ -7,7 +7,8 @@ import org.apache.maven.plugin.logging.Log
 
 /** Class for writing formatted source files
   */
-class FormattedFilesWriter(log: Log) extends FormatResultsWriter {
+class FormattedFilesWriter(log: Log, val showReformattedOnly: Boolean)
+    extends FormatResultsWriter {
 
   protected val formattedDetail: String   = "Correctly formatted"
   protected val unformattedDetail: String = "Reformatted"

@@ -7,7 +7,7 @@ import org.apache.maven.plugin.logging.Log
   *
   * @param log The maven logger
   */
-class TestResultLogWriter(log: Log) extends FormatResultsWriter {
+class TestResultLogWriter(log: Log, val showReformattedOnly: Boolean) extends FormatResultsWriter {
 
   protected val formattedDetail: String   = "Formatted"
   protected val unformattedDetail: String = "Requires formatting"

@@ -42,6 +42,7 @@ object ScalaFormatter {
     * @param respectVersion should we respect the version in the scalafmt.conf
     * @param testOnly should files be reformatted
     * @param onlyChangedFiles Should only changed files be formatted
+    * @param showReformattedOnly print only unformatted files in loggers
     * @param branch The branch to compare against for changed files
     * @param workingDirectory The project working directory
     * @param mavenRepositoryUrls The maven repositories to be used to dynamically load scalafmt, empty if maven central
@@ -54,6 +55,7 @@ object ScalaFormatter {
     respectVersion: Boolean,
     testOnly: Boolean,
     onlyChangedFiles: Boolean,
+    showReformattedOnly: Boolean,
     branch: String,
     workingDirectory: File,
     mavenRepositoryUrls: JList[String]
@@ -72,9 +74,9 @@ object ScalaFormatter {
 
     val fileWriter =
       if (testOnly)
-        new TestResultLogWriter(log)
+        new TestResultLogWriter(log, showReformattedOnly)
       else
-        new FormattedFilesWriter(log)
+        new FormattedFilesWriter(log, showReformattedOnly)
     new ScalaFormatter(sourceBuilder, changedFilesBuilder, sourceFormatter, fileWriter)
   }
 

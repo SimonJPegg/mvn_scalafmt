@@ -23,7 +23,7 @@ class FormattedFilesWriterSpec extends AnyFlatSpec with GivenWhenThen with Match
     FileUtils.writeStringToFile(sourceFile, originalContent, StandardCharsets.UTF_8)
     new String(Files.readAllBytes(sourceFile.toPath)) should be(originalContent)
 
-    new FormattedFilesWriter(new SystemStreamLog)
+    new FormattedFilesWriter(new SystemStreamLog, false)
       .write(Seq(FormatResult(sourceFile, originalContent, changedContent))) shouldBe Summary(
       1,
       1,
@@ -32,7 +32,7 @@ class FormattedFilesWriterSpec extends AnyFlatSpec with GivenWhenThen with Match
 
     new String(Files.readAllBytes(sourceFile.toPath)) should be(changedContent)
 
-    new FormattedFilesWriter(new SystemStreamLog)
+    new FormattedFilesWriter(new SystemStreamLog, false)
       .write(Seq(FormatResult(sourceFile, changedContent, changedContent))) shouldBe Summary(
       1,
       0,
@@ -52,7 +52,7 @@ class FormattedFilesWriterSpec extends AnyFlatSpec with GivenWhenThen with Match
     FileUtils.writeStringToFile(sourceFile, originalContent, StandardCharsets.UTF_8)
     new String(Files.readAllBytes(sourceFile.toPath)) should be(originalContent)
 
-    new FormattedFilesWriter(new SystemStreamLog)
+    new FormattedFilesWriter(new SystemStreamLog, true)
       .write(Seq(FormatResult(sourceFile, originalContent, changedContent))) shouldBe Summary(
       1,
       1,
@@ -61,11 +61,11 @@ class FormattedFilesWriterSpec extends AnyFlatSpec with GivenWhenThen with Match
 
     new String(Files.readAllBytes(sourceFile.toPath)) should be(changedContent)
 
-    new FormattedFilesWriter(new SystemStreamLog)
+    new FormattedFilesWriter(new SystemStreamLog, true)
       .write(Seq(FormatResult(sourceFile, changedContent, changedContent))) shouldBe Summary(
       1,
       0,
-      Seq(FileSummary(sourceFile.getName, "Correctly formatted"))
+      Seq.empty
     )
 
     new String(Files.readAllBytes(sourceFile.toPath)) should be(changedContent)

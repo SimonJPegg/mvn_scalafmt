@@ -17,7 +17,7 @@ class TestResultLogWriterSpec extends AnyFlatSpec with GivenWhenThen with Matche
   it should "write details of unformatted sources to a log" in {
 
     val log             = Mockito.mock(classOf[Log])
-    val writer          = new TestResultLogWriter(log)
+    val writer          = new TestResultLogWriter(log, false)
     val unformattedFile = Mockito.mock(classOf[File])
     val formattedFile   = Mockito.mock(classOf[File])
     val unformatted = FormatResult(
@@ -48,7 +48,7 @@ class TestResultLogWriterSpec extends AnyFlatSpec with GivenWhenThen with Matche
   it should "write details of unformatted sources to a log, reformatted only" in {
 
     val log             = Mockito.mock(classOf[Log])
-    val writer          = new TestResultLogWriter(log)
+    val writer          = new TestResultLogWriter(log, true)
     val unformattedFile = Mockito.mock(classOf[File])
     val formattedFile   = Mockito.mock(classOf[File])
     val unformatted = FormatResult(
@@ -69,10 +69,7 @@ class TestResultLogWriterSpec extends AnyFlatSpec with GivenWhenThen with Matche
     writer.write(input) shouldBe Summary(
       2,
       1,
-      Seq(
-        FileSummary(unformattedFile.getName, "Requires formatting"),
-        FileSummary(formattedFile.getName, "Formatted")
-      )
+      Seq(FileSummary(unformattedFile.getName, "Requires formatting"))
     )
   }
 

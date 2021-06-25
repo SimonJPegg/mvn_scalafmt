@@ -74,6 +74,7 @@ The latest release should be visible at the top of this readme.
         </testSourceDirectories>
         <validateOnly>false</validateOnly> <!-- check formatting without changing files -->
         <onlyChangedFiles>true</onlyChangedFiles> <!-- only format (staged) files that have been changed from the specified git branch -->
+        <showReformattedOnly>false</showReformattedOnly> <!-- log only modified files -->
         <!-- The git branch to check against
              If branch.startsWith(": ") the value in <branch> tag is used as a command to run
              and the output will be used as the actual branch-->

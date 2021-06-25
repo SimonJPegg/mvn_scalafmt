@@ -34,6 +34,8 @@ public class FormatMojo extends AbstractMojo {
     private boolean validateOnly;
     @Parameter(property = "format.onlyChangedFiles", defaultValue = "false")
     private boolean onlyChangedFiles;
+    @Parameter(property = "format.showReformattedOnly", defaultValue = "false")
+    private boolean showReformattedOnly;
     /** if branch.startsWith(": "), ex set in pom.xml:
       * <pre>{@code
       * <!-- the current branch-->
@@ -81,6 +83,7 @@ public class FormatMojo extends AbstractMojo {
                         respectVersion,
                         validateOnly,
                         onlyChangedFiles,
+                        showReformattedOnly,
                         branch,
                         project.getBasedir(),
                         useSpecifiedRepositories ? getRepositoriesUrls(mavenRepositories) : new ArrayList<String>()
