@@ -32,6 +32,8 @@ public class FormatMojo extends AbstractMojo {
     private boolean respectVersion;
     @Parameter(property = "format.validateOnly", defaultValue = "false")
     private boolean validateOnly;
+    @Parameter(property = "format.validate", defaultValue = "false")
+    private boolean validate;
     @Parameter(property = "format.onlyChangedFiles", defaultValue = "false")
     private boolean onlyChangedFiles;
     /** if branch.startsWith(": "), ex set in pom.xml:
@@ -86,7 +88,7 @@ public class FormatMojo extends AbstractMojo {
                         useSpecifiedRepositories ? getRepositoriesUrls(mavenRepositories) : new ArrayList<String>()
                 ).format(sources);
                 getLog().info(result.toString());
-                if (validateOnly && result.unformattedFiles() != 0) {
+                if ((validateOnly || validate) && result.unformattedFiles() != 0) {
                     throw new MojoExecutionException("Scalafmt: Unformatted files found");
                 }
             } catch (Exception e) {

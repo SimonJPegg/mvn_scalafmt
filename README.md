@@ -73,6 +73,7 @@ The latest release should be visible at the top of this readme.
           <param>${project.basedir}/src/test/scala</param>
         </testSourceDirectories>
         <validateOnly>false</validateOnly> <!-- check formatting without changing files -->
+        <validate>false</validate> <!-- check formatting and change files -->
         <onlyChangedFiles>true</onlyChangedFiles> <!-- only format (staged) files that have been changed from the specified git branch -->
         <!-- The git branch to check against
              If branch.startsWith(": ") the value in <branch> tag is used as a command to run
