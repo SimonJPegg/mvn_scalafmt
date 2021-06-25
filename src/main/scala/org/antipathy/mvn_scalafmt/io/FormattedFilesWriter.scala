@@ -1,34 +1,22 @@
 package org.antipathy.mvn_scalafmt.io
 
 import java.io.File
-import org.antipathy.mvn_scalafmt.builder.FilesSummaryBuilder
-import org.antipathy.mvn_scalafmt.model.{FileSummaryRequest, FormatResult, Summary}
+import org.antipathy.mvn_scalafmt.model.FormatResult
 import org.apache.commons.io.FileUtils
 import org.apache.maven.plugin.logging.Log
 
 /** Class for writing formatted source files
   */
-class FormattedFilesWriter(log: Log) extends Writer[Seq[FormatResult], Summary] with FilesSummaryBuilder {
+class FormattedFilesWriter(log: Log) extends FormatResultsWriter {
 
-  /** Write the passed in input
-    *
-    * @param input The input to write
-    */
-  override def write(input: Seq[FormatResult]): Summary = {
-    val unformattedFiles = input.filter(!_.isFormatted)
-    unformattedFiles.foreach(writeFile)
-    Summary(
-      input.length,
-      unformattedFiles.length,
-      build(FileSummaryRequest(input, "Correctly formatted", "Reformatted"))
-    )
-  }
+  protected val formattedDetail: String   = "Correctly formatted"
+  protected val unformattedDetail: String = "Reformatted"
 
   /** Write each FormatResult to disk
     *
     * @param input The input to write
     */
-  private def writeFile(input: FormatResult): Unit = {
+  protected def processUnformattedFile(input: FormatResult): Unit = {
     import org.antipathy.mvn_scalafmt.ScalaFormatter
     log.debug(s"Writing ${input.sourceFile.getName} to ${input.sourceFile.getCanonicalPath}")
 
