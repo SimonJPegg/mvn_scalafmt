@@ -80,7 +80,9 @@ public class FormatMojo extends AbstractMojo {
                         onlyChangedFiles,
                         branch,
                         project.getBasedir(),
-                        useSpecifiedRepositories ? getRepositoriesUrls(mavenRepositories) : new ArrayList<String>()
+                        useSpecifiedRepositories ?
+                            getRepositoriesUrls(project.getRepositories()) :
+                            new ArrayList<String>()
                 ).format(sources);
                 getLog().info(result.toString());
                 if (validateOnly && result.unformattedFiles() != 0) {
@@ -104,6 +106,7 @@ public class FormatMojo extends AbstractMojo {
         } else if (sourceDirectories == null || sourceDirectories.isEmpty()) {
             appendCanonicalSources(
                 sources,
+                project.getCompileSourceRoots(),
                 build.getSourceDirectory()
             );
         } else {
@@ -115,6 +118,7 @@ public class FormatMojo extends AbstractMojo {
         } else if (testSourceDirectories == null || testSourceDirectories.isEmpty()) {
             appendCanonicalSources(
                 sources,
+                project.getTestCompileSourceRoots(),
                 build.getTestSourceDirectory()
             );
         } else {
@@ -126,8 +130,12 @@ public class FormatMojo extends AbstractMojo {
 
     private void appendCanonicalSources(
         HashSet<File> sources,
+        List<String> sourceRoots,
         String defaultSource
     ) throws IOException {
+        for (String source : sourceRoots) {
+            sources.add(getCanonicalFile(source));
+        }
         sources.add(getCanonicalFile(defaultSource + "/../scala"));
     }
 
