@@ -1,6 +1,7 @@
 package org.antipathy.mvn_scalafmt;
 
 import org.antipathy.mvn_scalafmt.model.Summary;
+import org.apache.maven.model.Build;
 import org.apache.maven.plugin.AbstractMojo;
 import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.plugins.annotations.LifecyclePhase;
@@ -10,7 +11,9 @@ import org.apache.maven.project.MavenProject;
 import org.apache.maven.model.Repository;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 
 /**
@@ -25,9 +28,9 @@ public class FormatMojo extends AbstractMojo {
     private boolean skipTestSources;
     @Parameter(property = "format.skipSources", defaultValue = "false")
     private boolean skipSources;
-    @Parameter(defaultValue = "${project.build.sourceDirectory}/../scala", required = true)
+    @Parameter()
     private List<File> sourceDirectories;
-    @Parameter(defaultValue = "${project.build.testSourceDirectory}/../scala", required = true)
+    @Parameter()
     private List<File> testSourceDirectories;
     @Parameter(property = "format.respectVersion", defaultValue = "false", required = true)
     private boolean respectVersion;
@@ -62,19 +65,13 @@ public class FormatMojo extends AbstractMojo {
 
     public void execute() throws MojoExecutionException {
 
-        List<File> sources = new ArrayList<>();
-
-        if (!skipSources) {
-            sources.addAll(sourceDirectories);
-        } else {
-            getLog().warn("format.skipSources set, ignoring main directories");
+        List<File> sources;
+        try {
+            sources = getSources();
+        } catch (IOException exception) {
+            throw new MojoExecutionException("Couldn't determine canonical sources", exception);
         }
 
-        if (!skipTestSources) {
-            sources.addAll(testSourceDirectories);
-        } else {
-            getLog().warn("format.skipTestSources set, ignoring validateOnly directories");
-        }
         if (!sources.isEmpty()) {
             try {
 
@@ -87,7 +84,9 @@ public class FormatMojo extends AbstractMojo {
                         showReformattedOnly,
                         branch,
                         project.getBasedir(),
-                        useSpecifiedRepositories ? getRepositoriesUrls(mavenRepositories) : new ArrayList<String>()
+                        useSpecifiedRepositories ?
+                            getRepositoriesUrls(project.getRepositories()) :
+                            new ArrayList<String>()
                 ).format(sources);
                 getLog().info(result.toString());
                 if (validateOnly && result.unformattedFiles() != 0) {
@@ -101,4 +100,51 @@ public class FormatMojo extends AbstractMojo {
             getLog().warn("No sources specified, skipping formatting");
         }
     }
+
+    private List<File> getSources() throws IOException {
+        HashSet<File> sources = new HashSet<>();
+        Build build = project.getBuild();
+
+        if (skipSources) {
+            getLog().warn("format.skipSources set, ignoring main directories");
+        } else if (sourceDirectories == null || sourceDirectories.isEmpty()) {
+            appendCanonicalSources(
+                sources,
+                project.getCompileSourceRoots(),
+                build.getSourceDirectory()
+            );
+        } else {
+            sources.addAll(sourceDirectories);
+        }
+
+        if (skipTestSources) {
+            getLog().warn("format.skipTestSources set, ignoring validateOnly directories");
+        } else if (testSourceDirectories == null || testSourceDirectories.isEmpty()) {
+            appendCanonicalSources(
+                sources,
+                project.getTestCompileSourceRoots(),
+                build.getTestSourceDirectory()
+            );
+        } else {
+            sources.addAll(testSourceDirectories);
+        }
+
+        return new ArrayList<>(sources);
+    }
+
+    private void appendCanonicalSources(
+        HashSet<File> sources,
+        List<String> sourceRoots,
+        String defaultSource
+    ) throws IOException {
+        for (String source : sourceRoots) {
+            sources.add(getCanonicalFile(source));
+        }
+        sources.add(getCanonicalFile(defaultSource + "/../scala"));
+    }
+
+    private File getCanonicalFile(String relative) throws IOException {
+        return new File(project.getBasedir(), relative).getCanonicalFile();
+    }
+
 }
