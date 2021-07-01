@@ -8,10 +8,13 @@ A wrapper that allows the use of the [Scalafmt](https://github.com/scalameta/sca
 
 ## Usage
 
-Add the following snippet to your pom.
+Add the following snippet to your pom, and it will be invoked as part of your build during the
+selected lifecycle phase (default `validate`).
 
 Note: `version.scala.binary` refers to major releases of scala ie. 2.11, 2.12 or 2.13.  
 mvn_scalafmt_2.11 will soon be deprecated and may not receive future releases
+
+You can also invoke the plugin directly via `mvn scalafmt:format`.
 
 ## Versioning 
 
@@ -83,7 +86,7 @@ The latest release should be visible at the top of this readme.
     </configuration>
     <executions>
         <execution>
-            <phase>validate</phase>
+            <phase>validate</phase> <!-- default -->
             <goals>
                 <goal>format</goal>
             </goals>
