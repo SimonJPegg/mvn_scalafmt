@@ -4,6 +4,7 @@ import org.antipathy.mvn_scalafmt.model.Summary;
 import org.apache.maven.model.Build;
 import org.apache.maven.plugin.AbstractMojo;
 import org.apache.maven.plugin.MojoExecutionException;
+import org.apache.maven.plugins.annotations.LifecyclePhase;
 import org.apache.maven.plugins.annotations.Mojo;
 import org.apache.maven.plugins.annotations.Parameter;
 import org.apache.maven.project.MavenProject;
@@ -18,7 +19,7 @@ import java.util.List;
 /**
  * Get the location of the config file and pass to Formatter
  */
-@Mojo(name = "format")
+@Mojo(name = "format", defaultPhase = LifecyclePhase.VALIDATE)
 public class FormatMojo extends AbstractMojo {
 
     @Parameter(property = "format.configLocation")
@@ -37,6 +38,8 @@ public class FormatMojo extends AbstractMojo {
     private boolean validateOnly;
     @Parameter(property = "format.onlyChangedFiles", defaultValue = "false")
     private boolean onlyChangedFiles;
+    @Parameter(property = "format.showReformattedOnly", defaultValue = "false")
+    private boolean showReformattedOnly;
     /** if branch.startsWith(": "), ex set in pom.xml:
       * <pre>{@code
       * <!-- the current branch-->
@@ -78,6 +81,7 @@ public class FormatMojo extends AbstractMojo {
                         respectVersion,
                         validateOnly,
                         onlyChangedFiles,
+                        showReformattedOnly,
                         branch,
                         project.getBasedir(),
                         useSpecifiedRepositories ?
