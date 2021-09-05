@@ -35,14 +35,14 @@
 
     <properties>
         <revision>0.SNAPSHOT</revision>
-        <version.commonsio>2.10.0</version.commonsio>
+        <version.commonsio>2.11.0</version.commonsio>
         <version.commonslang>3.12.0</version.commonslang>
         <version.commonsvalidator>1.7</version.commonsvalidator>
         <version.java>1.8</version.java>
         <version.maven.annotations>3.6.1</version.maven.annotations>
         <version.maven>3.6.0</version.maven>
-        <version.scala.collection.compat>2.4.4</version.scala.collection.compat>
-        <version.mockito.core>3.11.2</version.mockito.core>
+        <version.scala.collection.compat>2.5.0</version.scala.collection.compat>
+        <version.mockito.core>3.12.4</version.mockito.core>
         <version.scala.major>2.13</version.scala.major>
         <version.scala.minor>.5</version.scala.minor>
         <version.scala.xml>1.3.0</version.scala.xml>
@@ -62,7 +62,7 @@
         <version.maven.plugin.resources>3.2.0</version.maven.plugin.resources>
         <version.maven.plugin.scala>4.5.4</version.maven.plugin.scala> <!-- 2.12 build failing at higher version -->
         <version.maven.plugin.scalatest>2.0.2</version.maven.plugin.scalatest>
-        <version.maven.plugin.scm>1.11.2</version.maven.plugin.scm>
+        <version.maven.plugin.scm>1.11.3</version.maven.plugin.scm>
         <version.maven.plugin.scoverage>1.4.1</version.maven.plugin.scoverage>
         <version.maven.plugin.source>3.2.1</version.maven.plugin.source>
         <version.maven.plugin.surefire>2.22.2</version.maven.plugin.surefire>
@@ -85,11 +85,6 @@
             <groupId>org.scala-lang</groupId>
             <artifactId>scala-library</artifactId>
             <version>${version.scala.major}${version.scala.minor}</version>
-        </dependency>
-        <dependency>
-            <groupId>org.apache.maven</groupId>
-            <artifactId>maven-core</artifactId>
-            <version>${version.maven}</version>
         </dependency>
         <dependency>
             <groupId>org.apache.maven</groupId>
@@ -130,6 +125,11 @@
             <artifactId>scalatest_${version.scala.major}</artifactId>
             <version>${version.scalatest}</version>
             <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.maven</groupId>
+            <artifactId>maven-project</artifactId>
+            <version>2.2.1</version>
         </dependency>
         <dependency>
             <groupId>org.scala-lang.modules</groupId>
