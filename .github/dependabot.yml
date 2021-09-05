@@ -9,5 +9,7 @@ updates:
   ignore:
     - dependency-name: "org.apache.maven:maven-plugin-api"
     - dependency-name: "org.antipathy:*"
+    - dependency-name: "net.alchim31.maven:scala-maven-plugin:*"
+    - dependency-name: "org.scala-lang.modules:scala-xml_2.13:*"
 
 
