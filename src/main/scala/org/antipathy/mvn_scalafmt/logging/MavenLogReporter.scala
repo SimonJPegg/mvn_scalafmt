@@ -33,7 +33,7 @@ class MavenLogReporter(log: Log) extends ScalafmtReporter {
 
   /** This method appears to be used to print download information,  sys.err should be fine here.
     */
-  @Deprecated override def downloadWriter(): PrintWriter = new PrintWriter(System.err)
+  @deprecated override def downloadWriter(): PrintWriter = new PrintWriter(System.err)
 
   /** This method appears to be used to print download information,  sys.err should be fine here.
     */

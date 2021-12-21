@@ -29,8 +29,6 @@ public class FormatMojo extends AbstractMojo {
     private List<File> sourceDirectories;
     @Parameter(defaultValue = "${project.build.testSourceDirectory}/../scala", required = true)
     private List<File> testSourceDirectories;
-    @Parameter(property = "format.respectVersion", defaultValue = "false", required = true)
-    private boolean respectVersion;
     @Parameter(property = "format.validateOnly", defaultValue = "false")
     private boolean validateOnly;
     @Parameter(property = "format.onlyChangedFiles", defaultValue = "false")
@@ -81,7 +79,6 @@ public class FormatMojo extends AbstractMojo {
                 Summary result = ScalaFormatter.apply(
                         configLocation,
                         getLog(),
-                        respectVersion,
                         validateOnly,
                         onlyChangedFiles,
                         showReformattedOnly,

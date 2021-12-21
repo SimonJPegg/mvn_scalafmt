@@ -28,7 +28,7 @@ jobs:
           gpg_passphrase: ${{ secrets.gpg_passphrase }}
           nexus_username: ${{ secrets.nexus_username }}
           nexus_password: ${{ secrets.nexus_password }}
-          maven_args: -Dversion.scala.major=2.12 -Dversion.scala.minor=.10 -Drevision=$(git show -s --format=%ct.%h)
+          maven_args: -Dversion.scala.major=2.12 -Dversion.scala.minor=.12 -Drevision=$(git show -s --format=%ct.%h)
       - name: tag repo
         uses: oleksiyrudenko/gha-git-credentials@v2-latest
         with:
@@ -36,6 +36,6 @@ jobs:
           email: 'ciaran@antipathy.org'
           actor: 'SimonJPegg'
           token: '${{ secrets.GITHUB_TOKEN }}'
-      - run: bash create_release.sh 2.12 .10 SimonJPegg/mvn_scalafmt "$GITHUB_TOKEN"
+      - run: bash create_release.sh 2.12 .12 SimonJPegg/mvn_scalafmt "$GITHUB_TOKEN"
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

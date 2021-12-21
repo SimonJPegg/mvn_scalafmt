@@ -5,10 +5,8 @@ import org.scalatest.flatspec.AnyFlatSpec
 import org.scalatest.matchers.should.Matchers
 import org.apache.maven.plugin.logging.Log
 import org.mockito.Mockito
-import org.antipathy.mvn_scalafmt.model.FormatResult
 import java.io.File
-
-import org.antipathy.mvn_scalafmt.model.{FileSummary, Summary}
+import org.antipathy.mvn_scalafmt.model.{FileSummary, Summary, FormatResult}
 
 class TestResultLogWriterSpec extends AnyFlatSpec with GivenWhenThen with Matchers {
 
