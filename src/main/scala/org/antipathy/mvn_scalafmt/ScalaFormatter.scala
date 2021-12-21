@@ -39,7 +39,6 @@ object ScalaFormatter {
   /**  Create a new ScalaFormatter instance
     * @param configLocation The location of the scalafmt.conf
     * @param log The maven logger
-    * @param respectVersion should we respect the version in the scalafmt.conf
     * @param testOnly should files be reformatted
     * @param onlyChangedFiles Should only changed files be formatted
     * @param showReformattedOnly print only unformatted files in loggers
@@ -52,7 +51,6 @@ object ScalaFormatter {
   def apply(
     configLocation: String,
     log: Log,
-    respectVersion: Boolean,
     testOnly: Boolean,
     onlyChangedFiles: Boolean,
     showReformattedOnly: Boolean,
@@ -67,7 +65,6 @@ object ScalaFormatter {
     val scalafmt = Scalafmt
       .create(this.getClass.getClassLoader)
       .withReporter(new MavenLogReporter(log))
-      .withRespectVersion(respectVersion)
       .withMavenRepositories(mavenRepositoryUrls.asScala.toSeq: _*)
 
     val sourceFormatter = new SourceFileFormatter(config, scalafmt, log)

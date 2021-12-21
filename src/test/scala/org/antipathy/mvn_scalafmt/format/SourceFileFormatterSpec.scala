@@ -22,7 +22,7 @@ class SourceFileFormatterSpec extends AnyFlatSpec with GivenWhenThen with Matche
     val sourceFile = new File("src/main/scala/org/antipathy/mvn_scalafmt/model/FormatResult.scala")
     val reporter   = new MavenLogReporter(log)
     val scalafmt: Scalafmt =
-      Scalafmt.create(this.getClass.getClassLoader).withRespectVersion(false).withReporter(reporter)
+      Scalafmt.create(this.getClass.getClassLoader).withReporter(reporter)
 
     val result = new SourceFileFormatter(config, scalafmt, log).format(sourceFile).formattedSource
 

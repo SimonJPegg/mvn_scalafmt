@@ -68,7 +68,6 @@ The latest release should be visible at the top of this readme.
         <configLocation>${project.basedir}/.scalafmt.conf</configLocation> <!-- path to config -->
         <skipTestSources>false</skipTestSources> <!-- (Optional) skip formatting test sources -->
         <skipSources>false</skipSources> <!-- (Optional) skip formatting main sources -->
-        <respectVersion>false</respectVersion> <!-- (Optional) fail if no version set in scalafmt.conf -->
         <sourceDirectories> <!-- (Optional) Paths to source-directories. Overrides ${project.build.sourceDirectory} -->
           <param>${project.basedir}/src/main/scala</param>
         </sourceDirectories>
