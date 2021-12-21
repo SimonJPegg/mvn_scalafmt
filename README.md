@@ -106,9 +106,9 @@ version = "2.6.2"
 [licenseimg]: https://img.shields.io/badge/Licence-Apache%202.0-blue.svg
 [licenselink]: ./LICENSE
 [buildimg]: https://github.com/SimonJPegg/mvn_scalafmt/workflows/Build213/badge.svg
-[covimg]: https://app.codacy.com/project/badge/Coverage/15b50622fcf349cc89301b6c3d40fc4e
-[codacyimg]: https://api.codacy.com/project/badge/Grade/15b50622fcf349cc89301b6c3d40fc4e
-[codacylink]: https://app.codacy.com/project/Antipathy_org/mvn_scalafmt/dashboard?branchId=11175791
+[covimg]: https://app.codacy.com/project/badge/Coverage/f7d89aaf1a05436b86043168b7b26715
+[codacyimg]: https://app.codacy.com/project/badge/Grade/f7d89aaf1a05436b86043168b7b26715
+[codacylink]: https://www.codacy.com/gh/SimonJPegg/mvn_scalafmt/dashboard?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=SimonJPegg/mvn_scalafmt&amp;utm_campaign=Badge_Grade
 [mavenimg]: https://maven-badges.herokuapp.com/maven-central/org.antipathy/mvn-scalafmt_2.11/badge.svg
 [mavenlink]: https://search.maven.org/search?q=org.antipathy.mvn-scalafmt
 [releasebadge]: https://img.shields.io/github/release/simonjpegg/mvn_scalafmt.svg?style=flat
