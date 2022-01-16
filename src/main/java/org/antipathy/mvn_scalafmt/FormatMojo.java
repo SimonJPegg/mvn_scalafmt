@@ -43,7 +43,7 @@ public class FormatMojo extends AbstractMojo {
       * then we consider the value in {@code <branch>} tag as a command to run and the output will be used as the actual branch */
     @Parameter(property = "format.branch", defaultValue = "master")
     private String branch;
-    @Parameter(readonly = true, defaultValue = "${project}")
+    @Parameter(property = "project", readonly = true, required = true, defaultValue = "${project}")
     private MavenProject project;
     @Parameter(property = "format.useSpecifiedRepositories", defaultValue = "false")
     private boolean useSpecifiedRepositories;
