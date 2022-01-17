@@ -11,6 +11,7 @@ import org.apache.maven.project.MavenProject
 class SourcesBuilder(project: MavenProject) {
 
   private val sources = Set.newBuilder[File]
+  private val build   = project.getBuild()
 
   private[mvn_scalafmt] def resultSet(): Set[File] =
     try sources.result()
@@ -19,10 +20,14 @@ class SourcesBuilder(project: MavenProject) {
   def result(): JList[File] = resultSet().toList.asJava
 
   def addMain(dirs: JList[File]): Unit =
-    add(dirs)
+    if (!add(dirs)) {
+      appendPrimary(build.getSourceDirectory())
+    }
 
   def addTest(dirs: JList[File]): Unit =
-    add(dirs)
+    if (!add(dirs)) {
+      appendPrimary(build.getTestSourceDirectory())
+    }
 
   private def add(dirs: JList[File]): Boolean = {
     val ok = dirs != null && !dirs.isEmpty
@@ -30,7 +35,13 @@ class SourcesBuilder(project: MavenProject) {
     ok
   }
 
+  private def getCanonicalFile(dir: String): File =
+    project.getBasedir().toPath.resolve(dir).toFile().getCanonicalFile()
+
   private def getCanonicalFile(dir: File): File =
     project.getBasedir().toPath.resolve(dir.toPath).toFile().getCanonicalFile()
+
+  private def appendPrimary(dir: String): Unit =
+    sources += getCanonicalFile(dir + "/../scala")
 
 }

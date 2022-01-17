@@ -26,9 +26,9 @@ public class FormatMojo extends AbstractMojo {
     private boolean skipTestSources;
     @Parameter(property = "format.skipSources", defaultValue = "false")
     private boolean skipSources;
-    @Parameter(defaultValue = "${project.build.sourceDirectory}/../scala", required = true)
+    @Parameter()
     private List<File> sourceDirectories;
-    @Parameter(defaultValue = "${project.build.testSourceDirectory}/../scala", required = true)
+    @Parameter()
     private List<File> testSourceDirectories;
     @Parameter(property = "format.validateOnly", defaultValue = "false")
     private boolean validateOnly;
@@ -48,8 +48,6 @@ public class FormatMojo extends AbstractMojo {
     private MavenProject project;
     @Parameter(property = "format.useSpecifiedRepositories", defaultValue = "false")
     private boolean useSpecifiedRepositories;
-    @Parameter(readonly = true, defaultValue = "${project.repositories}")
-    private List<Repository> mavenRepositories;
 
     private List<String> getRepositoriesUrls(List<Repository> repositories) {
         ArrayList<String> urls = new ArrayList<>();
@@ -79,7 +77,9 @@ public class FormatMojo extends AbstractMojo {
                         showReformattedOnly,
                         branch,
                         project.getBasedir(),
-                        useSpecifiedRepositories ? getRepositoriesUrls(mavenRepositories) : new ArrayList<String>()
+                        useSpecifiedRepositories ?
+                            getRepositoriesUrls(project.getRepositories()) :
+                            new ArrayList<String>()
                 ).format(sources);
                 getLog().info(result.toString());
                 if (validateOnly && result.unformattedFiles() != 0) {

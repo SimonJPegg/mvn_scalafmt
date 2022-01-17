@@ -24,10 +24,32 @@ class SourcesBuilderSpec extends AnyFlatSpec with Matchers {
     builder.resultSet() shouldBe empty
   }
 
+  it should "add empty main" in {
+    val mavenBuild = new Build() {
+      setSourceDirectory("/foo/src/main/java")
+    }
+
+    val builder = new SourcesBuilder(getMavenProject(mavenBuild))
+    builder.addMain(null)
+    builder.resultSet() shouldBe Set[File]("/foo/src/main/scala")
+    builder.resultSet() shouldBe empty
+  }
+
   it should "add nonempty test" in {
     val builder = new SourcesBuilder(getMavenProject())
     builder.addTest(Seq("foo", "/bar", "/bar"))
     builder.resultSet() shouldBe Set[File]("/xyz/foo", "/bar")
+    builder.resultSet() shouldBe empty
+  }
+
+  it should "add empty test" in {
+    val mavenBuild = new Build() {
+      setTestSourceDirectory("/foo/src/test/scala")
+    }
+
+    val builder = new SourcesBuilder(getMavenProject(mavenBuild))
+    builder.addTest(null)
+    builder.resultSet() shouldBe Set[File]("/foo/src/test/scala")
     builder.resultSet() shouldBe empty
   }
 
@@ -36,6 +58,19 @@ class SourcesBuilderSpec extends AnyFlatSpec with Matchers {
     builder.addMain(Seq("foo", "/bar"))
     builder.addTest(Seq("foo", "/qux"))
     builder.resultSet() shouldBe Set[File]("/xyz/foo", "/bar", "/qux")
+    builder.resultSet() shouldBe empty
+  }
+
+  it should "add empty both" in {
+    val mavenBuild = new Build() {
+      setSourceDirectory("/foo/src/main/java")
+      setTestSourceDirectory("/foo/src/test/java")
+    }
+
+    val builder = new SourcesBuilder(getMavenProject(mavenBuild))
+    builder.addMain(null)
+    builder.addTest(null)
+    builder.resultSet() shouldBe Set[File]("/foo/src/main/scala", "/foo/src/test/scala")
     builder.resultSet() shouldBe empty
   }
 
