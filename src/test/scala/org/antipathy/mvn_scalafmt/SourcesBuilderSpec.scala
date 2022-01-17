@@ -74,14 +74,41 @@ class SourcesBuilderSpec extends AnyFlatSpec with Matchers {
     builder.resultSet() shouldBe empty
   }
 
+  it should "add empty both, filtering" in {
+    val mavenBuild = new Build() {
+      setSourceDirectory("/foo/src/main/java")
+      setTestSourceDirectory("/foo/src/test/java")
+    }
+    val project = getMavenProject(mavenBuild)
+    project.addCompileSourceRoot("/foo/src/main/scala")
+    project.addCompileSourceRoot("/out/src/main/scala")
+    project.addCompileSourceRoot("/out2/src/main/scala")
+    project.addTestCompileSourceRoot("/foo/src/test/scala")
+    project.addTestCompileSourceRoot("/out/src/test/scala")
+    project.addTestCompileSourceRoot("/out2/src/test/scala")
+
+    val builder = new SourcesBuilder(project)
+    builder.addMain(null)
+    builder.addTest(null)
+    builder.resultSet() shouldBe Set[File](
+      "/foo/src/main/scala",
+      "/out2/src/main/scala",
+      "/foo/src/test/scala",
+      "/out2/src/test/scala"
+    )
+    builder.resultSet() shouldBe empty
+  }
+
 }
 
 private object SourcesBuilderSpec {
 
-  def getMavenProject(mavenBuild: Build = null) =
+  def getMavenProject(mavenBuild: Build = new Build()) = {
+    mavenBuild.setDirectory("/out")
     new MavenProject(new Model { setBuild(mavenBuild) }) {
       setFile(new File("/xyz/pom.xml")) // sets basedir
     }
+  }
 
   implicit def implicitStringToPath(file: String): Path = Paths.get(file)
 

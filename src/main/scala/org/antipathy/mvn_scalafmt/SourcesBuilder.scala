@@ -12,6 +12,7 @@ class SourcesBuilder(project: MavenProject) {
 
   private val sources = Set.newBuilder[File]
   private val build   = project.getBuild()
+  private val outpath = getCanonicalFile(build.getDirectory()).toPath()
 
   private[mvn_scalafmt] def resultSet(): Set[File] =
     try sources.result()
@@ -22,11 +23,13 @@ class SourcesBuilder(project: MavenProject) {
   def addMain(dirs: JList[File]): Unit =
     if (!add(dirs)) {
       appendPrimary(build.getSourceDirectory())
+      appendAlternative(project.getCompileSourceRoots())
     }
 
   def addTest(dirs: JList[File]): Unit =
     if (!add(dirs)) {
       appendPrimary(build.getTestSourceDirectory())
+      appendAlternative(project.getTestCompileSourceRoots())
     }
 
   private def add(dirs: JList[File]): Boolean = {
@@ -43,5 +46,8 @@ class SourcesBuilder(project: MavenProject) {
 
   private def appendPrimary(dir: String): Unit =
     sources += getCanonicalFile(dir + "/../scala")
+
+  private def appendAlternative(altDirs: JList[String]): Unit =
+    sources ++= altDirs.asScala.map(getCanonicalFile).filter(!_.toPath().startsWith(outpath))
 
 }
