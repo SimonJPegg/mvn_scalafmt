@@ -10,6 +10,7 @@ import org.apache.maven.project.MavenProject;
 import org.apache.maven.model.Repository;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -60,19 +61,13 @@ public class FormatMojo extends AbstractMojo {
 
     public void execute() throws MojoExecutionException {
 
-        List<File> sources = new ArrayList<>();
-
-        if (!skipSources) {
-            sources.addAll(sourceDirectories);
-        } else {
-            getLog().warn("format.skipSources set, ignoring main directories");
+        List<File> sources;
+        try {
+            sources = getSources();
+        } catch (IOException exception) {
+            throw new MojoExecutionException("Couldn't determine canonical sources", exception);
         }
 
-        if (!skipTestSources) {
-            sources.addAll(testSourceDirectories);
-        } else {
-            getLog().warn("format.skipTestSources set, ignoring validateOnly directories");
-        }
         if (!sources.isEmpty()) {
             try {
 
@@ -98,4 +93,23 @@ public class FormatMojo extends AbstractMojo {
             getLog().warn("No sources specified, skipping formatting");
         }
     }
+
+    private List<File> getSources() throws IOException {
+        SourcesBuilder builder = new SourcesBuilder(project);
+
+        if (skipSources) {
+            getLog().warn("format.skipSources set, ignoring main directories");
+        } else {
+            builder.addMain(sourceDirectories);
+        }
+
+        if (skipTestSources) {
+            getLog().warn("format.skipTestSources set, ignoring validateOnly directories");
+        } else {
+            builder.addTest(testSourceDirectories);
+        }
+
+        return builder.result();
+    }
+
 }
