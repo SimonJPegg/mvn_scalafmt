@@ -51,7 +51,7 @@
 
         <version.maven.plugin.clean>3.1.0</version.maven.plugin.clean>
         <version.maven.plugin.compiler>3.8.1</version.maven.plugin.compiler>
-        <version.maven.plugin.deploy>3.0.0-M1</version.maven.plugin.deploy>
+        <version.maven.plugin.deploy>3.1.1</version.maven.plugin.deploy>
         <version.maven.plugin.flatten>1.2.7</version.maven.plugin.flatten>
         <version.maven.plugin.gpg>3.0.1</version.maven.plugin.gpg>
         <version.maven.plugin.install>3.0.0-M1</version.maven.plugin.install>
