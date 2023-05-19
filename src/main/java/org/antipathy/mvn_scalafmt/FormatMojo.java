@@ -16,7 +16,7 @@ import java.util.List;
 /**
  * Get the location of the config file and pass to Formatter
  */
-@Mojo(name = "format", defaultPhase = LifecyclePhase.VALIDATE, threadSafe = true)
+@Mojo(name = "format", defaultPhase = LifecyclePhase.VALIDATE)
 public class FormatMojo extends AbstractMojo {
 
     @Parameter(property = "format.configLocation")
