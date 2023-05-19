@@ -21,7 +21,7 @@ jobs:
           key: ${{ runner.os }}-m2-${{ hashFiles('**/pom.xml') }}
           restore-keys: ${{ runner.os }}-m2
       - name: Build with Maven
-        run: mvn clean test scoverage:report -Dversion.scala.major=2.12 -Dversion.scala.minor=.10
+        run: mvn clean test scoverage:report
       - name: upload coverage_data
         run: wget -qO - https://coverage.codacy.com/get.sh | bash
         env:
