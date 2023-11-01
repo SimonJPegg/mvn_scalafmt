@@ -49,7 +49,7 @@
         <version.scalafmt.dynamic>3.2.1</version.scalafmt.dynamic>
         <version.scalatest>3.3.0-SNAP3</version.scalatest>
 
-        <version.maven.plugin.clean>3.1.0</version.maven.plugin.clean>
+        <version.maven.plugin.clean>3.3.2</version.maven.plugin.clean>
         <version.maven.plugin.compiler>3.8.1</version.maven.plugin.compiler>
         <version.maven.plugin.deploy>3.0.0-M1</version.maven.plugin.deploy>
         <version.maven.plugin.flatten>1.2.7</version.maven.plugin.flatten>
