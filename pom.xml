@@ -39,7 +39,7 @@
         <version.commonslang>3.12.0</version.commonslang>
         <version.commonsvalidator>1.7</version.commonsvalidator>
         <version.java>1.8</version.java>
-        <version.maven.annotations>3.6.2</version.maven.annotations>
+        <version.maven.annotations>3.11.0</version.maven.annotations>
         <version.maven>3.6.0</version.maven>
         <version.scala.collection.compat>2.6.0</version.scala.collection.compat>
         <version.mockito.core>4.1.0</version.mockito.core>
