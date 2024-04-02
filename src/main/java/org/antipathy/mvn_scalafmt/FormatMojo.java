@@ -86,7 +86,7 @@ public class FormatMojo extends AbstractMojo {
                         project.getBasedir(),
                         useSpecifiedRepositories ? getRepositoriesUrls(mavenRepositories) : new ArrayList<String>()
                 ).format(sources);
-                getLog().info(result.toString());
+                result.print(getLog());
                 if (validateOnly && result.unformattedFiles() != 0) {
                     throw new MojoExecutionException("Scalafmt: Unformatted files found");
                 }

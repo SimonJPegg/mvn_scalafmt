@@ -1,5 +1,7 @@
 package org.antipathy.mvn_scalafmt.model
 
+import org.apache.maven.plugin.logging.Log
+
 // $COVERAGE-OFF$
 
 /** Class representing the result of a run of the plugin
@@ -13,11 +15,13 @@ case class Summary(
   fileDetails: Seq[FileSummary]
 ) {
 
-  override def toString: String =
-    s"""Scalafmt results: $unformattedFiles of $totalFiles were unformatted
-       |Details:
-       |${fileDetails.mkString(System.lineSeparator)}
-     """.stripMargin
+  def print(log: Log) = {
+    log.info(s"Scalafmt results: $unformattedFiles of $totalFiles were unformatted")
+    log.info("Details:")
+    fileDetails.foreach { fileSummary =>
+      log.info("- " + fileSummary.toString)
+    }
+  }
 }
 
 // $COVERAGE-ON$
