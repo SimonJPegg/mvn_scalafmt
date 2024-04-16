@@ -11,5 +11,6 @@ updates:
     - dependency-name: "org.antipathy:*"
     - dependency-name: "net.alchim31.maven:scala-maven-plugin:*"
     - dependency-name: "org.scala-lang.modules:scala-xml_2.13:*"
+    - dependency-name: "org.scalatest:scalatest_2.13:*"
 
 
