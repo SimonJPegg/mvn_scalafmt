@@ -63,7 +63,7 @@
         <version.maven.plugin.scala>4.8.1</version.maven.plugin.scala>
         <version.maven.plugin.scalatest>2.0.2</version.maven.plugin.scalatest>
         <version.maven.plugin.scm>2.0.0</version.maven.plugin.scm>
-        <version.maven.plugin.scoverage>2.0.3</version.maven.plugin.scoverage>
+        <version.maven.plugin.scoverage>2.0.5</version.maven.plugin.scoverage>
         <version.maven.plugin.source>3.2.1</version.maven.plugin.source>
         <version.maven.plugin.surefire>3.0.0</version.maven.plugin.surefire>
         <version.maven.plugin.versions>2.8.1</version.maven.plugin.versions>
