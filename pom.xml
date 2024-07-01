@@ -66,7 +66,7 @@
         <version.maven.plugin.scoverage>2.0.3</version.maven.plugin.scoverage>
         <version.maven.plugin.source>3.2.1</version.maven.plugin.source>
         <version.maven.plugin.surefire>3.0.0</version.maven.plugin.surefire>
-        <version.maven.plugin.versions>2.8.1</version.maven.plugin.versions>
+        <version.maven.plugin.versions>2.17.0</version.maven.plugin.versions>
 
         <maven.compiler.source>${version.java}</maven.compiler.source>
         <maven.compiler.target>${version.java}</maven.compiler.target>
