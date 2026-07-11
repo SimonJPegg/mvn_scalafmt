@@ -36,7 +36,7 @@
     <properties>
         <revision>0.SNAPSHOT</revision>
         <version.commonsio>2.22.0</version.commonsio>
-        <version.commonslang>3.12.0</version.commonslang>
+        <version.commonslang>3.18.0</version.commonslang>
         <version.commonsvalidator>1.10.1</version.commonsvalidator>
         <version.java>1.8</version.java>
         <version.maven.annotations>3.8.2</version.maven.annotations>
@@ -258,7 +258,7 @@
             <plugin>
                 <groupId>org.antipathy</groupId>
                 <artifactId>mvn-scalafmt_${version.scala.major}</artifactId>
-                <version>1.0.1594488573.7edabbf</version>
+                <version>1.1.1783758830.10b0776</version>
                 <configuration>
                     <configLocation>${project.basedir}/.scalafmt.conf</configLocation>
                     <skipTestSources>false</skipTestSources>

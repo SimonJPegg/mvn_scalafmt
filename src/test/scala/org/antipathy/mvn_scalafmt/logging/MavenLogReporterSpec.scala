@@ -29,7 +29,7 @@ class MavenLogReporterSpec extends AnyFlatSpec with GivenWhenThen with Matchers 
     ex1.getMessage shouldEqual "Oops"
 
     // The 3-arg default method in ScalafmtReporter wraps in interfaces.ScalafmtException(message, cause)
-    // then delegates to error(Path, Throwable), which rethrows it — so the thrown type is interfaces.ScalafmtException
+    // then delegates to error(Path, Throwable), which rethrows it - so the thrown type is interfaces.ScalafmtException
     val ex2 = intercept[InterfacesScalafmtException] {
       reporter.error(new File("").toPath, "No way!", new RuntimeException("Oops"))
     }

@@ -21,7 +21,7 @@ class SourceFileSequenceBuilder(log: Log) extends Builder[Seq[File], Seq[File]] 
     * @return
     *   The source files in the project
     */
-  // TODO: replace null check with Option(paths).getOrElse(Seq.empty) — null is not idiomatic Scala
+  // TODO: replace null check with Option(paths).getOrElse(Seq.empty) - null is not idiomatic Scala
   //       and the caller (FormatMojo) should never pass null here anyway. (#boy-scout)
   override def build(paths: Seq[File]): Seq[File] =
     if (paths == null) {
