@@ -15,7 +15,8 @@ class FormattedFilesWriter(log: Log, val showReformattedOnly: Boolean) extends F
 
   /** Write each FormatResult to disk
     *
-    * @param input The input to write
+    * @param input
+    *   The input to write
     */
   protected def processUnformattedFile(input: FormatResult): Unit = {
     log.debug(s"Writing ${input.sourceFile.getName} to ${input.sourceFile.getCanonicalPath}")

@@ -10,32 +10,45 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Check out Git repository
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4
+        with:
+          # Required so we can push the SCM tag back to the repo
+          persist-credentials: true
+
       - name: Install Java and Maven
-        uses: actions/setup-java@v3
+        uses: actions/setup-java@v4
         with:
           distribution: 'temurin'
           java-version: 17
+          # setup-java writes a settings.xml entry for the server id below.
+          # The id must match publishingServerId in the central-publishing-maven-plugin config.
+          server-id: central
+          server-username: CENTRAL_USERNAME
+          server-password: CENTRAL_TOKEN
+          gpg-private-key: ${{ secrets.gpg_private_key }}
+          gpg-passphrase: MAVEN_GPG_PASSPHRASE
+
       - name: Cache Maven packages
-        uses: actions/cache@v3
+        uses: actions/cache@v4
         with:
           path: ~/.m2
           key: ${{ runner.os }}-m2
-      - name: Release Maven package
-        uses: samuelmeuli/action-maven-publish@v1
-        with:
-          gpg_private_key: ${{ secrets.gpg_private_key }}
-          gpg_passphrase: ${{ secrets.gpg_passphrase }}
-          nexus_username: ${{ secrets.nexus_username }}
-          nexus_password: ${{ secrets.nexus_password }}
-          maven_args: -Drevision=$(git show -s --format=%ct.%h)
-      - name: tag repo
-        uses: oleksiyrudenko/gha-git-credentials@v2.1.1
-        with:
-          name: 'Ciaran Kearney'
-          email: 'ciaran@antipathy.org'
-          actor: 'SimonJPegg'
-          token: '${{ secrets.GITHUB_TOKEN }}'
-      - run: bash create_release.sh 2.13 .13 SimonJPegg/mvn_scalafmt "$GITHUB_TOKEN"
+
+      - name: Deploy to Maven Central
+        # central-publishing-maven-plugin handles bundling and upload;
+        # autoPublish=true + waitUntil=published means we block until live.
+        run: mvn --no-transfer-progress --batch-mode clean deploy -Drevision=$(git show -s --format=%ct.%h)
+        env:
+          CENTRAL_USERNAME: ${{ secrets.central_username }}
+          CENTRAL_TOKEN: ${{ secrets.central_token }}
+          MAVEN_GPG_PASSPHRASE: ${{ secrets.gpg_passphrase }}
+
+      - name: Configure git for tagging
+        run: |
+          git config user.name 'Ciaran Kearney'
+          git config user.email 'ciaran@antipathy.org'
+
+      - name: Tag and create GitHub release
+        run: bash create_release.sh 2.13 .13 SimonJPegg/mvn_scalafmt "$GITHUB_TOKEN"
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

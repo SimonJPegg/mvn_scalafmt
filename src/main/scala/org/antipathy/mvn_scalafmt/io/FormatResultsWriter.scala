@@ -13,7 +13,8 @@ abstract class FormatResultsWriter extends Writer[Seq[FormatResult], Summary] {
 
   /** Write the passed in input
     *
-    * @param input The input to write
+    * @param input
+    *   The input to write
     */
   final override def write(input: Seq[FormatResult]): Summary = {
     val unformattedFiles = input.filter(!_.isFormatted)
@@ -23,8 +24,10 @@ abstract class FormatResultsWriter extends Writer[Seq[FormatResult], Summary] {
   }
 
   /** Build a summary of the format run from the passed in `FormatResult`s
-    * @param input The input to build from
-    * @return The built output
+    * @param input
+    *   The input to build from
+    * @return
+    *   The built output
     */
   private def build(formatResults: Seq[FormatResult]): Seq[FileSummary] =
     formatResults.map { item =>

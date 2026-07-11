@@ -5,9 +5,12 @@ import org.apache.maven.plugin.logging.Log
 // $COVERAGE-OFF$
 
 /** Class representing the result of a run of the plugin
-  * @param totalFiles The total number of files checked
-  * @param unformattedFiles The number of unformatted files in the project
-  * @param fileDetails Details of each of the files
+  * @param totalFiles
+  *   The total number of files checked
+  * @param unformattedFiles
+  *   The number of unformatted files in the project
+  * @param fileDetails
+  *   Details of each of the files
   */
 case class Summary(
   totalFiles: Long,

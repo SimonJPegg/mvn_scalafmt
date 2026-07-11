@@ -71,7 +71,7 @@ public class FormatMojo extends AbstractMojo {
         if (!skipTestSources) {
             sources.addAll(testSourceDirectories);
         } else {
-            getLog().warn("format.skipTestSources set, ignoring validateOnly directories");
+            getLog().warn("format.skipTestSources set, ignoring test directories");
         }
         if (!sources.isEmpty()) {
             try {

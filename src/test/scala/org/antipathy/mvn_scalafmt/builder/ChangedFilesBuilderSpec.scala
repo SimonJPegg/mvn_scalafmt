@@ -46,9 +46,8 @@ class ChangedFilesBuilderSpec extends AnyFlatSpec with GivenWhenThen with Matche
 
     val changeFunction = () => throw new FileNotFoundException("Ooops")
 
-    an[FileNotFoundException] should be thrownBy {
-      new ChangedFilesBuilder(log, true, "master", changeFunction).build(sources)
-    }
+    an[FileNotFoundException] should be thrownBy
+    new ChangedFilesBuilder(log, true, "master", changeFunction).build(sources)
   }
 
   def getAbsolutePathFrom(path: String): String =

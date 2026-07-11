@@ -9,13 +9,15 @@ import org.apache.maven.plugin.logging.Log
 import java.nio.file.{Files, Path}
 
 /** Class for writing a remote config to a local path
-  * @param log The maven logger
+  * @param log
+  *   The maven logger
   */
 class RemoteConfigWriter(log: Log) extends Writer[RemoteConfig, Path] {
 
   /** Write the passed in remote config to a local file
     *
-    * @param input The input to write
+    * @param input
+    *   The input to write
     */
   override def write(input: RemoteConfig): Path = {
 

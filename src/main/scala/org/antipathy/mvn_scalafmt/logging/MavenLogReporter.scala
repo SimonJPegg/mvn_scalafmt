@@ -8,7 +8,8 @@ import org.scalafmt.dynamic.exceptions.ScalafmtException
 import org.scalafmt.interfaces.ScalafmtReporter
 
 /** Class for logging Scalafmt events via the maven log
-  * @param log A maven log instance
+  * @param log
+  *   A maven log instance
   */
 class MavenLogReporter(log: Log) extends ScalafmtReporter {
 
@@ -31,11 +32,11 @@ class MavenLogReporter(log: Log) extends ScalafmtReporter {
   override def parsedConfig(config: Path, scalafmtVersion: String): Unit =
     log.info(s"parsed config (v$scalafmtVersion): $config")
 
-  /** This method appears to be used to print download information,  sys.err should be fine here.
+  /** This method appears to be used to print download information, sys.err should be fine here.
     */
   @deprecated override def downloadWriter(): PrintWriter = new PrintWriter(System.err)
 
-  /** This method appears to be used to print download information,  sys.err should be fine here.
+  /** This method appears to be used to print download information, sys.err should be fine here.
     */
   override def downloadOutputStreamWriter(): OutputStreamWriter = new OutputStreamWriter(System.err)
 }
