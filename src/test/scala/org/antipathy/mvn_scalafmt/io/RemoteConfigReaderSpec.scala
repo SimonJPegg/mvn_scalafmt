@@ -24,9 +24,8 @@ class RemoteConfigReaderSpec extends AnyFlatSpec with GivenWhenThen with Matcher
     val url    = "Skyrim belongs to the Nords"
     val reader = new RemoteConfigReader(new SystemStreamLog)
 
-    an[MalformedURLException] should be thrownBy {
-      reader.read(url)
-    }
+    an[MalformedURLException] should be thrownBy
+    reader.read(url)
   }
 
 }

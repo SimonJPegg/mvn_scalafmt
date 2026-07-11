@@ -35,19 +35,19 @@
 
     <properties>
         <revision>0.SNAPSHOT</revision>
-        <version.commonsio>2.16.0</version.commonsio>
+        <version.commonsio>2.22.0</version.commonsio>
         <version.commonslang>3.12.0</version.commonslang>
-        <version.commonsvalidator>1.7</version.commonsvalidator>
+        <version.commonsvalidator>1.10.1</version.commonsvalidator>
         <version.java>1.8</version.java>
         <version.maven.annotations>3.8.2</version.maven.annotations>
         <version.maven>3.6.0</version.maven>
-        <version.scala.collection.compat>2.10.0</version.scala.collection.compat>
-        <version.mockito.core>5.11.0</version.mockito.core>
+        <version.scala.collection.compat>2.13.0</version.scala.collection.compat>
+        <version.mockito.core>5.18.0</version.mockito.core>
         <version.scala.major>2.13</version.scala.major>
-        <version.scala.minor>.1</version.scala.minor>
-        <version.scala.xml>1.3.0</version.scala.xml>
-        <version.scalafmt.dynamic>3.8.1</version.scalafmt.dynamic>
-        <version.scalatest>3.2.16</version.scalatest>
+        <version.scala.minor>.16</version.scala.minor>
+        <version.scala.xml>2.3.0</version.scala.xml>
+        <version.scalafmt.dynamic>3.9.6</version.scalafmt.dynamic>
+        <version.scalatest>3.2.19</version.scalatest>
 
         <version.maven.plugin.clean>3.1.0</version.maven.plugin.clean>
         <version.maven.plugin.compiler>3.13.0</version.maven.plugin.compiler>
@@ -57,7 +57,7 @@
         <version.maven.plugin.install>3.1.1</version.maven.plugin.install>
         <version.maven.plugin.jar>3.2.0</version.maven.plugin.jar>
         <version.maven.plugin.javadoc>3.3.1</version.maven.plugin.javadoc>
-        <version.maven.plugin.nexus.staging>1.6.8</version.maven.plugin.nexus.staging>
+        <version.maven.plugin.central.publishing>0.11.0</version.maven.plugin.central.publishing>
         <version.maven.plugin.plugin>3.8.2</version.maven.plugin.plugin>
         <version.maven.plugin.resources>3.3.1</version.maven.plugin.resources>
         <version.maven.plugin.scala>4.8.1</version.maven.plugin.scala>
@@ -152,13 +152,9 @@
     </dependencies>
 
     <distributionManagement>
-        <snapshotRepository>
-            <id>ossrh</id>
-            <url>https://oss.sonatype.org/content/repositories/snapshots</url>
-        </snapshotRepository>
         <repository>
-            <id>ossrh</id>
-            <url>https://oss.sonatype.org/service/local/staging/deploy/maven2</url>
+            <id>central</id>
+            <url>https://central.sonatype.com/</url>
         </repository>
     </distributionManagement>
 
@@ -279,14 +275,15 @@
                 </executions>
             </plugin>
             <plugin>
-                <groupId>org.sonatype.plugins</groupId>
-                <artifactId>nexus-staging-maven-plugin</artifactId>
-                <version>${version.maven.plugin.nexus.staging}</version>
+                <groupId>org.sonatype.central</groupId>
+                <artifactId>central-publishing-maven-plugin</artifactId>
+                <version>${version.maven.plugin.central.publishing}</version>
                 <extensions>true</extensions>
                 <configuration>
-                    <serverId>ossrh</serverId>
-                    <nexusUrl>https://oss.sonatype.org/</nexusUrl>
-                    <autoReleaseAfterClose>true</autoReleaseAfterClose>
+                    <!-- Matches the server id in settings.xml, written by setup-java in CI -->
+                    <publishingServerId>central</publishingServerId>
+                    <autoPublish>true</autoPublish>
+                    <waitUntil>published</waitUntil>
                 </configuration>
             </plugin>
             <plugin>

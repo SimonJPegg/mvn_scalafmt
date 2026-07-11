@@ -5,7 +5,8 @@ import org.apache.maven.plugin.logging.Log
 
 /** Class for writing test results to the log
   *
-  * @param log The maven logger
+  * @param log
+  *   The maven logger
   */
 class TestResultLogWriter(log: Log, val showReformattedOnly: Boolean) extends FormatResultsWriter {
 
@@ -14,7 +15,8 @@ class TestResultLogWriter(log: Log, val showReformattedOnly: Boolean) extends Fo
 
   /** Write the test results to a log
     *
-    * @param input The input to write
+    * @param input
+    *   The input to write
     */
   protected def processUnformattedFile(item: FormatResult): Unit =
     log.error(s"unformatted file at: ${item.sourceFile.getCanonicalPath}")

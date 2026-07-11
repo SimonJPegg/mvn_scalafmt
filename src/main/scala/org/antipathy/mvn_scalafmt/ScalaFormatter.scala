@@ -23,8 +23,10 @@ class ScalaFormatter(
 ) extends Formatter[JList[File], Summary] {
 
   /** Format the files in the passed in source directories
-    * @param sourceDirectories The source directories to format
-    * @return A summary of what was done
+    * @param sourceDirectories
+    *   The source directories to format
+    * @return
+    *   A summary of what was done
     */
   override def format(sourceDirectories: JList[File]): Summary = {
     val sources          = sourceBuilder.build(sourceDirectories.asScala.toSeq)
@@ -36,17 +38,25 @@ class ScalaFormatter(
 // $COVERAGE-OFF$
 object ScalaFormatter {
 
-  /**  Create a new ScalaFormatter instance
-    * @param configLocation The location of the scalafmt.conf
-    * @param log The maven logger
-    * @param testOnly should files be reformatted
-    * @param onlyChangedFiles Should only changed files be formatted
-    * @param showReformattedOnly print only unformatted files in loggers
-    * @param branch The branch to compare against for changed files
-    * @param workingDirectory The project working directory
-    * @param mavenRepositoryUrls The maven repositories to be used to dynamically load scalafmt, empty if maven central
-    *                            should be used.
-    * @return a new ScalaFormatter instance
+  /** Create a new ScalaFormatter instance
+    * @param configLocation
+    *   The location of the scalafmt.conf
+    * @param log
+    *   The maven logger
+    * @param testOnly
+    *   should files be reformatted
+    * @param onlyChangedFiles
+    *   Should only changed files be formatted
+    * @param showReformattedOnly
+    *   print only unformatted files in loggers
+    * @param branch
+    *   The branch to compare against for changed files
+    * @param workingDirectory
+    *   The project working directory
+    * @param mavenRepositoryUrls
+    *   The maven repositories to be used to dynamically load scalafmt, empty if maven central should be used.
+    * @return
+    *   a new ScalaFormatter instance
     */
   def apply(
     configLocation: String,

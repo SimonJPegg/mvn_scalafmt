@@ -9,9 +9,12 @@ import org.apache.maven.plugin.logging.Log
 import org.scalafmt.interfaces.Scalafmt
 
 /** Class for formatting source files
-  * @param config the Scalafmt config location
-  * @param inner The inner formatter
-  * @param log The maven logger
+  * @param config
+  *   the Scalafmt config location
+  * @param inner
+  *   The inner formatter
+  * @param log
+  *   The maven logger
   */
 class SourceFileFormatter(
   config: Path,
@@ -20,8 +23,10 @@ class SourceFileFormatter(
 ) extends Formatter[File, FormatResult] {
 
   /** Format the passed in input
-    * @param sourceFile The input to format
-    * @return Formatted output
+    * @param sourceFile
+    *   The input to format
+    * @return
+    *   Formatted output
     */
   override def format(sourceFile: File): FormatResult = {
     log.debug(s"Parsing file: ${sourceFile.getCanonicalPath}")

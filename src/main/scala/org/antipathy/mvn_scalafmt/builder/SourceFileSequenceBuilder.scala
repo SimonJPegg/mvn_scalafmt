@@ -9,15 +9,20 @@ import org.apache.maven.plugin.logging.Log
 import scala.jdk.CollectionConverters._
 
 /** Class for building a collection of source files in the maven project
-  * @param log The maven logger
+  * @param log
+  *   The maven logger
   */
 class SourceFileSequenceBuilder(log: Log) extends Builder[Seq[File], Seq[File]] {
 
   /** Build a collection of all source files in the project
     *
-    * @param paths The paths to build from
-    * @return The source files in the project
+    * @param paths
+    *   The paths to build from
+    * @return
+    *   The source files in the project
     */
+  // TODO: replace null check with Option(paths).getOrElse(Seq.empty) — null is not idiomatic Scala
+  //       and the caller (FormatMojo) should never pass null here anyway. (#boy-scout)
   override def build(paths: Seq[File]): Seq[File] =
     if (paths == null) {
       log.warn("Could not locate any scala sources to format")

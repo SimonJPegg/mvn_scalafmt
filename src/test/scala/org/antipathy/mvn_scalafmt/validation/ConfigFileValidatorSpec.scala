@@ -12,15 +12,13 @@ class ConfigFileValidatorSpec extends AnyFlatSpec with GivenWhenThen with Matche
   behavior of "ConfigFileValidator"
 
   it should "Return an error when the config file path is empty" in {
-    an[IllegalArgumentException] should be thrownBy {
-      new ConfigFileValidator(new SystemStreamLog).validate("")
-    }
+    an[IllegalArgumentException] should be thrownBy
+    new ConfigFileValidator(new SystemStreamLog).validate("")
   }
 
   it should "Return an error when the config file path is null" in {
-    an[IllegalArgumentException] should be thrownBy {
-      new ConfigFileValidator(new SystemStreamLog).validate(null)
-    }
+    an[IllegalArgumentException] should be thrownBy
+    new ConfigFileValidator(new SystemStreamLog).validate(null)
   }
 
   it should "Create a valid config sequence when passed a config location" in {
@@ -30,9 +28,8 @@ class ConfigFileValidatorSpec extends AnyFlatSpec with GivenWhenThen with Matche
   }
 
   it should "Raise an exception when the config path is invalid and a config is required" in {
-    an[IllegalArgumentException] should be thrownBy {
-      new ConfigFileValidator(new SystemStreamLog).validate("--config")
-    }
+    an[IllegalArgumentException] should be thrownBy
+    new ConfigFileValidator(new SystemStreamLog).validate("--config")
   }
 
 }

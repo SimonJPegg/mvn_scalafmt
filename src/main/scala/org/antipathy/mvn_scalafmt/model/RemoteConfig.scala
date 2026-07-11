@@ -5,8 +5,10 @@ import java.nio.file.{Path, Paths}
 // $COVERAGE-OFF$
 /** Container class for a remote scalafmt config
   *
-  * @param contents The contents of the config
-  * @param location The local path where the config will be stored
+  * @param contents
+  *   The contents of the config
+  * @param location
+  *   The local path where the config will be stored
   */
 case class RemoteConfig(contents: String, location: Path = Paths.get(".scalafmt.conf"))
 // $COVERAGE-ON$

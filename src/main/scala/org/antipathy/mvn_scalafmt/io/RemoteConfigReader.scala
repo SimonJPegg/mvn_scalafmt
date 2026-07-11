@@ -8,14 +8,17 @@ import scala.util.{Failure, Success, Try}
 
 /** Class for retrieving a config from a remote location
   *
-  * @param log The maven logger
+  * @param log
+  *   The maven logger
   */
 class RemoteConfigReader(log: Log) extends Reader[String, RemoteConfig] {
 
   /** Read an object from the specified location
     *
-    * @param location The url to read from
-    * @return A remote config
+    * @param location
+    *   The url to read from
+    * @return
+    *   A remote config
     */
   override def read(location: String): RemoteConfig =
     Try {
