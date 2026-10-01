@@ -45,7 +45,7 @@
         <version.mockito.core>5.18.0</version.mockito.core>
         <version.scala.major>2.13</version.scala.major>
         <version.scala.minor>.16</version.scala.minor>
-        <version.scala.xml>2.3.0</version.scala.xml>
+        <version.scala.xml>2.5.0</version.scala.xml>
         <version.scalafmt.dynamic>3.11.5</version.scalafmt.dynamic>
         <version.scalatest>3.2.19</version.scalatest>
 
